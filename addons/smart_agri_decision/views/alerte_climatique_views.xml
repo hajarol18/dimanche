@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vue liste des alertes climatiques -->
+        <record id="view_alerte_climatique_list" model="ir.ui.view">
+            <field name="name">smart_agri_alerte_climatique.list</field>
+            <field name="model">smart_agri_alerte_climatique</field>
+            <field name="arch" type="xml">
+                <list string="Alertes Climatiques">
+                    <field name="name"/>
+                    <field name="type_alerte"/>
+                    <field name="niveau_gravite"/>
+                    <field name="date_alerte"/>
+                    <field name="date_debut"/>
+                    <field name="date_fin"/>
+                    <field name="state"/>
+                    <field name="impact_cultures"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Vue formulaire des alertes climatiques -->
+        <record id="view_alerte_climatique_form" model="ir.ui.view">
+            <field name="name">smart_agri_alerte_climatique.form</field>
+            <field name="model">smart_agri_alerte_climatique</field>
+            <field name="arch" type="xml">
+                <form string="Alerte Climatique">
+                    <header>
+                        <button name="notifier_agriculteurs" 
+                                type="object" 
+                                string="Notifier Agriculteurs" 
+                                class="oe_highlight"
+                                invisible="notifiee"/>
+                        <field name="state" widget="statusbar" 
+                               statusbar_visible="active,en_cours,terminee"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Nom de l'alerte"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Type d'alerte">
+                                <field name="type_alerte"/>
+                                <field name="niveau_gravite"/>
+                                <field name="source_alerte"/>
+                            </group>
+                            <group string="Période">
+                                <field name="date_alerte"/>
+                                <field name="date_debut"/>
+                                <field name="date_fin"/>
+                                <field name="duree_estimee"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Zone géographique">
+                                <field name="zone_geographique"/>
+                                <field name="latitude"/>
+                                <field name="longitude"/>
+                                <field name="rayon_impact"/>
+                            </group>
+                            <group string="Données météo">
+                                <field name="temperature_min"/>
+                                <field name="temperature_max"/>
+                                <field name="precipitation"/>
+                                <field name="humidite"/>
+                                <field name="vitesse_vent"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Impact agricole">
+                                <field name="impact_cultures"/>
+                                <field name="cultures_menacees"/>
+                                <field name="parcelles_concernées"/>
+                            </group>
+                            <group string="Notifications">
+                                <field name="notifiee"/>
+                                <field name="date_notification"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Description">
+                                <field name="description"/>
+                            </page>
+                            <page string="Recommandations">
+                                <field name="recommandations"/>
+                                <field name="mesures_prevention"/>
+                                <field name="actions_urgence"/>
+                            </page>
+                            <page string="Notes">
+                                <field name="notes"/>
+                                <field name="documentation"/>
+                                <field name="nom_fichier_doc"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action pour ouvrir les alertes climatiques -->
+        <record id="action_alerte_climatique" model="ir.actions.act_window">
+            <field name="name">Alertes Climatiques</field>
+            <field name="res_model">smart_agri_alerte_climatique</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Aucune alerte climatique active !
+                </p>
+                <p>
+                    Créez des alertes pour surveiller les conditions climatiques menaçantes.
+                </p>
+            </field>
+        </record>
+
+        <!-- Menu pour les alertes climatiques -->
+        <menuitem id="menu_alerte_climatique"
+                  name="Alertes Climatiques"
+                  parent="menu_smart_agri_meteo"
+                  action="action_alerte_climatique"
+                  sequence="30"/>
+    </data>
+</odoo>

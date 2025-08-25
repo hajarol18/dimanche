@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vue liste pour les prédictions IA -->
+        <record id="view_smart_agri_ia_predictions_list" model="ir.ui.view">
+            <field name="name">smart.agri.ia.predictions.list</field>
+            <field name="model">smart_agri_ia_predictions</field>
+            <field name="arch" type="xml">
+                <list string="Prédictions IA">
+                    <field name="name"/>
+                    <field name="type_prediction"/>
+                    <field name="date_creation"/>
+                    <field name="confiance"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Vue formulaire pour les prédictions IA -->
+        <record id="view_smart_agri_ia_predictions_form" model="ir.ui.view">
+            <field name="name">smart.agri.ia.predictions.form</field>
+            <field name="model">smart_agri_ia_predictions</field>
+            <field name="arch" type="xml">
+                <form string="Prédiction IA">
+                    <sheet>
+                        <group>
+                            <group string="Informations de base">
+                                <field name="name"/>
+                                <field name="description"/>
+                                <field name="type_prediction"/>
+                            </group>
+                            <group string="Dates">
+                                <field name="date_creation"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Données d'entrée">
+                                <field name="donnees_entree"/>
+                            </group>
+                            <group string="Résultats">
+                                <field name="resultat"/>
+                                <field name="confiance"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="notes"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action pour ouvrir les prédictions IA -->
+        <record id="action_smart_agri_ia_predictions" model="ir.actions.act_window">
+            <field name="name">Prédictions IA</field>
+            <field name="res_model">smart_agri_ia_predictions</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Créez votre première prédiction IA
+                </p>
+                <p>
+                    L'intelligence artificielle vous aide à prendre de meilleures décisions agricoles.
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

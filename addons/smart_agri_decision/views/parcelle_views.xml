@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vue liste pour les parcelles -->
+        <record id="view_smart_agri_parcelle_list" model="ir.ui.view">
+            <field name="name">smart.agri.parcelle.list</field>
+            <field name="model">smart_agri_parcelle</field>
+            <field name="arch" type="xml">
+                <list string="Parcelles">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="surface"/>
+                    <field name="soil_type_id"/>
+                    <field name="date_creation"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Vue formulaire pour les parcelles -->
+        <record id="view_smart_agri_parcelle_form" model="ir.ui.view">
+            <field name="name">smart.agri.parcelle.form</field>
+            <field name="model">smart_agri_parcelle</field>
+            <field name="arch" type="xml">
+                <form string="Parcelle">
+                    <sheet>
+                        <group>
+                            <group string="Informations de base">
+                                <field name="name"/>
+                                <field name="code"/>
+                                <field name="description"/>
+                            </group>
+                            <group string="Surface et localisation">
+                                <field name="surface"/>
+                                <field name="latitude"/>
+                                <field name="longitude"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Caractéristiques">
+                                <field name="soil_type_id"/>
+                            </group>
+                            <group string="Dates">
+                                <field name="date_creation"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="notes"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action pour ouvrir les parcelles -->
+        <record id="action_smart_agri_parcelle" model="ir.actions.act_window">
+            <field name="name">Parcelles</field>
+            <field name="res_model">smart_agri_parcelle</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Créez votre première parcelle
+                </p>
+                <p>
+                    Les parcelles sont les unités de culture de votre exploitation.
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,47 @@
+# Docker
+docker-compose.yml
+docker-compose.override.yml
+.env
+*.env
+
+# Odoo logs
+*.log
+logs/
+
+# Database
+*.sql
+*.dump
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Build
+dist/
+build/
+*.egg-info/

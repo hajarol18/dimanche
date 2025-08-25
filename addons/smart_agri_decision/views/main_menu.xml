@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Menu principal SmartAgriDecision -->
+        <menuitem id="menu_smart_agri_root"
+                  name="SmartAgriDecision"
+                  web_icon="smart_agri_decision,static/description/icon.png"
+                  sequence="10"/>
+
+        <!-- Menu principal pour la gestion -->
+        <menuitem id="menu_smart_agri_main"
+                  name="Gestion"
+                  parent="menu_smart_agri_root"
+                  sequence="20"/>
+
+        <!-- Menu Gestion Agricole -->
+        <menuitem id="menu_smart_agri_management"
+                  name="Gestion Agricole"
+                  parent="menu_smart_agri_main"
+                  sequence="20"/>
+
+        <!-- Sous-menu Exploitations -->
+        <menuitem id="menu_smart_agri_exploitation"
+                  name="Exploitations"
+                  parent="menu_smart_agri_management"
+                  action="action_smart_agri_exploitation"
+                  sequence="10"/>
+
+        <!-- Sous-menu Parcelles -->
+        <menuitem id="menu_smart_agri_parcelle"
+                  name="Parcelles"
+                  parent="menu_smart_agri_management"
+                  action="action_smart_agri_parcelle"
+                  sequence="20"/>
+
+        <!-- Sous-menu Cultures -->
+        <menuitem id="menu_smart_agri_culture"
+                  name="Cultures"
+                  parent="menu_smart_agri_management"
+                  action="action_smart_agri_culture"
+                  sequence="30"/>
+
+        <!-- Sous-menu Intrants -->
+        <menuitem id="menu_smart_agri_intrants"
+                  name="Intrants"
+                  parent="menu_smart_agri_main"
+                  action="action_smart_agri_intrants"
+                  sequence="50"/>
+
+        <!-- Sous-menu Utilisations d'Intrants -->
+        <menuitem id="menu_smart_agri_utilisation_intrants"
+                  name="Utilisations d'Intrants"
+                  parent="menu_smart_agri_main"
+                  action="action_utilisation_intrants"
+                  sequence="55"/>
+
+        <!-- Sous-menu Interventions -->
+        <menuitem id="menu_smart_agri_intervention"
+                  name="Interventions"
+                  parent="menu_smart_agri_main"
+                  action="action_smart_agri_intervention"
+                  sequence="60"/>
+
+        <!-- Menu Données Climatiques -->
+        <menuitem id="menu_smart_agri_climate"
+                  name="Données Climatiques"
+                  parent="menu_smart_agri_root"
+                  sequence="30"/>
+
+        <!-- Sous-menu Météo -->
+        <menuitem id="menu_smart_agri_meteo"
+                  name="Météo"
+                  parent="menu_smart_agri_climate"
+                  action="action_smart_agri_meteo"
+                  sequence="10"/>
+
+        <!-- Sous-menu Imports Meteostat -->
+        <menuitem id="menu_meteostat_import"
+                  name="Imports Meteostat"
+                  parent="menu_smart_agri_climate"
+                  action="action_meteostat_import"
+                  sequence="20"/>
+
+        <!-- Sous-menu Alertes Climatiques -->
+        <menuitem id="menu_alerte_climatique"
+                  name="Alertes Climatiques"
+                  parent="menu_smart_agri_climate"
+                  action="action_alerte_climatique"
+                  sequence="30"/>
+
+        <!-- Sous-menu Tendances Climatiques -->
+        <menuitem id="menu_tendance_climatique"
+                  name="Tendances Climatiques"
+                  parent="menu_smart_agri_climate"
+                  action="action_tendance_climatique"
+                  sequence="40"/>
+
+        <!-- Menu Intelligence Artificielle -->
+        <menuitem id="menu_smart_agri_ai"
+                  name="Intelligence Artificielle"
+                  parent="menu_smart_agri_root"
+                  sequence="40"/>
+
+        <!-- Sous-menu Prédictions IA -->
+        <menuitem id="menu_smart_agri_ia_predictions"
+                  name="Prédictions IA"
+                  parent="menu_smart_agri_ai"
+                  action="action_smart_agri_ia_predictions"
+                  sequence="10"/>
+
+        <!-- Menu Configuration -->
+        <menuitem id="menu_smart_agri_config"
+                  name="Configuration"
+                  parent="menu_smart_agri_root"
+                  sequence="90"/>
+
+        <!-- Sous-menu Types de Sol -->
+        <menuitem id="menu_smart_agri_soil_type"
+                  name="Types de Sol"
+                  parent="menu_smart_agri_config"
+                  action="action_smart_agri_soil_type"
+                  sequence="10"/>
+
+    </data>
+</odoo>

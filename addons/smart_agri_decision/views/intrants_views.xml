@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vue liste pour les intrants -->
+        <record id="view_smart_agri_intrants_list" model="ir.ui.view">
+            <field name="name">smart.agri.intrants.list</field>
+            <field name="model">smart_agri_intrants</field>
+            <field name="arch" type="xml">
+                <list string="Intrants Agricoles">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="type_intrant"/>
+                    <field name="qualite"/>
+                    <field name="stock_disponible"/>
+                    <field name="prix_unitaire"/>
+                    <field name="fournisseur"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Vue formulaire pour les intrants -->
+        <record id="view_smart_agri_intrants_form" model="ir.ui.view">
+            <field name="name">smart.agri.intrants.form</field>
+            <field name="model">smart_agri_intrants</field>
+            <field name="arch" type="xml">
+                <form string="Intrant Agricole">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Nom de l'intrant"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Informations de base">
+                                <field name="code"/>
+                                <field name="type_intrant"/>
+                                <field name="description"/>
+                                <field name="qualite"/>
+                            </group>
+                            <group string="Caractéristiques techniques">
+                                <field name="unite"/>
+                                <field name="prix_unitaire"/>
+                                <field name="impact_environnemental"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Stock et gestion">
+                                <field name="stock_disponible"/>
+                                <field name="stock_minimum"/>
+                                <field name="cout_total"/>
+                            </group>
+                            <group string="Fournisseur et traçabilité">
+                                <field name="fournisseur"/>
+                                <field name="numero_lot"/>
+                                <field name="date_fabrication"/>
+                                <field name="date_peremption"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Documentation">
+                                <field name="documentation"/>
+                                <field name="nom_fichier_doc"/>
+                            </group>
+                            <group string="Notes">
+                                <field name="notes"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vue graphique pour les intrants -->
+        <record id="view_smart_agri_intrants_graph" model="ir.ui.view">
+            <field name="name">smart.agri.intrants.graph</field>
+            <field name="model">smart_agri_intrants</field>
+            <field name="arch" type="xml">
+                <graph string="Analyse des Intrants" type="bar">
+                    <field name="type_intrant"/>
+                    <field name="cout_total" type="measure"/>
+                </graph>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vue liste pour les cultures -->
+        <record id="view_smart_agri_culture_list" model="ir.ui.view">
+            <field name="name">smart.agri.culture.list</field>
+            <field name="model">smart_agri_culture</field>
+            <field name="arch" type="xml">
+                <list string="Cultures">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="famille"/>
+                    <field name="duree_cycle"/>
+                    <field name="rendement_moyen"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Vue formulaire pour les cultures -->
+        <record id="view_smart_agri_culture_form" model="ir.ui.view">
+            <field name="name">smart.agri.culture.form</field>
+            <field name="model">smart_agri_culture</field>
+            <field name="arch" type="xml">
+                <form string="Culture">
+                    <sheet>
+                        <group>
+                            <group string="Informations de base">
+                                <field name="name"/>
+                                <field name="code"/>
+                                <field name="description"/>
+                            </group>
+                            <group string="Caractéristiques">
+                                <field name="famille"/>
+                                <field name="duree_cycle"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Planification">
+                                <field name="saison_plantation"/>
+                            </group>
+                            <group string="Performance">
+                                <field name="rendement_moyen"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="notes"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action pour ouvrir les cultures -->
+        <record id="action_smart_agri_culture" model="ir.actions.act_window">
+            <field name="name">Cultures</field>
+            <field name="res_model">smart_agri_culture</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Créez votre première culture
+                </p>
+                <p>
+                    Les cultures définissent les plantes que vous cultivez.
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

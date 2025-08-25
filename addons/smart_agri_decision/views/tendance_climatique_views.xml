@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vue liste des tendances climatiques -->
+        <record id="view_tendance_climatique_list" model="ir.ui.view">
+            <field name="name">smart_agri_tendance_climatique.list</field>
+            <field name="model">smart_agri_tendance_climatique</field>
+            <field name="arch" type="xml">
+                <list string="Tendances Climatiques">
+                    <field name="name"/>
+                    <field name="type_tendance"/>
+                    <field name="parametres_analyses"/>
+                    <field name="date_debut"/>
+                    <field name="date_fin"/>
+                    <field name="impact_agricole"/>
+                    <field name="source_donnees"/>
+                    <field name="qualite_donnees"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Vue formulaire des tendances climatiques -->
+        <record id="view_tendance_climatique_form" model="ir.ui.view">
+            <field name="name">smart_agri_tendance_climatique.form</field>
+            <field name="model">smart_agri_tendance_climatique</field>
+            <field name="arch" type="xml">
+                <form string="Tendance Climatique">
+                    <header>
+                        <button name="calculer_indices" 
+                                type="object" 
+                                string="Calculer Indices" 
+                                class="oe_highlight"/>
+                        <button name="analyser_impact_agricole" 
+                                type="object" 
+                                string="Analyser Impact" 
+                                class="oe_secondary"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Nom de la tendance"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Type de tendance">
+                                <field name="type_tendance"/>
+                                <field name="parametres_analyses"/>
+                                <field name="rcp_scenario_id"/>
+                            </group>
+                            <group string="Période d'analyse">
+                                <field name="date_debut"/>
+                                <field name="date_fin"/>
+                                <field name="duree_periode"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Zone géographique">
+                                <field name="zone_geographique"/>
+                                <field name="latitude"/>
+                                <field name="longitude"/>
+                            </group>
+                            <group string="Tendances observées">
+                                <field name="tendance_temperature"/>
+                                <field name="tendance_precipitation"/>
+                                <field name="tendance_humidite"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Valeurs numériques">
+                                <field name="temperature_moyenne"/>
+                                <field name="temperature_min"/>
+                                <field name="temperature_max"/>
+                                <field name="precipitation_totale"/>
+                                <field name="precipitation_moyenne"/>
+                                <field name="humidite_moyenne"/>
+                                <field name="ensoleillement_moyen"/>
+                                <field name="vitesse_vent_moyenne"/>
+                            </group>
+                            <group string="Indices climatiques">
+                                <field name="indice_secheresse"/>
+                                <field name="indice_pluviosite"/>
+                                <field name="indice_thermique"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Impact agricole">
+                                <field name="impact_agricole"/>
+                                <field name="cultures_favorisees"/>
+                                <field name="cultures_defavorisees"/>
+                            </group>
+                            <group string="Source des données">
+                                <field name="source_donnees"/>
+                                <field name="qualite_donnees"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Description">
+                                <field name="description"/>
+                            </page>
+                            <page string="Recommandations">
+                                <field name="recommandations_adaptation"/>
+                                <field name="strategies_mitigation"/>
+                            </page>
+                            <page string="Notes">
+                                <field name="notes"/>
+                                <field name="documentation"/>
+                                <field name="nom_fichier_doc"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action pour ouvrir les tendances climatiques -->
+        <record id="action_tendance_climatique" model="ir.actions.act_window">
+            <field name="name">Tendances Climatiques</field>
+            <field name="res_model">smart_agri_tendance_climatique</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Aucune tendance climatique analysée !
+                </p>
+                <p>
+                    Créez des analyses de tendances climatiques historiques et projetées.
+                </p>
+            </field>
+        </record>
+
+        <!-- Menu pour les tendances climatiques -->
+        <menuitem id="menu_tendance_climatique"
+                  name="Tendances Climatiques"
+                  parent="menu_smart_agri_meteo"
+                  action="action_tendance_climatique"
+                  sequence="40"/>
+    </data>
+</odoo>
