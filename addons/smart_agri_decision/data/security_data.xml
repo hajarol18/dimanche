@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <data noupdate="1">
+<odoo noupdate="1">
         <!-- Droits d'accès pour tous les modèles -->
         
         <!-- Types de sol -->
@@ -146,5 +145,4 @@
             <field name="perm_unlink" eval="1"/>
         </record>
 
-    </data>
 </odoo>

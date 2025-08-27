@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-        <!-- Vue liste des alertes climatiques -->
+    
+        <!-- Vue liste pour les alertes climatiques -->
         <record id="view_alerte_climatique_list" model="ir.ui.view">
-            <field name="name">smart_agri_alerte_climatique.list</field>
+            <field name="name">smart.agri.alerte.climatique.list</field>
             <field name="model">smart_agri_alerte_climatique</field>
             <field name="arch" type="xml">
                 <list string="Alertes Climatiques">
@@ -11,28 +11,19 @@
                     <field name="type_alerte"/>
                     <field name="niveau_gravite"/>
                     <field name="date_alerte"/>
-                    <field name="date_debut"/>
-                    <field name="date_fin"/>
                     <field name="state"/>
-                    <field name="impact_cultures"/>
                 </list>
             </field>
         </record>
 
-        <!-- Vue formulaire des alertes climatiques -->
+        <!-- Vue formulaire pour les alertes climatiques -->
         <record id="view_alerte_climatique_form" model="ir.ui.view">
-            <field name="name">smart_agri_alerte_climatique.form</field>
+            <field name="name">smart.agri.alerte.climatique.form</field>
             <field name="model">smart_agri_alerte_climatique</field>
             <field name="arch" type="xml">
                 <form string="Alerte Climatique">
                     <header>
-                        <button name="notifier_agriculteurs" 
-                                type="object" 
-                                string="Notifier Agriculteurs" 
-                                class="oe_highlight"
-                                invisible="notifiee"/>
-                        <field name="state" widget="statusbar" 
-                               statusbar_visible="active,en_cours,terminee"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,active,resolved"/>
                     </header>
                     <sheet>
                         <div class="oe_title">
@@ -41,57 +32,44 @@
                             </h1>
                         </div>
                         <group>
-                            <group string="Type d'alerte">
+                            <group string="Informations de base">
+                                <field name="name"/>
                                 <field name="type_alerte"/>
                                 <field name="niveau_gravite"/>
-                                <field name="source_alerte"/>
+                                <field name="description"/>
                             </group>
-                            <group string="Période">
+                            <group string="Dates">
                                 <field name="date_alerte"/>
                                 <field name="date_debut"/>
                                 <field name="date_fin"/>
-                                <field name="duree_estimee"/>
-                            </group>
-                        </group>
-                        <group>
-                            <group string="Zone géographique">
-                                <field name="zone_geographique"/>
-                                <field name="latitude"/>
-                                <field name="longitude"/>
-                                <field name="rayon_impact"/>
-                            </group>
-                            <group string="Données météo">
-                                <field name="temperature_min"/>
-                                <field name="temperature_max"/>
-                                <field name="precipitation"/>
-                                <field name="humidite"/>
-                                <field name="vitesse_vent"/>
-                            </group>
-                        </group>
-                        <group>
-                            <group string="Impact agricole">
-                                <field name="impact_cultures"/>
-                                <field name="cultures_menacees"/>
-                                <field name="parcelles_concernées"/>
-                            </group>
-                            <group string="Notifications">
-                                <field name="notifiee"/>
-                                <field name="date_notification"/>
                             </group>
                         </group>
                         <notebook>
-                            <page string="Description">
-                                <field name="description"/>
+                            <page string="Détails">
+                                <group>
+                                    <group string="Conditions météo">
+                                        <field name="temperature_min"/>
+                                        <field name="temperature_max"/>
+                                        <field name="precipitation"/>
+                                        <field name="humidite"/>
+                                        <field name="vitesse_vent"/>
+                                    </group>
+                                    <group string="Impact">
+                                        <field name="impact_cultures"/>
+                                        <field name="cultures_menacees"/>
+                                        <field name="parcelles_concernées"/>
+                                    </group>
+                                </group>
                             </page>
-                            <page string="Recommandations">
-                                <field name="recommandations"/>
+                            <page string="Actions">
                                 <field name="mesures_prevention"/>
                                 <field name="actions_urgence"/>
+                                <field name="recommandations"/>
                             </page>
-                            <page string="Notes">
-                                <field name="notes"/>
+                            <page string="Documentation">
+                                <field name="source_alerte"/>
                                 <field name="documentation"/>
-                                <field name="nom_fichier_doc"/>
+                                <field name="notes"/>
                             </page>
                         </notebook>
                     </sheet>
@@ -106,19 +84,12 @@
             <field name="view_mode">list,form</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
-                    Aucune alerte climatique active !
+                    Créez votre première alerte climatique
                 </p>
                 <p>
-                    Créez des alertes pour surveiller les conditions climatiques menaçantes.
+                    Surveillez et gérez les alertes climatiques pour protéger vos cultures.
                 </p>
             </field>
         </record>
-
-        <!-- Menu pour les alertes climatiques -->
-        <menuitem id="menu_alerte_climatique"
-                  name="Alertes Climatiques"
-                  parent="menu_smart_agri_meteo"
-                  action="action_alerte_climatique"
-                  sequence="30"/>
-    </data>
+    
 </odoo>

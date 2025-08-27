@@ -1,106 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-        <!-- Vue liste pour les interventions -->
-        <record id="view_smart_agri_intervention_list" model="ir.ui.view">
-            <field name="name">smart.agri.intervention.list</field>
-            <field name="model">smart_agri_intervention</field>
-            <field name="arch" type="xml">
-                <list string="Interventions Agricoles">
-                    <field name="name"/>
-                    <field name="type_intervention"/>
-                    <field name="exploitation_id"/>
-                    <field name="parcelle_id"/>
-                    <field name="date_planifiee"/>
-                    <field name="state"/>
-                    <field name="cout_estime"/>
-                </list>
-            </field>
-        </record>
-
-        <!-- Vue formulaire pour les interventions -->
-        <record id="view_smart_agri_intervention_form" model="ir.ui.view">
-            <field name="name">smart.agri.intervention.form</field>
-            <field name="model">smart_agri_intervention</field>
-            <field name="arch" type="xml">
-                <form string="Intervention Agricole">
-                    <header>
-                        <field name="state" widget="statusbar" statusbar_visible="planifiee,en_cours,terminee"/>
-                    </header>
-                    <sheet>
-                        <div class="oe_title">
-                            <h1>
-                                <field name="name" placeholder="Nom de l'intervention"/>
-                            </h1>
+    
+    <!-- ======================================== -->
+    <!-- VUES INTERVENTIONS AMÉLIORÉES ET PROFESSIONNELLES -->
+    <!-- ======================================== -->
+    
+    <!-- Vue liste interventions améliorée -->
+    <record id="view_smart_agri_intervention_list" model="ir.ui.view">
+        <field name="name">smart.agri.intervention.list</field>
+        <field name="model">smart_agri_intervention</field>
+        <field name="arch" type="xml">
+            <list string="Interventions Agricoles" decoration-info="state == 'planifiee'" decoration-success="state == 'terminee'" decoration-warning="state == 'en_cours'" decoration-danger="state == 'annulee'">
+                <field name="name"/>
+                <field name="exploitation_id"/>
+                <field name="parcelle_id"/>
+                <field name="culture_id"/>
+                <field name="type_intervention"/>
+                <field name="date_planifiee"/>
+                <field name="duree_estimee" widget="float_time"/>
+                <field name="cout_estime" widget="monetary"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+    
+    <!-- Vue formulaire interventions professionnelle -->
+    <record id="view_smart_agri_intervention_form" model="ir.ui.view">
+        <field name="name">smart.agri.intervention.form</field>
+        <field name="model">smart_agri_intervention</field>
+        <field name="arch" type="xml">
+            <form string="Intervention Agricole">
+                <header>
+                    <button name="action_demarrer_intervention" 
+                            string="Démarrer" 
+                            type="object" 
+                            class="oe_highlight"
+                            invisible="state != 'planifiee'"/>
+                    <button name="action_terminer_intervention" 
+                            string="Terminer" 
+                            type="object" 
+                            class="oe_highlight"
+                            invisible="state != 'en_cours'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="planifiee,en_cours,terminee"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Nom de l'intervention"/>
+                        </h1>
+                    </div>
+                    
+                    <!-- INFORMATIONS DE BASE -->
+                    <group string="Informations de Base">
+                        <group>
+                            <field name="exploitation_id" required="1"/>
+                            <field name="parcelle_id" required="1"/>
+                            <field name="culture_id"/>
+                        </group>
+                        <group>
+                            <field name="type_intervention" required="1"/>
+                            <field name="date_planifiee" required="1"/>
+                            <field name="duree_estimee" widget="float_time"/>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                    
+                    <!-- COÛTS ET RESSOURCES -->
+                    <group string="Coûts et Ressources">
+                        <group>
+                            <field name="cout_estime" widget="monetary"/>
+                            <field name="cout_reel" widget="monetary"/>
+                            <field name="main_oeuvre_requise" widget="float_time"/>
+                        </group>
+                        <group>
+                            <field name="conditions_meteo"/>
+                            <field name="temperature_min" widget="float_time"/>
+                            <field name="temperature_max" widget="float_time"/>
+                        </group>
+                    </group>
+                    
+                    <!-- RÉSULTATS ET SUIVI -->
+                    <group string="Résultats et Suivi">
+                        <group>
+                            <field name="resultats"/>
+                            <field name="problemes_rencontres"/>
+                        </group>
+                        <group>
+                            <field name="notes"/>
+                        </group>
+                    </group>
+                    
+                    <!-- NOTES ET DOCUMENTS -->
+                    <notebook>
+                        <page string="Notes Techniques">
+                            <group>
+                                <field name="notes" nolabel="1"/>
+                            </group>
+                        </page>
+                        <page string="Conditions Météo">
+                            <group>
+                                <field name="conditions_meteo" nolabel="1"/>
+                                <field name="humidite_min" widget="float_time"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <!-- Vue recherche interventions améliorée -->
+    <record id="view_smart_agri_intervention_search" model="ir.ui.view">
+        <field name="name">smart.agri.intervention.search</field>
+        <field name="model">smart_agri_intervention</field>
+        <field name="arch" type="xml">
+            <search string="Recherche Interventions">
+                <field name="name"/>
+                <field name="exploitation_id"/>
+                <field name="type_intervention"/>
+                <field name="date_planifiee"/>
+                
+                <filter string="Planifiées" name="planifiees" domain="[('state', '=', 'planifiee')]"/>
+                <filter string="En Cours" name="en_cours" domain="[('state', '=', 'en_cours')]"/>
+                <filter string="Terminées" name="terminees" domain="[('state', '=', 'terminee')]"/>
+                <filter string="Annulées" name="annulees" domain="[('state', '=', 'annulee')]"/>
+                
+                <filter string="Cette Semaine" name="cette_semaine" domain="[('date_planifiee', '>=', (context_today() - datetime.timedelta(days=7)).strftime('%Y-%m-%d'))]"/>
+                <filter string="Ce Mois" name="ce_mois" domain="[('date_planifiee', '>=', (context_today() - datetime.timedelta(days=30)).strftime('%Y-%m-%d'))]"/>
+                
+                <filter string="Coût > 500€" name="cout_eleve" domain="[('cout_estime', '>', 500)]"/>
+                <filter string="Durée > 4h" name="duree_longue" domain="[('duree_estimee', '>', 4)]"/>
+                
+                <group expand="0" string="Regrouper par">
+                    <filter string="Exploitation" name="group_exploitation" context="{'group_by': 'exploitation_id'}"/>
+                    <filter string="Type" name="group_type" context="{'group_by': 'type_intervention'}"/>
+                    <filter string="État" name="group_state" context="{'group_by': 'state'}"/>
+                    <filter string="Date" name="group_date" context="{'group_by': 'date_planifiee'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    
+    <!-- Vue kanban interventions pour tableau de bord -->
+    <record id="view_smart_agri_intervention_kanban" model="ir.ui.view">
+        <field name="name">smart.agri.intervention.kanban</field>
+        <field name="model">smart_agri_intervention</field>
+        <field name="arch" type="xml">
+            <kanban string="Interventions" class="o_kanban_dashboard">
+                <field name="name"/>
+                <field name="type_intervention"/>
+                <field name="date_planifiee"/>
+                <field name="duree_estimee"/>
+                <field name="cout_estime"/>
+                <field name="state"/>
+                <field name="exploitation_id"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_content">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <field name="name"/>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <strong>Type:</strong> <field name="type_intervention"/>
+                                        </div>
+                                        <div class="col-6">
+                                            <strong>État:</strong> <field name="state"/>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-6">
+                                            <strong>Date:</strong> <field name="date_planifiee"/>
+                                        </div>
+                                        <div class="col-6">
+                                            <strong>Durée:</strong> <field name="duree_estimee"/>h
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-6">
+                                            <strong>Coût:</strong> <field name="cout_estime"/>€
+                                        </div>
+                                        <div class="col-6">
+                                            <strong>Exploitation:</strong> <field name="exploitation_id"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <group>
-                            <group string="Informations de base">
-                                <field name="type_intervention"/>
-                                <field name="description"/>
-                                <field name="exploitation_id"/>
-                                <field name="parcelle_id"/>
-                                <field name="culture_id"/>
-                            </group>
-                            <group string="Planification">
-                                <field name="date_planifiee"/>
-                                <field name="date_execution"/>
-                                <field name="duree_estimee"/>
-                            </group>
-                        </group>
-                        <group>
-                            <group string="Ressources et coûts">
-                                <field name="main_oeuvre_requise"/>
-                                <field name="cout_estime"/>
-                                <field name="cout_reel"/>
-                            </group>
-                            <group string="Conditions météo">
-                                <field name="conditions_meteo"/>
-                                <field name="temperature_min"/>
-                                <field name="temperature_max"/>
-                                <field name="humidite_min"/>
-                            </group>
-                        </group>
-                        <group>
-                            <group string="Suivi et résultats">
-                                <field name="resultats"/>
-                                <field name="problemes_rencontres"/>
-                            </group>
-                            <group string="Notes">
-                                <field name="notes"/>
-                            </group>
-                        </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
-
-        <!-- Vue calendrier pour les interventions -->
-        <record id="view_smart_agri_intervention_calendar" model="ir.ui.view">
-            <field name="name">smart.agri.intervention.calendar</field>
-            <field name="model">smart_agri_intervention</field>
-            <field name="arch" type="xml">
-                <calendar string="Calendrier des Interventions" date_start="date_planifiee" color="type_intervention">
-                    <field name="name"/>
-                    <field name="type_intervention"/>
-                    <field name="exploitation_id"/>
-                    <field name="parcelle_id"/>
-                </calendar>
-            </field>
-        </record>
-
-        <!-- Action pour ouvrir les interventions -->
-        <record id="action_smart_agri_intervention" model="ir.actions.act_window">
-            <field name="name">Interventions Agricoles</field>
-            <field name="res_model">smart_agri_intervention</field>
-            <field name="view_mode">list,form,calendar</field>
-            <field name="help" type="html">
-                <p class="o_view_nocontent_smiling_face">
-                    Planifiez votre première intervention
-                </p>
-                <p>
-                    Les interventions agricoles incluent semis, irrigation, traitements, récolte, etc.
-                </p>
-            </field>
-        </record>
-    </data>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    
+    <!-- Action interventions améliorée -->
+    <record id="action_smart_agri_intervention" model="ir.actions.act_window">
+        <field name="name">Interventions Agricoles</field>
+        <field name="res_model">smart_agri_intervention</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="view_id" ref="view_smart_agri_intervention_kanban"/>
+        <field name="help" type="html">
+            <p class="o_view_nocent_smiling_face">
+                Aucune intervention planifiée
+            </p>
+            <p>
+                Créez votre première intervention pour commencer la gestion des opérations agricoles.
+            </p>
+        </field>
+    </record>
+    
 </odoo>

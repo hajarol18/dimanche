@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- ======================================== -->
+        <!-- VUES DE LA ROTATION CULTURELLE -->
+        <!-- ======================================== -->
+
+        <!-- VUE FORMULAIRE ROTATION CULTURELLE -->
+        <record id="view_smart_agri_rotation_culturelle_form" model="ir.ui.view">
+            <field name="name">smart_agri_rotation_culturelle.form</field>
+            <field name="model">smart_agri_rotation_culturelle</field>
+            <field name="arch" type="xml">
+                <form string="Plan de Rotation Culturelle">
+                    <header>
+                        <button name="action_demarrer_rotation" string="Démarrer" type="object" 
+                                class="oe_highlight" invisible="state != 'planifie'"/>
+                        <button name="action_terminer_rotation" string="Terminer" type="object" 
+                                class="oe_highlight" invisible="state != 'en_cours'"/>
+                        <button name="action_suspendre_rotation" string="Suspendre" type="object" 
+                                class="oe_highlight" invisible="state not in ('planifie', 'en_cours')"/>
+                        <button name="action_planifier_suivante" string="Planifier Suivante" type="object" 
+                                class="oe_highlight" invisible="state != 'en_cours'"/>
+                        <field name="state" widget="statusbar" 
+                               statusbar_visible="planifie,en_cours,termine,suspendu"/>
+                    </header>
+                    
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Nom du plan de rotation"/>
+                            </h1>
+                        </div>
+                        
+                        <group>
+                            <group string="Identification">
+                                <field name="code"/>
+                                <field name="exploitation_id"/>
+                                <field name="parcelle_id"/>
+                            </group>
+                            
+                            <group string="Planification">
+                                <field name="date_debut"/>
+                                <field name="date_fin"/>
+                                <field name="duree_cycle"/>
+                                <field name="saison_courante"/>
+                            </group>
+                        </group>
+                        
+                        <group>
+                            <group string="Objectifs de Rotation">
+                                <field name="objectif_principal"/>
+                                <field name="objectifs_secondaires" widget="many2many_tags"/>
+                                <field name="priorite_rotation" widget="badge"/>
+                            </group>
+                            
+                            <group string="Cultures de Rotation">
+                                <field name="culture_precedente_id"/>
+                                <field name="culture_actuelle_id"/>
+                                <field name="culture_suivante_id"/>
+                            </group>
+                        </group>
+                        
+                        <group>
+                            <group string="Analyse IA de la Rotation">
+                                <field name="score_rotation" widget="percentage"/>
+                                <field name="benefices_rotation"/>
+                                <field name="risques_rotation"/>
+                                <field name="recommandations_ia"/>
+                            </group>
+                            
+                            <group string="Suivi et Performance">
+                                <field name="rendement_attendu"/>
+                                <field name="rendement_reel"/>
+                                <field name="ecart_rendement" widget="percentage"/>
+                            </group>
+                        </group>
+                        
+                        <group>
+                            <field name="description"/>
+                            <field name="notes"/>
+                        </group>
+                        
+                        <group>
+                            <field name="active"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- VUE TREE ROTATION CULTURELLE -->
+        <record id="view_smart_agri_rotation_culturelle_tree" model="ir.ui.view">
+            <field name="name">smart_agri_rotation_culturelle.tree</field>
+            <field name="model">smart_agri_rotation_culturelle</field>
+            <field name="arch" type="xml">
+                <list string="Rotations Culturelles" decoration-info="state == 'planifie'" decoration-success="state == 'en_cours'" decoration-muted="state == 'termine'">
+                    <field name="name"/>
+                    <field name="exploitation_id"/>
+                    <field name="parcelle_id"/>
+                    <field name="objectif_principal"/>
+                    <field name="culture_actuelle_id"/>
+                    <field name="culture_suivante_id"/>
+                    <field name="score_rotation" widget="percentage"/>
+                    <field name="date_debut"/>
+                    <field name="duree_cycle"/>
+                    <field name="state" widget="badge"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- VUE KANBAN ROTATION CULTURELLE -->
+        <record id="view_smart_agri_rotation_culturelle_kanban" model="ir.ui.view">
+            <field name="name">smart_agri_rotation_culturelle.kanban</field>
+            <field name="model">smart_agri_rotation_culturelle</field>
+            <field name="arch" type="xml">
+                <kanban string="Rotations Culturelles" class="o_kanban_dashboard">
+                    <field name="exploitation_id"/>
+                    <field name="parcelle_id"/>
+                    <field name="objectif_principal"/>
+                    <field name="culture_actuelle_id"/>
+                    <field name="culture_suivante_id"/>
+                    <field name="score_rotation"/>
+                    <field name="state"/>
+                    <field name="date_debut"/>
+                    <field name="duree_cycle"/>
+                    
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_card oe_kanban_global_click">
+                                <div class="oe_kanban_content">
+                                    <div class="o_kanban_record_top">
+                                        <div class="o_kanban_record_headings">
+                                            <strong class="o_kanban_record_title">
+                                                <field name="name"/>
+                                            </strong>
+                                        </div>
+                                        <div class="o_kanban_record_top_right">
+                                            <span t-attf-class="badge badge-#{record.state.raw_value == 'planifie' ? 'info' : record.state.raw_value == 'en_cours' ? 'success' : 'secondary'}">
+                                                <field name="state"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="o_kanban_record_body">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <strong>Exploitation:</strong>
+                                                <field name="exploitation_id"/>
+                                            </div>
+                                            <div class="col-6">
+                                                <strong>Parcelle:</strong>
+                                                <field name="parcelle_id"/>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row mt-2">
+                                            <div class="col-6">
+                                                <strong>Objectif:</strong>
+                                                <field name="objectif_principal"/>
+                                            </div>
+                                            <div class="col-6">
+                                                <strong>Score:</strong>
+                                                <span t-attf-class="badge badge-#{record.score_rotation.raw_value > 70 ? 'success' : record.score_rotation.raw_value > 50 ? 'warning' : 'danger'}">
+                                                    <field name="score_rotation"/>%
+                                                </span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row mt-2">
+                                            <div class="col-6">
+                                                <strong>Culture actuelle:</strong>
+                                                <field name="culture_actuelle_id"/>
+                                            </div>
+                                            <div class="col-6">
+                                                <strong>Culture suivante:</strong>
+                                                <field name="culture_suivante_id"/>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row mt-2">
+                                            <div class="col-6">
+                                                <strong>Début:</strong>
+                                                <field name="date_debut"/>
+                                            </div>
+                                            <div class="col-6">
+                                                <strong>Cycle:</strong>
+                                                <field name="duree_cycle"/> ans
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- VUE GRAPHIQUE ROTATION CULTURELLE -->
+        <record id="view_smart_agri_rotation_culturelle_graph" model="ir.ui.view">
+            <field name="name">smart_agri_rotation_culturelle.graph</field>
+            <field name="model">smart_agri_rotation_culturelle</field>
+            <field name="arch" type="xml">
+                <graph string="Rotations Culturelles - Graphiques" type="bar">
+                    <field name="exploitation_id"/>
+                    <field name="score_rotation" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- VUE PIVOT ROTATION CULTURELLE -->
+        <record id="view_smart_agri_rotation_culturelle_pivot" model="ir.ui.view">
+            <field name="name">smart_agri_rotation_culturelle.pivot</field>
+            <field name="model">smart_agri_rotation_culturelle</field>
+            <field name="arch" type="xml">
+                <pivot string="Rotations Culturelles - Pivot">
+                    <field name="exploitation_id" type="row"/>
+                    <field name="objectif_principal" type="row"/>
+                    <field name="score_rotation" type="measure"/>
+                    <field name="duree_cycle" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <!-- ACTION ROTATION CULTURELLE -->
+        <record id="action_smart_agri_rotation_culturelle" model="ir.actions.act_window">
+            <field name="name">Rotations Culturelles</field>
+            <field name="res_model">smart_agri_rotation_culturelle</field>
+            <field name="view_mode">kanban,tree,form,graph,pivot</field>
+            <field name="view_id" ref="view_smart_agri_rotation_culturelle_kanban"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Créez votre premier plan de rotation culturelle !
+                </p>
+                <p>
+                    La rotation culturelle intelligente vous aide à optimiser vos cultures
+                    selon vos objectifs et les recommandations de l'IA.
+                </p>
+            </field>
+        </record>
+
+        <!-- MENU ROTATION CULTURELLE - DÉPLACÉ VERS main_menu.xml -->
+        <!-- <menuitem id="menu_smart_agri_rotation_culturelle"
+                  name="Rotations Culturelles"
+                  parent="menu_analyse"
+                  action="action_smart_agri_rotation_culturelle"
+                  sequence="30"/> -->
+
+        <!-- ======================================== -->
+        <!-- VUES DES OBJECTIFS DE ROTATION -->
+        <!-- ======================================== -->
+
+        <!-- VUE FORMULAIRE OBJECTIF ROTATION -->
+        <record id="view_smart_agri_objectif_rotation_form" model="ir.ui.view">
+            <field name="name">smart_agri_objectif_rotation.form</field>
+            <field name="model">smart_agri_objectif_rotation</field>
+            <field name="arch" type="xml">
+                <form string="Objectif de Rotation Culturelle">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Nom de l'objectif"/>
+                            </h1>
+                        </div>
+                        
+                        <group>
+                            <group string="Définition">
+                                <field name="exploitation_id"/>
+                            </group>
+                            
+                            <group string="Configuration">
+                                <field name="description"/>
+                            </group>
+                        </group>
+                        
+                        <group>
+                            <field name="notes"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- VUE TREE OBJECTIF ROTATION -->
+        <record id="view_smart_agri_objectif_rotation_tree" model="ir.ui.view">
+            <field name="name">smart_agri_objectif_rotation.tree</field>
+            <field name="model">smart_agri_objectif_rotation</field>
+            <field name="arch" type="xml">
+                <list string="Objectifs de Rotation">
+                    <field name="name"/>
+                    <field name="exploitation_id"/>
+                    <field name="description"/>
+                    <field name="active"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- ACTION OBJECTIF ROTATION -->
+        <record id="action_smart_agri_objectif_rotation" model="ir.actions.act_window">
+            <field name="name">Objectifs de Rotation</field>
+            <field name="res_model">smart_agri_objectif_rotation</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Créez votre premier objectif de rotation !
+                </p>
+            </field>
+        </record>
+
+        <!-- MENU OBJECTIF ROTATION - DÉPLACÉ VERS main_menu.xml -->
+        <!-- <menuitem id="menu_smart_agri_objectif_rotation"
+                  name="Objectifs de Rotation"
+                  parent="menu_analyse"
+                  action="action_smart_agri_objectif_rotation"
+                  sequence="35"/> -->
+
+        <!-- ======================================== -->
+        <!-- FILTRES ET RECHERCHE ROTATION -->
+        <!-- ======================================== -->
+
+        <!-- VUE RECHERCHE ROTATION CULTURELLE -->
+        <record id="view_smart_agri_rotation_culturelle_search" model="ir.ui.view">
+            <field name="name">smart_agri_rotation_culturelle.search</field>
+            <field name="model">smart_agri_rotation_culturelle</field>
+            <field name="arch" type="xml">
+                <search string="Recherche de Rotations">
+                    <field name="name"/>
+                    <field name="exploitation_id"/>
+                    <field name="parcelle_id"/>
+                    <field name="objectif_principal"/>
+                    <field name="culture_actuelle_id"/>
+                    
+                    <filter string="Mes Rotations" name="mes_rotations" 
+                            domain="[('exploitation_id', '!=', False)]"/>
+                    <filter string="En Cours" name="en_cours" 
+                            domain="[('state', '=', 'en_cours')]"/>
+                    <filter string="Planifiées" name="planifiees" 
+                            domain="[('state', '=', 'planifie')]"/>
+                    <filter string="Terminées" name="terminees" 
+                            domain="[('state', '=', 'termine')]"/>
+                    
+
+                    
+                    <group expand="0" string="Regrouper par">
+                        <filter string="Exploitation" name="group_exploitation" context="{'group_by': 'exploitation_id'}"/>
+                        <filter string="Objectif" name="group_objectif" context="{'group_by': 'objectif_principal'}"/>
+                        <filter string="État" name="group_state" context="{'group_by': 'state'}"/>
+                        <filter string="Saison" name="group_saison" context="{'group_by': 'saison_courante'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+    </data>
+</odoo>

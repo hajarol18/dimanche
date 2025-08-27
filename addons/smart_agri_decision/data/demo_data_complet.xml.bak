@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- ======================================== -->
+    <!-- DONNÉES DE DÉMONSTRATION COMPLÈTES -->
+    <!-- Pour tester l'IA immédiatement ! -->
+    <!-- ======================================== -->
+
+    <!-- EXPLOITATION DÉMO 1 : MEKNÈS -->
+    <record id="exploitation_demo_meknes" model="smart_agri_exploitation">
+        <field name="name">Exploitation Meknès - Test IA</field>
+        <field name="code">MEK001</field>
+        <field name="type_exploitation">mixte</field>
+        <field name="surface_totale">45.0</field>
+        <field name="latitude">33.9716</field>
+        <field name="longitude">-5.5471</field>
+        <field name="altitude">500</field>
+        <field name="zone_climatique">mediterraneen</field>
+        <field name="type_sol">argileux</field>
+        <field name="ph_sol">7.2</field>
+        <field name="capacite_retention">180</field>
+        <field name="description">Exploitation modèle pour tests IA - Céréales, légumineuses et arboriculture</field>
+    </record>
+
+    <!-- EXPLOITATION DÉMO 2 : AGADIR -->
+    <record id="exploitation_demo_agadir" model="smart_agri_exploitation">
+        <field name="name">Exploitation Agadir - Souss</field>
+        <field name="code">AGA002</field>
+        <field name="type_exploitation">arboriculture</field>
+        <field name="surface_totale">32.0</field>
+        <field name="latitude">30.4278</field>
+        <field name="longitude">-9.5981</field>
+        <field name="altitude">23</field>
+        <field name="zone_climatique">aride</field>
+        <field name="type_sol">sableux</field>
+        <field name="ph_sol">6.8</field>
+        <field name="capacite_retention">90</field>
+        <field name="description">Exploitation arboricole spécialisée agrumes et oliviers</field>
+    </record>
+
+    <!-- SCÉNARIO CLIMATIQUE RCP 2.6 - OPTIMISTE -->
+    <record id="scenario_rcp26_optimiste" model="smart_agri_scenario_climatique">
+        <field name="name">Scénario RCP 2.6 - Optimiste</field>
+        <field name="code_scenario">RCP 2.6</field>
+        <field name="type_scenario">rcp26</field>
+        <field name="description">Scénario optimiste avec limitation forte des émissions - Réchauffement limité à 1.5°C</field>
+        <field name="periode_debut" eval="(DateTime.today() - relativedelta(months=3)).strftime('%Y-%m-%d')"/>
+        <field name="periode_fin" eval="(DateTime.today() + relativedelta(years=3)).strftime('%Y-%m-%d')"/>
+        <field name="augmentation_temperature">1.2</field>
+        <field name="variation_precipitation">8</field>
+        <field name="frequence_secheresse">5</field>
+        <field name="intensite_events">12</field>
+        <field name="exploitation_id" ref="exploitation_demo_meknes"/>
+        <field name="state">valide</field>
+    </record>
+
+    <!-- SCÉNARIO CLIMATIQUE RCP 4.5 - INTERMÉDIAIRE -->
+    <record id="scenario_rcp45_intermediaire" model="smart_agri_scenario_climatique">
+        <field name="name">Scénario RCP 4.5 - Intermédiaire</field>
+        <field name="code_scenario">RCP 4.5</field>
+        <field name="type_scenario">rcp45</field>
+        <field name="description">Scénario intermédiaire avec stabilisation des émissions - Réchauffement modéré 2.5°C</field>
+        <field name="periode_debut" eval="(DateTime.today() - relativedelta(months=2)).strftime('%Y-%m-%d')"/>
+        <field name="periode_fin" eval="(DateTime.today() + relativedelta(years=4)).strftime('%Y-%m-%d')"/>
+        <field name="augmentation_temperature">2.5</field>
+        <field name="variation_precipitation">-8</field>
+        <field name="frequence_secheresse">18</field>
+        <field name="intensite_events">28</field>
+        <field name="exploitation_id" ref="exploitation_demo_meknes"/>
+        <field name="state">valide</field>
+    </record>
+
+    <!-- SCÉNARIO CLIMATIQUE RCP 8.5 - PESSIMISTE -->
+    <record id="scenario_rcp85_pessimiste" model="smart_agri_scenario_climatique">
+        <field name="name">Scénario RCP 8.5 - Pessimiste</field>
+        <field name="code_scenario">RCP 8.5</field>
+        <field name="type_scenario">rcp85</field>
+        <field name="description">Scénario pessimiste avec émissions continues - Réchauffement important 4.8°C</field>
+        <field name="periode_debut" eval="(DateTime.today() - relativedelta(months=1)).strftime('%Y-%m-%d')"/>
+        <field name="periode_fin" eval="(DateTime.today() + relativedelta(years=6)).strftime('%Y-%m-%d')"/>
+        <field name="augmentation_temperature">4.8</field>
+        <field name="variation_precipitation">-22</field>
+        <field name="frequence_secheresse">42</field>
+        <field name="intensite_events">65</field>
+        <field name="exploitation_id" ref="exploitation_demo_agadir"/>
+        <field name="state">valide</field>
+    </record>
+
+    <!-- PRÉDICTION IA 1 : RENDEMENT CÉRÉALES -->
+    <record id="prediction_ia_rendement_cereales" model="smart_agri_ia_predictions">
+        <field name="name">Prédiction Rendement Céréales - Meknès</field>
+        <field name="type_prediction">rendement</field>
+        <field name="exploitation_id" ref="exploitation_demo_meknes"/>
+        <field name="scenario_climatique_id" ref="scenario_rcp45_intermediaire"/>
+        <field name="temperature_moyenne">24.5</field>
+        <field name="precipitation_totale">52.0</field>
+        <field name="humidite_moyenne">68.0</field>
+        <field name="vitesse_vent">8.5</field>
+        <field name="ph_sol">7.2</field>
+        <field name="azote_sol">48.0</field>
+        <field name="phosphore_sol">32.0</field>
+        <field name="potassium_sol">28.0</field>
+        <field name="capacite_retention">180</field>
+        <field name="stade_culture">floraison</field>
+        <field name="resultat_principal">Rendement optimal attendu : 4.2 tonnes/hectare</field>
+        <field name="resultat_detaille">Conditions climatiques favorables avec RCP 4.5. Sol bien équilibré en nutriments. Risque de sécheresse modéré.</field>
+        <field name="recommandations">Maintenir l'irrigation à 65% des besoins. Apport d'azote recommandé dans 15 jours. Surveillance des précipitations.</field>
+        <field name="actions_prioritaires">1. Programmer l'irrigation automatique\n2. Préparer l'apport d'engrais azoté\n3. Surveiller les prévisions météo</field>
+        <field name="rendement_predit">4.2</field>
+        <field name="rendement_optimal">4.5</field>
+        <field name="gain_potentiel">0.3</field>
+        <field name="niveau_risque">modere</field>
+        <field name="type_risque">secheresse</field>
+        <field name="eau_optimale">65.0</field>
+        <field name="engrais_azote">45.0</field>
+        <field name="engrais_phosphore">0.0</field>
+        <field name="engrais_potassium">0.0</field>
+        <field name="scenario_optimiste">Rendement 4.5 t/ha avec conditions parfaites</field>
+        <field name="scenario_realiste">Rendement 4.2 t/ha avec gestion optimale</field>
+        <field name="scenario_pessimiste">Rendement 3.8 t/ha en cas de sécheresse</field>
+        <field name="confiance">85</field>
+        <field name="precision">82</field>
+        <field name="score_ia">88</field>
+        <field name="state">termine</field>
+    </record>
+
+    <!-- PRÉDICTION IA 2 : CULTURE OPTIMALE -->
+    <record id="prediction_ia_culture_optimale" model="smart_agri_ia_predictions">
+        <field name="name">Recommandation Culture Optimale - Agadir</field>
+        <field name="type_prediction">culture_optimale</field>
+        <field name="exploitation_id" ref="exploitation_demo_agadir"/>
+        <field name="scenario_climatique_id" ref="scenario_rcp85_pessimiste"/>
+        <field name="temperature_moyenne">28.5</field>
+        <field name="precipitation_totale">18.0</field>
+        <field name="humidite_moyenne">45.0</field>
+        <field name="vitesse_vent">15.0</field>
+        <field name="ph_sol">6.8</field>
+        <field name="azote_sol">35.0</field>
+        <field name="phosphore_sol">28.0</field>
+        <field name="potassium_sol">22.0</field>
+        <field name="capacite_retention">90</field>
+        <field name="stade_culture">germination</field>
+        <field name="resultat_principal">Culture recommandée : Oliviers résistants à la sécheresse</field>
+        <field name="resultat_detaille">Conditions arides avec RCP 8.5. Sol sableux avec bonne capacité de drainage. Cultures résistantes recommandées.</field>
+        <field name="recommandations">Privilégier les oliviers variété 'Picholine' et agrumes 'Clementine'. Système d'irrigation goutte-à-goutte obligatoire.</field>
+        <field name="actions_prioritaires">1. Installer système d'irrigation goutte-à-goutte\n2. Planter variétés résistantes à la sécheresse\n3. Préparer système de protection contre le vent</field>
+        <field name="rendement_predit">3.8</field>
+        <field name="rendement_optimal">4.2</field>
+        <field name="gain_potentiel">0.4</field>
+        <field name="niveau_risque">eleve</field>
+        <field name="type_risque">secheresse</field>
+        <field name="eau_optimale">85.0</field>
+        <field name="engrais_azote">25.0</field>
+        <field name="engrais_phosphore">35.0</field>
+        <field name="engrais_potassium">40.0</field>
+        <field name="scenario_optimiste">Rendement 4.2 t/ha avec irrigation optimale</field>
+        <field name="scenario_realiste">Rendement 3.8 t/ha avec gestion adaptée</field>
+        <field name="scenario_pessimiste">Rendement 3.2 t/ha en cas de sécheresse extrême</field>
+        <field name="confiance">78</field>
+        <field name="precision">75</field>
+        <field name="score_ia">82</field>
+        <field name="state">termine</field>
+    </record>
+
+    <!-- PRÉDICTION IA 3 : RISQUE CLIMATIQUE -->
+    <record id="prediction_ia_risque_climatique" model="smart_agri_ia_predictions">
+        <field name="name">Évaluation Risques Climatiques - Meknès</field>
+        <field name="type_prediction">risque_climatique</field>
+        <field name="exploitation_id" ref="exploitation_demo_meknes"/>
+        <field name="scenario_climatique_id" ref="scenario_rcp26_optimiste"/>
+        <field name="temperature_moyenne">22.0</field>
+        <field name="precipitation_totale">65.0</field>
+        <field name="humidite_moyenne">72.0</field>
+        <field name="vitesse_vent">6.0</field>
+        <field name="ph_sol">7.2</field>
+        <field name="azote_sol">52.0</field>
+        <field name="phosphore_sol">38.0</field>
+        <field name="potassium_sol">31.0</field>
+        <field name="capacite_retention">180</field>
+        <field name="stade_culture">levée</field>
+        <field name="resultat_principal">Risque climatique : FAIBLE avec RCP 2.6</field>
+        <field name="resultat_detaille">Conditions climatiques stables et favorables. Sol bien équilibré. Risques minimaux pour la saison.</field>
+        <field name="recommandations">Continuer les pratiques agricoles actuelles. Surveillance normale des conditions météo. Pas de mesures spéciales nécessaires.</field>
+        <field name="actions_prioritaires">1. Maintenir le suivi météo standard\n2. Continuer la rotation des cultures\n3. Surveiller la qualité du sol</field>
+        <field name="rendement_predit">4.5</field>
+        <field name="rendement_optimal">4.5</field>
+        <field name="gain_potentiel">0.0</field>
+        <field name="niveau_risque">faible</field>
+        <field name="type_risque">secheresse</field>
+        <field name="eau_optimale">55.0</field>
+        <field name="engrais_azote">40.0</field>
+        <field name="engrais_phosphore">0.0</field>
+        <field name="engrais_potassium">0.0</field>
+        <field name="scenario_optimiste">Rendement 4.5 t/ha avec conditions optimales</field>
+        <field name="scenario_realiste">Rendement 4.3 t/ha avec conditions normales</field>
+        <field name="scenario_pessimiste">Rendement 4.0 t/ha en cas de conditions défavorables</field>
+        <field name="confiance">92</field>
+        <field name="precision">89</field>
+        <field name="score_ia">94</field>
+        <field name="state">termine</field>
+    </record>
+
+    <!-- PRÉDICTION IA 4 : OPTIMISATION IRRIGATION -->
+    <record id="prediction_ia_optimisation_irrigation" model="smart_agri_ia_predictions">
+        <field name="name">Optimisation Irrigation - Agadir</field>
+        <field name="type_prediction">irrigation</field>
+        <field name="exploitation_id" ref="exploitation_demo_agadir"/>
+        <field name="scenario_climatique_id" ref="scenario_rcp45_intermediaire"/>
+        <field name="temperature_moyenne">26.5</field>
+        <field name="precipitation_totale">25.0</field>
+        <field name="humidite_moyenne">58.0</field>
+        <field name="vitesse_vent">12.0</field>
+        <field name="ph_sol">6.8</field>
+        <field name="azote_sol">42.0</field>
+        <field name="phosphore_sol">30.0</field>
+        <field name="potassium_sol">25.0</field>
+        <field name="capacite_retention">90</field>
+        <field name="stade_culture">maturation</field>
+        <field name="resultat_principal">Besoin en irrigation : 75% des besoins totaux</field>
+        <field name="resultat_detaille">Conditions semi-arides avec RCP 4.5. Sol sableux nécessite irrigation fréquente mais modérée. Éviter le gaspillage d'eau.</field>
+        <field name="recommandations">Irrigation goutte-à-goutte 3 fois par semaine. Programmer tôt le matin. Surveiller l'humidité du sol.</field>
+        <field name="actions_prioritaires">1. Programmer irrigation automatique 3x/semaine\n2. Installer capteurs d'humidité\n3. Optimiser horaires d'irrigation</field>
+        <field name="rendement_predit">3.9</field>
+        <field name="rendement_optimal">4.1</field>
+        <field name="gain_potentiel">0.2</field>
+        <field name="niveau_risque">modere</field>
+        <field name="type_risque">exces_eau</field>
+        <field name="eau_optimale">75.0</field>
+        <field name="engrais_azote">35.0</field>
+        <field name="engrais_phosphore">0.0</field>
+        <field name="engrais_potassium">0.0</field>
+        <field name="scenario_optimiste">Rendement 4.1 t/ha avec irrigation optimale</field>
+        <field name="scenario_realiste">Rendement 3.9 t/ha avec gestion standard</field>
+        <field name="scenario_pessimiste">Rendement 3.5 t/ha en cas de pénurie d'eau</field>
+        <field name="confiance">81</field>
+        <field name="precision">78</field>
+        <field name="score_ia">85</field>
+        <field name="state">termine</field>
+    </record>
+
+    <!-- PRÉDICTION IA 5 : OPTIMISATION ENGRAIS -->
+    <record id="prediction_ia_optimisation_engrais" model="smart_agri_ia_predictions">
+        <field name="name">Optimisation Engrais - Meknès</field>
+        <field name="type_prediction">engrais</field>
+        <field name="exploitation_id" ref="exploitation_demo_meknes"/>
+        <field name="scenario_climatique_id" ref="scenario_rcp26_optimiste"/>
+        <field name="temperature_moyenne">23.0</field>
+        <field name="precipitation_totale">58.0</field>
+        <field name="humidite_moyenne">70.0</field>
+        <field name="vitesse_vent">7.0</field>
+        <field name="ph_sol">7.2</field>
+        <field name="azote_sol">38.0</field>
+        <field name="phosphore_sol">25.0</field>
+        <field name="potassium_sol">20.0</field>
+        <field name="capacite_retention">180</field>
+        <field name="stade_culture">tallage</field>
+        <field name="resultat_principal">Apport d'engrais recommandé : Azote + Phosphore</field>
+        <field name="resultat_detaille">Sol argileux avec bonnes conditions climatiques. Déficit en azote et phosphore détecté. Apport équilibré recommandé.</field>
+        <field name="recommandations">Apport d'azote : 50 kg/ha, Phosphore : 35 kg/ha. Pas de potassium nécessaire. Appliquer en 2 fois.</field>
+        <field name="actions_prioritaires">1. Commander engrais azoté et phosphoré\n2. Planifier application en 2 fois\n3. Surveiller la réponse des cultures</field>
+        <field name="rendement_predit">4.3</field>
+        <field name="rendement_optimal">4.5</field>
+        <field name="gain_potentiel">0.2</field>
+        <field name="niveau_risque">faible</field>
+        <field name="type_risque">stress_nutritionnel</field>
+        <field name="eau_optimale">60.0</field>
+        <field name="engrais_azote">50.0</field>
+        <field name="engrais_phosphore">35.0</field>
+        <field name="engrais_potassium">0.0</field>
+        <field name="scenario_optimiste">Rendement 4.5 t/ha avec engrais optimaux</field>
+        <field name="scenario_realiste">Rendement 4.3 t/ha avec apport standard</field>
+        <field name="scenario_pessimiste">Rendement 4.0 t/ha sans apport d'engrais</field>
+        <field name="confiance">87</field>
+        <field name="precision">84</field>
+        <field name="score_ia">89</field>
+        <field name="state">termine</field>
+    </record>
+
+</odoo>

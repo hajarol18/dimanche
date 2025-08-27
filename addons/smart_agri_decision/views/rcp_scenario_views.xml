@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+        <!-- Vue liste pour les scénarios RCP -->
+        <record id="view_rcp_scenario_list" model="ir.ui.view">
+            <field name="name">smart.agri.rcp.scenario.list</field>
+            <field name="model">smart_agri_rcp_scenario</field>
+            <field name="arch" type="xml">
+                <list string="Scénarios RCP">
+                    <field name="name"/>
+                    <field name="code_rcp"/>
+                    <field name="niveau_risque"/>
+                    <field name="probabilite_occurrence"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Vue formulaire pour les scénarios RCP -->
+        <record id="view_rcp_scenario_form" model="ir.ui.view">
+            <field name="name">smart.agri.rcp.scenario.form</field>
+            <field name="model">smart_agri_rcp_scenario</field>
+            <field name="arch" type="xml">
+                <form string="Scénario RCP">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Nom du scénario RCP"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Informations de base">
+                                <field name="name"/>
+                                <field name="code_rcp"/>
+                                <field name="description"/>
+                            </group>
+                            <group string="Risque et probabilité">
+                                <field name="niveau_risque"/>
+                                <field name="probabilite_occurrence"/>
+                                <field name="score_impact"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Réchauffement">
+                                <group>
+                                    <group string="Réchauffement prévu">
+                                        <field name="rechauffement_2030"/>
+                                        <field name="rechauffement_2050"/>
+                                        <field name="rechauffement_2100"/>
+                                    </group>
+                                    <group string="Émissions CO2">
+                                        <field name="emissions_2030"/>
+                                        <field name="emissions_2050"/>
+                                        <field name="emissions_2100"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Impacts">
+                                <group>
+                                    <group string="Impact sur la sécheresse">
+                                        <field name="impact_secheresse"/>
+                                    </group>
+                                    <group string="Impact sur les précipitations">
+                                        <field name="impact_precipitation"/>
+                                    </group>
+                                    <group string="Impact sur la température">
+                                        <field name="impact_temperature"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Informations">
+                                <group>
+                                    <field name="source_donnees"/>
+                                    <field name="date_mise_a_jour"/>
+                                    <field name="notes"/>
+                                    <field name="active"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action pour ouvrir les scénarios RCP -->
+        <record id="action_rcp_scenario" model="ir.actions.act_window">
+            <field name="name">Scénarios RCP</field>
+            <field name="res_model">smart_agri_rcp_scenario</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Créez votre premier scénario RCP
+                </p>
+                <p>
+                    Les scénarios RCP (Representative Concentration Pathways) définissent les trajectoires d'émissions de gaz à effet de serre.
+                </p>
+            </field>
+        </record>
+    
+</odoo>

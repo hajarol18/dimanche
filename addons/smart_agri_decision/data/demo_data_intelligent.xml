@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- ======================================== -->
+        <!-- DONNÉES DE DÉMONSTRATION INTELLIGENTES -->
+        <!-- ======================================== -->
+        
+        <!-- Types de sol -->
+        <record id="soil_type_argileux" model="smart_agri_soil_type">
+            <field name="name">Sol Argileux</field>
+            <field name="code">ARG001</field>
+            <field name="description">Sol riche en argile, bonne rétention d'eau</field>
+            <field name="water_retention">85.0</field>
+            <field name="drainage">45.0</field>
+            <field name="fertility">75.0</field>
+            <field name="ph_min">6.0</field>
+            <field name="ph_max">7.5</field>
+            <field name="organic_matter">3.5</field>
+            <field name="color">#8B4513</field>
+        </record>
+        
+        <record id="soil_type_limoneux" model="smart_agri_soil_type">
+            <field name="name">Sol Limoneux</field>
+            <field name="code">LIM001</field>
+            <field name="description">Sol équilibré, idéal pour la plupart des cultures</field>
+            <field name="water_retention">70.0</field>
+            <field name="drainage">65.0</field>
+            <field name="fertility">85.0</field>
+            <field name="ph_min">6.5</field>
+            <field name="ph_max">7.0</field>
+            <field name="organic_matter">2.8</field>
+            <field name="color">#D2B48C</field>
+        </record>
+        
+        <record id="soil_type_sableux" model="smart_agri_soil_type">
+            <field name="name">Sol Sableux</field>
+            <field name="code">SAB001</field>
+            <field name="description">Sol drainant, nécessite plus d'irrigation</field>
+            <field name="water_retention">45.0</field>
+            <field name="drainage">90.0</field>
+            <field name="fertility">60.0</field>
+            <field name="ph_min">5.8</field>
+            <field name="ph_max">6.5</field>
+            <field name="organic_matter">1.5</field>
+            <field name="color">#F4A460</field>
+        </record>
+        
+        <!-- Exploitations -->
+        <record id="exploitation_demo_1" model="smart_agri_exploitation">
+            <field name="name">Ferme de la Vallée</field>
+            <field name="code">VAL001</field>
+            <field name="description">Exploitation céréalière moderne</field>
+            <field name="surface_totale">150.0</field>
+            <field name="region">Meknès-Tafilalet</field>
+            <field name="type_exploitation">cereales</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="exploitation_demo_2" model="smart_agri_exploitation">
+            <field name="name">Domaine des Oliviers</field>
+            <field name="code">OLI002</field>
+            <field name="description">Exploitation oléicole traditionnelle</field>
+            <field name="surface_totale">80.0</field>
+            <field name="region">Meknès-Tafilalet</field>
+            <field name="type_exploitation">arboriculture</field>
+            <field name="active">True</field>
+        </record>
+        
+        <!-- Parcelles -->
+        <record id="parcelle_demo_1" model="smart_agri_parcelle">
+            <field name="name">Parcelle Nord - Blé</field>
+            <field name="code">VAL001-NORD</field>
+            <field name="exploitation_id" ref="exploitation_demo_1"/>
+            <field name="surface">25.0</field>
+            <field name="type_sol_id" ref="soil_type_limoneux"/>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="parcelle_demo_2" model="smart_agri_parcelle">
+            <field name="name">Parcelle Sud - Orge</field>
+            <field name="code">VAL001-SUD</field>
+            <field name="exploitation_id" ref="exploitation_demo_1"/>
+            <field name="surface">30.0</field>
+            <field name="type_sol_id" ref="soil_type_argileux"/>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="parcelle_demo_3" model="smart_agri_parcelle">
+            <field name="name">Parcelle Est - Légumineuses</field>
+            <field name="code">VAL001-EST</field>
+            <field name="exploitation_id" ref="exploitation_demo_1"/>
+            <field name="surface">20.0</field>
+            <field name="type_sol_id" ref="soil_type_sableux"/>
+            <field name="active">True</field>
+        </record>
+        
+        <!-- Cultures -->
+        <record id="culture_demo_ble" model="smart_agri_culture">
+            <field name="name">Blé Dur</field>
+            <field name="code">BLE001</field>
+            <field name="exploitation_id" ref="exploitation_demo_1"/>
+            <field name="parcelle_id" ref="parcelle_demo_1"/>
+            <field name="famille">cereales</field>
+            <field name="description">Blé dur de qualité pour la semoulerie</field>
+            <field name="duree_cycle">240</field>
+            <field name="saison_plantation">automne</field>
+            <field name="rendement_moyen">6.5</field>
+            <field name="surface_utilisee">25.0</field>
+            <field name="date_plantation">2024-10-15</field>
+            <field name="date_recolte_prevue">2025-06-15</field>
+            <field name="state">active</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="culture_demo_orge" model="smart_agri_culture">
+            <field name="name">Orge de Brasserie</field>
+            <field name="code">ORG001</field>
+            <field name="exploitation_id" ref="exploitation_demo_1"/>
+            <field name="parcelle_id" ref="parcelle_demo_2"/>
+            <field name="famille">cereales</field>
+            <field name="description">Orge de qualité pour la brasserie</field>
+            <field name="duree_cycle">220</field>
+            <field name="saison_plantation">automne</field>
+            <field name="rendement_moyen">5.8</field>
+            <field name="surface_utilisee">30.0</field>
+            <field name="date_plantation">2024-10-20</field>
+            <field name="date_recolte_prevue">2025-06-10</field>
+            <field name="state">active</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="culture_demo_pois" model="smart_agri_culture">
+            <field name="name">Pois Chiche</field>
+            <field name="code">POI001</field>
+            <field name="exploitation_id" ref="exploitation_demo_1"/>
+            <field name="parcelle_id" ref="parcelle_demo_3"/>
+            <field name="famille">legumineuses</field>
+            <field name="description">Pois chiche pour rotation et alimentation</field>
+            <field name="duree_cycle">180</field>
+            <field name="saison_plantation">printemps</field>
+            <field name="rendement_moyen">2.2</field>
+            <field name="surface_utilisee">20.0</field>
+            <field name="date_plantation">2025-03-15</field>
+            <field name="date_recolte_prevue">2025-09-15</field>
+            <field name="state">active</field>
+            <field name="active">True</field>
+        </record>
+        
+        <!-- Données météo historiques -->
+        <record id="meteo_demo_1" model="smart_agri_meteo">
+            <field name="date_mesure">2025-01-15</field>
+            <field name="exploitation_id" ref="exploitation_demo_1"/>
+            <field name="temperature">13.4</field>
+            <field name="temperature_min">8.5</field>
+            <field name="temperature_max">18.2</field>
+            <field name="precipitation">25.0</field>
+            <field name="humidite">65</field>
+            <field name="vitesse_vent">12.0</field>
+            <field name="duree_ensoleillement">6.5</field>
+            <field name="source">station_locale</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="meteo_demo_2" model="smart_agri_meteo">
+            <field name="date_mesure">2025-01-16</field>
+            <field name="exploitation_id" ref="exploitation_demo_1"/>
+            <field name="temperature">12.7</field>
+            <field name="temperature_min">7.8</field>
+            <field name="temperature_max">17.5</field>
+            <field name="precipitation">15.0</field>
+            <field name="humidite">58</field>
+            <field name="vitesse_vent">8.5</field>
+            <field name="duree_ensoleillement">7.2</field>
+            <field name="source">station_locale</field>
+            <field name="active">True</field>
+        </record>
+        
+        <!-- Prédictions IA de base -->
+        <record id="ia_prediction_demo_1" model="smart_agri_ia_predictions">
+            <field name="name">Prédiction Rendement Blé - Janvier 2025</field>
+            <field name="code">IA-BLE-001</field>
+            <field name="exploitation_id" ref="exploitation_demo_1"/>
+            <field name="parcelle_id" ref="parcelle_demo_1"/>
+            <field name="culture_id" ref="culture_demo_ble"/>
+            <field name="type_prediction">rendement</field>
+            <field name="description">Prédiction de rendement basée sur les conditions actuelles</field>
+            <field name="temperature_moyenne">13.4</field>
+            <field name="precipitation_totale">25.0</field>
+            <field name="ph_sol">6.8</field>
+            <field name="azote_sol">45.0</field>
+            <field name="phosphore_sol">28.0</field>
+            <field name="potassium_sol">180.0</field>
+            <field name="rendement_predit">6.8</field>
+            <field name="rendement_optimal">7.2</field>
+            <field name="confiance">78.5</field>
+            <field name="precision">82.3</field>
+            <field name="resultat_principal">Rendement prédit : 6.8 t/ha (94% de l'optimal)</field>
+            <field name="recommandations">Maintenir l'irrigation actuelle, surveiller les apports azotés</field>
+            <field name="active">True</field>
+        </record>
+        
+        <!-- Rotations culturelles -->
+        <record id="rotation_demo_1" model="smart_agri_rotation_culturelle">
+            <field name="name">Rotation Blé-Pois-Orge</field>
+            <field name="code">ROT001</field>
+            <field name="exploitation_id" ref="exploitation_demo_1"/>
+            <field name="parcelle_id" ref="parcelle_demo_1"/>
+            <field name="description">Rotation optimisée pour la fertilité du sol</field>
+            <field name="date_debut">2024-10-01</field>
+            <field name="date_fin">2026-09-30</field>
+            <field name="objectif_principal">durabilite</field>
+            <field name="priorite_rotation">elevee</field>
+            <field name="culture_actuelle_id" ref="culture_demo_ble"/>
+            <field name="culture_suivante_id" ref="culture_demo_pois"/>
+            <field name="benefices_rotation">Amélioration de la fertilité azotée, réduction des maladies</field>
+            <field name="recommandations_ia">Maintenir cette rotation, ajouter légumineuses en été</field>
+            <field name="state">en_cours</field>
+            <field name="active">True</field>
+        </record>
+        
+        <!-- Intrants de base -->
+        <record id="intrant_demo_1" model="smart_agri_intrants">
+            <field name="name">Engrais NPK 15-15-15</field>
+            <field name="code">NPK001</field>
+            <field name="type_intrant">engrais</field>
+            <field name="description">Engrais équilibré pour céréales</field>
+            <field name="composition">N:15%, P:15%, K:15%</field>
+            <field name="unite">kg</field>
+            <field name="prix_unitaire">2.5</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="intrant_demo_2" model="smart_agri_intrants">
+            <field name="name">Fongicide Systémique</field>
+            <field name="code">FUN001</field>
+            <field name="type_intrant">pesticide</field>
+            <field name="description">Protection contre les maladies fongiques</field>
+            <field name="composition">Triazole 25%</field>
+            <field name="unite">L</field>
+            <field name="prix_unitaire">45.0</field>
+            <field name="active">True</field>
+        </record>
+        
+        <!-- Utilisation d'intrants -->
+        <record id="utilisation_intrant_demo_1" model="smart_agri_utilisation_intrant">
+            <field name="exploitation_id" ref="exploitation_demo_1"/>
+            <field name="parcelle_id" ref="parcelle_demo_1"/>
+            <field name="culture_id" ref="culture_demo_ble"/>
+            <field name="intrant_id" ref="intrant_demo_1"/>
+            <field name="date_application">2024-11-15</field>
+            <field name="quantite_utilisee">150.0</field>
+            <field name="cout_total">375.0</field>
+            <field name="methode_application">epandage</field>
+            <field name="observations">Application automatisée, conditions optimales</field>
+            <field name="active">True</field>
+        </record>
+        
+        <!-- Interventions -->
+        <record id="intervention_demo_1" model="smart_agri_intervention">
+            <field name="name">Fertilisation Blé</field>
+            <field name="code">INT001</field>
+            <field name="exploitation_id" ref="exploitation_demo_1"/>
+            <field name="parcelle_id" ref="parcelle_demo_1"/>
+            <field name="culture_id" ref="culture_demo_ble"/>
+            <field name="type_intervention">fertilisation</field>
+            <field name="date_intervention">2024-11-15</field>
+            <field name="duree_heures">4.0</field>
+            <field name="cout_materiel">375.0</field>
+            <field name="cout_main_oeuvre">120.0</field>
+            <field name="cout_total">495.0</field>
+            <field name="description">Application d'engrais NPK pour le tallage</field>
+            <field name="resultats">Fertilisation réussie, conditions optimales</field>
+            <field name="state">terminee</field>
+            <field name="active">True</field>
+        </record>
+        
+    </data>
+</odoo>

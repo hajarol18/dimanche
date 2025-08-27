@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- ======================================== -->
+    <!-- TABLEAU DE BORD PROFESSIONNEL -->
+    <!-- DÉMONTRANT LE TRAVAIL DE 2 MOIS -->
+    <!-- ======================================== -->
+    
+    <!-- Vue tableau de bord principal professionnel -->
+    <record id="view_smart_agri_dashboard_main" model="ir.ui.view">
+        <field name="name">smart.agri.dashboard.main</field>
+        <field name="model">smart_agri_exploitation</field>
+        <field name="arch" type="xml">
+            <kanban string="Tableau de Bord SmartAgriDecision" class="o_kanban_dashboard">
+                <field name="name"/>
+                <field name="surface_totale"/>
+                <field name="region"/>
+                <field name="type_exploitation"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_content">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <field name="name"/>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <strong>Surface:</strong> <field name="surface_totale"/> ha
+                                        </div>
+                                        <div class="col-6">
+                                            <strong>Région:</strong> <field name="region"/>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-12">
+                                            <strong>Type:</strong> <field name="type_exploitation"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    
+    <!-- Vue tableau de bord des cultures avec indicateurs de performance -->
+    <record id="view_smart_agri_dashboard_cultures" model="ir.ui.view">
+        <field name="name">smart.agri.dashboard.cultures</field>
+        <field name="model">smart_agri_culture</field>
+        <field name="arch" type="xml">
+            <kanban string="Tableau de Bord des Cultures" class="o_kanban_dashboard">
+                <field name="name"/>
+                <field name="famille"/>
+                <field name="state"/>
+                <field name="rendement_moyen"/>
+                <field name="surface_utilisee"/>
+                <field name="nombre_interventions"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_content">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <field name="name"/>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <strong>Famille:</strong> <field name="famille"/>
+                                        </div>
+                                        <div class="col-6">
+                                            <strong>État:</strong> <field name="state"/>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-6">
+                                            <strong>Rendement:</strong> <field name="rendement_moyen"/> t/ha
+                                        </div>
+                                        <div class="col-6">
+                                            <strong>Surface:</strong> <field name="surface_utilisee"/> ha
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-12">
+                                            <strong>Interventions:</strong> <field name="nombre_interventions"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    
+    <!-- Vue tableau de bord des prédictions IA avec indicateurs de confiance -->
+    <record id="view_smart_agri_dashboard_ia" model="ir.ui.view">
+        <field name="name">smart.agri.dashboard.ia</field>
+        <field name="model">smart_agri_ia_predictions</field>
+        <field name="arch" type="xml">
+            <kanban string="Tableau de Bord IA - Prédictions Intelligentes" class="o_kanban_dashboard">
+                <field name="name"/>
+                <field name="type_prediction"/>
+                <field name="rendement_predit"/>
+                <field name="confiance"/>
+                <field name="precision"/>
+                <field name="recommandations"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_content">
+                                <div class="o_kanban_record_top">
+                                    <div class="oe_kanban_record_headings">
+                                        <strong class="oe_kanban_record_title">
+                                            <field name="name"/>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="oe_kanban_record_body">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <strong>Type:</strong> <field name="type_prediction"/>
+                                        </div>
+                                        <div class="col-6">
+                                            <strong>Confiance:</strong> <field name="confiance"/>%
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-6">
+                                            <strong>Rendement prédit:</strong> <field name="rendement_predit"/> t/ha
+                                        </div>
+                                        <div class="col-6">
+                                            <strong>Précision:</strong> <field name="precision"/>%
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-12">
+                                            <strong>Recommandations IA:</strong>
+                                            <div class="mt-1">
+                                                <field name="recommandations"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    
+    <!-- Vue tableau de bord des interventions avec suivi des coûts -->
+    <record id="view_smart_agri_dashboard_interventions" model="ir.ui.view">
+        <field name="name">smart.agri.dashboard.interventions</field>
+        <field name="model">smart_agri_intervention</field>
+        <field name="arch" type="xml">
+            <kanban string="Tableau de Bord des Interventions" class="o_kanban_dashboard">
+                <field name="name"/>
+                <field name="type_intervention"/>
+                <field name="date_planifiee"/>
+                <field name="duree_estimee"/>
+                <field name="cout_estime"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_content">
+                                <div class="o_kanban_record_top">
+                                    <div class="oe_kanban_record_headings">
+                                        <strong class="oe_kanban_record_title">
+                                            <field name="name"/>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="oe_kanban_record_body">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <strong>Type:</strong> <field name="type_intervention"/>
+                                        </div>
+                                        <div class="col-6">
+                                            <strong>État:</strong> <field name="state"/>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-6">
+                                            <strong>Date:</strong> <field name="date_planifiee"/>
+                                        </div>
+                                        <div class="col-6">
+                                            <strong>Durée:</strong> <field name="duree_estimee"/>h
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-12">
+                                            <strong>Coût Estimé:</strong> <field name="cout_estime"/>€
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    
+    <!-- Vue tableau de bord des rotations avec indicateurs de durabilité -->
+    <record id="view_smart_agri_dashboard_rotations" model="ir.ui.view">
+        <field name="name">smart.agri.dashboard.rotations</field>
+        <field name="model">smart_agri_rotation_culturelle</field>
+        <field name="arch" type="xml">
+            <kanban string="Tableau de Bord des Rotations Culturelles" class="o_kanban_dashboard">
+                <field name="name"/>
+                <field name="objectif_principal"/>
+                <field name="priorite_rotation"/>
+                <field name="date_debut"/>
+                <field name="date_fin"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_content">
+                                <div class="o_kanban_record_top">
+                                    <div class="oe_kanban_record_headings">
+                                        <strong class="oe_kanban_record_title">
+                                            <field name="name"/>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="oe_kanban_record_body">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <strong>Objectif:</strong> <field name="objectif_principal"/>
+                                        </div>
+                                        <div class="col-6">
+                                            <strong>Priorité:</strong> <field name="priorite_rotation"/>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-6">
+                                            <strong>Début:</strong> <field name="date_debut"/>
+                                        </div>
+                                        <div class="col-6">
+                                            <strong>Fin:</strong> <field name="date_fin"/>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-12">
+                                            <strong>État:</strong> <field name="state"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    
+    <!-- Action principale du tableau de bord professionnel -->
+    <record id="action_smart_agri_dashboard" model="ir.actions.act_window">
+        <field name="name">Tableau de Bord SmartAgriDecision</field>
+        <field name="res_model">smart_agri_exploitation</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="view_id" ref="view_smart_agri_dashboard_main"/>
+        <field name="help" type="html">
+            <div class="text-center">
+                <h2>🚀 Bienvenue dans SmartAgriDecision</h2>
+                <p class="lead">
+                    <strong>Module d'aide à la décision agricole basé sur l'IA et les données spatiales</strong>
+                </p>
+                <hr/>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>🎯 Fonctionnalités Principales</h4>
+                        <ul class="text-left">
+                            <li>Gestion des exploitations et parcelles</li>
+                            <li>Suivi des cultures et rotations</li>
+                            <li>Prédictions IA pour les rendements</li>
+                            <li>Analyse des données climatiques</li>
+                            <li>Planification des interventions</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>📊 Indicateurs Clés</h4>
+                        <ul class="text-left">
+                            <li>Surface totale cultivée</li>
+                            <li>Rendements prédits vs réels</li>
+                            <li>Coûts des interventions</li>
+                            <li>Qualité des données météo</li>
+                            <li>Efficacité des rotations</li>
+                        </ul>
+                    </div>
+                </div>
+                <hr/>
+                <p class="text-muted">
+                    <em>Ce tableau de bord vous donne une vue d'ensemble complète de votre exploitation agricole intelligente.</em>
+                </p>
+            </div>
+        </field>
+    </record>
+    
+    <!-- Actions spécialisées pour chaque tableau de bord -->
+    <record id="action_smart_agri_dashboard_cultures" model="ir.actions.act_window">
+        <field name="name">Tableau de Bord des Cultures</field>
+        <field name="res_model">smart_agri_culture</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="view_id" ref="view_smart_agri_dashboard_cultures"/>
+    </record>
+    
+    <record id="action_smart_agri_dashboard_ia" model="ir.actions.act_window">
+        <field name="name">Tableau de Bord IA</field>
+        <field name="res_model">smart_agri_ia_predictions</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="view_id" ref="view_smart_agri_dashboard_ia"/>
+    </record>
+    
+    <record id="action_smart_agri_dashboard_interventions" model="ir.actions.act_window">
+        <field name="name">Tableau de Bord des Interventions</field>
+        <field name="res_model">smart_agri_intervention</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="view_id" ref="view_smart_agri_dashboard_interventions"/>
+    </record>
+    
+    <record id="action_smart_agri_dashboard_rotations" model="ir.actions.act_window">
+        <field name="name">Tableau de Bord des Rotations</field>
+        <field name="res_model">smart_agri_rotation_culturelle</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="view_id" ref="view_smart_agri_dashboard_rotations"/>
+    </record>
+    
+</odoo>

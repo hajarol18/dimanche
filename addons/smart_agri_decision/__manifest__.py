@@ -1,44 +1,84 @@
+# -*- coding: utf-8 -*-
 {
-    'name': 'Smart Agri Decision',
-    'version': '1.0',
-    'depends': [
-        'base'
-    ],
-    'author': 'Hajar',
+    'name': 'SmartAgriDecision',
+    'version': '18.0.1.0.0',
     'category': 'Agriculture',
     'summary': 'Module d\'aide à la décision agricole basé sur l\'IA et les données spatiales',
-    'description': '''
-Module d'aide à la décision agricole basé sur l\'IA et les données spatiales
-==============================================
-
-Ce module permet aux agriculteurs de :
-- Gérer leurs exploitations et parcelles
-- Analyser les données météorologiques
-- Obtenir des prédictions IA
-- Planifier les cultures et interventions
-    ''',
+    'description': """
+        Module SmartAgriDecision pour Odoo 18
+        =====================================
+        
+        Fonctionnalités principales :
+        - Gestion des exploitations agricoles et parcelles
+        - Intégration des données climatiques et météorologiques
+        - Prédictions IA pour les rendements et recommandations
+        - Tableaux de bord intelligents
+        - Gestion des rotations culturales
+        - Optimisation des ressources (eau, engrais, main-d'œuvre)
+        - Simulation de scénarios climatiques
+        - Alertes et recommandations en temps réel
+        
+        Technologies utilisées :
+        - Odoo 18, PostgreSQL + PostGIS
+        - Scikit-learn / XGBoost pour l'IA
+        - Pandas pour l'analyse des données
+        - Leaflet.js pour la cartographie
+        - Intégration API météo et données sol
+    """,
+    'author': 'SmartAgri Team',
+    'website': 'https://www.smartagri.com',
+    'depends': [
+        'base',
+        'mail',
+        'web',
+        'base_geolocalize',
+    ],
     'data': [
+        # Données de base
+        'data/sequences.xml',
+        
+        # Sécurité (AVANT les vues pour éviter les erreurs de permissions)
         'security/ir.model.access.csv',
-        'data/visibility.xml',
+        
+        # Actions (AVANT les menus pour éviter les erreurs de références)
         'views/actions.xml',
-        'views/main_menu.xml',
+        
+        # Vues de base (sans références de menus)
         'views/soil_type_views.xml',
         'views/exploitation_views.xml',
         'views/parcelle_views.xml',
         'views/culture_views.xml',
         'views/meteo_views.xml',
-        'views/ia_predictions_views.xml',
         'views/intervention_views.xml',
         'views/intrants_views.xml',
         'views/utilisation_intrants_views.xml',
         'views/meteostat_import_views.xml',
         'views/alerte_climatique_views.xml',
         'views/tendance_climatique_views.xml',
-        'data/security_data.xml',
+        'views/scenario_climatique_views.xml',
+        'views/rcp_scenario_views.xml',
+        'views/tableau_bord_views.xml',
+        'views/rotation_culturelle_views.xml',
+        'views/dashboard_views.xml',
+        
+        # Vues IA (sans références de menus)
+        'views/ia_predictions_views.xml',
+        'views/ia_simulateur_views.xml',
+        'views/ia_optimisation_ressources_views.xml',
+        'views/ia_dashboard_views.xml',
+        'views/ia_detection_stress_views.xml',
+        
+        # Menu principal (APRÈS toutes les vues et actions)
+        'views/main_menu.xml',
+        
+        # Données de démonstration (après la création des modèles et de la sécurité)
+        'data/demo_data_complet.xml',
+    ],
+    'demo': [
+        'data/demo_data_complet.xml',
     ],
     'installable': True,
     'application': True,
     'auto_install': False,
-    'sequence': 1,
     'license': 'LGPL-3',
 }

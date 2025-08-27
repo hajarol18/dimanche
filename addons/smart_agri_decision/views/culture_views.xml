@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
+    
         <!-- Vue liste pour les cultures -->
         <record id="view_smart_agri_culture_list" model="ir.ui.view">
             <field name="name">smart.agri.culture.list</field>
@@ -8,10 +8,12 @@
             <field name="arch" type="xml">
                 <list string="Cultures">
                     <field name="name"/>
-                    <field name="code"/>
                     <field name="famille"/>
-                    <field name="duree_cycle"/>
+                    <field name="exploitation_id"/>
+                    <field name="parcelle_id"/>
+                    <field name="state"/>
                     <field name="rendement_moyen"/>
+                    <field name="surface_utilisee"/>
                 </list>
             </field>
         </record>
@@ -22,29 +24,57 @@
             <field name="model">smart_agri_culture</field>
             <field name="arch" type="xml">
                 <form string="Culture">
+                    <header>
+                        <button name="optimiser_rotation_suivante" 
+                                string="Optimiser Rotation" 
+                                type="object" 
+                                class="oe_highlight"
+                                invisible="state != 'active'"/>
+                    </header>
                     <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Nom de la culture"/>
+                            </h1>
+                        </div>
                         <group>
                             <group string="Informations de base">
-                                <field name="name"/>
                                 <field name="code"/>
+                                <field name="famille"/>
                                 <field name="description"/>
+                                <field name="exploitation_id"/>
+                                <field name="parcelle_id"/>
                             </group>
                             <group string="Caractéristiques">
-                                <field name="famille"/>
                                 <field name="duree_cycle"/>
+                                <field name="saison_plantation"/>
+                                <field name="rendement_moyen"/>
+                                <field name="surface_utilisee"/>
                             </group>
                         </group>
                         <group>
                             <group string="Planification">
-                                <field name="saison_plantation"/>
+                                <field name="date_plantation"/>
+                                <field name="date_recolte_prevue"/>
+                                <field name="date_recolte_reelle"/>
+                                <field name="state"/>
                             </group>
                             <group string="Performance">
-                                <field name="rendement_moyen"/>
+                                <field name="rendement_reel"/>
+                                <field name="qualite_recolte"/>
+                                <field name="duree_culture"/>
+                                <field name="rendement_total"/>
+                                <field name="nombre_interventions"/>
                             </group>
                         </group>
-                        <group>
-                            <field name="notes"/>
-                        </group>
+                        <notebook>
+                            <page string="Observations">
+                                <field name="observations"/>
+                                <field name="problemes_rencontres"/>
+                                <field name="solutions_appliquees"/>
+                                <field name="notes"/>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
@@ -64,5 +94,6 @@
                 </p>
             </field>
         </record>
-    </data>
+    
 </odoo>
+

@@ -1,42 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-        <!-- Vue liste des imports Meteostat -->
+    
+        <!-- Vue liste pour les imports Meteostat -->
         <record id="view_meteostat_import_list" model="ir.ui.view">
-            <field name="name">smart_agri_meteostat_import.list</field>
+            <field name="name">smart.agri.meteostat.import.list</field>
             <field name="model">smart_agri_meteostat_import</field>
             <field name="arch" type="xml">
                 <list string="Imports Meteostat">
                     <field name="name"/>
-                    <field name="station_id"/>
-                    <field name="date_debut"/>
-                    <field name="date_fin"/>
-                    <field name="state"/>
-                    <field name="nombre_enregistrements"/>
                     <field name="date_import"/>
-                    <field name="import_automatique"/>
+                    <field name="state"/>
                 </list>
             </field>
         </record>
 
-        <!-- Vue formulaire des imports Meteostat -->
+        <!-- Vue formulaire pour les imports Meteostat -->
         <record id="view_meteostat_import_form" model="ir.ui.view">
-            <field name="name">smart_agri_meteostat_import.form</field>
+            <field name="name">smart.agri.meteostat.import.form</field>
             <field name="model">smart_agri_meteostat_import</field>
             <field name="arch" type="xml">
                 <form string="Import Meteostat">
                     <header>
-                        <button name="importer_donnees_meteostat" 
-                                type="object" 
-                                string="Importer" 
-                                class="oe_highlight"
-                                invisible="state in ['en_cours', 'termine']"/>
-                        <button name="tester_connexion_meteostat" 
-                                type="object" 
-                                string="Tester Connexion" 
-                                class="oe_secondary"/>
-                        <field name="state" widget="statusbar" 
-                               statusbar_visible="planifie,en_cours,termine"/>
+                        <button name="importer_donnees_meteostat" type="object" string="Importer" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="planifie,en_cours,termine"/>
                     </header>
                     <sheet>
                         <div class="oe_title">
@@ -45,38 +31,15 @@
                             </h1>
                         </div>
                         <group>
-                            <group string="Configuration">
-                                <field name="station_id"/>
-                                <field name="latitude"/>
-                                <field name="longitude"/>
-                                <field name="parametres_import"/>
-                            </group>
-                            <group string="Période">
-                                <field name="date_debut"/>
-                                <field name="date_fin"/>
-                                <field name="date_import"/>
-                            </group>
-                        </group>
-                        <group>
-                            <group string="Configuration automatique">
-                                <field name="import_automatique"/>
-                                <field name="frequence_import"/>
-                                <field name="prochaine_import"/>
-                            </group>
-                            <group string="Résultats">
-                                <field name="nombre_enregistrements"/>
-                                <field name="duree_import"/>
-                            </group>
-                        </group>
-                        <notebook>
-                            <page string="Description">
+                            <group string="Informations de base">
+                                <field name="name"/>
                                 <field name="description"/>
-                            </page>
-                            <page string="Logs et Erreurs">
-                                <field name="erreur_import"/>
-                                <field name="log_import"/>
-                            </page>
-                        </notebook>
+                            </group>
+                            <group string="Paramètres">
+                                <field name="date_import"/>
+                                <field name="state"/>
+                            </group>
+                        </group>
                     </sheet>
                 </form>
             </field>
@@ -89,12 +52,12 @@
             <field name="view_mode">list,form</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
-                    Créez votre premier import Meteostat !
+                    Créez votre premier import Meteostat
                 </p>
                 <p>
-                    Configurez l'import automatique des données climatiques depuis Meteostat.
+                    Importez des données météorologiques depuis l'API Meteostat.
                 </p>
             </field>
         </record>
-    </data>
+    
 </odoo>

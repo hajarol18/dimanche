@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- ======================================== -->
+        <!-- DONNÉES DE DÉMONSTRATION ROTATION ET TABLEAU DE BORD -->
+        <!-- ======================================== -->
+
+        <!-- OBJECTIFS DE ROTATION -->
+        <record id="objectif_productivite" model="smart_agri_objectif_rotation">
+            <field name="name">Maximiser la Productivité</field>
+            <field name="exploitation_id" ref="exploitation_demo_meknes"/>
+            <field name="description">Objectif principal visant à maximiser les rendements et la production</field>
+            <field name="notes">Rendement par hectare, Production totale, Efficacité des intrants</field>
+        </record>
+
+        <record id="objectif_durabilite" model="smart_agri_objectif_rotation">
+            <field name="name">Améliorer la Durabilité</field>
+            <field name="exploitation_id" ref="exploitation_demo_meknes"/>
+            <field name="description">Préserver la fertilité du sol et la biodiversité sur le long terme</field>
+            <field name="notes">Matière organique du sol, Diversité des cultures, Érosion du sol</field>
+        </record>
+
+        <record id="objectif_resilience" model="smart_agri_objectif_rotation">
+            <field name="name">Renforcer la Résilience Climatique</field>
+            <field name="exploitation_id" ref="exploitation_demo_meknes"/>
+            <field name="description">Adapter les rotations aux changements climatiques et aux événements extrêmes</field>
+            <field name="notes">Tolérance à la sécheresse, Résistance aux maladies, Adaptation saisonnière</field>
+        </record>
+
+        <record id="objectif_economie" model="smart_agri_objectif_rotation">
+            <field name="name">Réduire les Coûts</field>
+            <field name="exploitation_id" ref="exploitation_demo_meknes"/>
+            <field name="description">Optimiser l'utilisation des ressources et réduire les dépenses</field>
+            <field name="notes">Coût par hectare, Efficacité des intrants, Marge brute</field>
+        </record>
+
+        <record id="objectif_biodiversite" model="smart_agri_objectif_rotation">
+            <field name="name">Préserver la Biodiversité</field>
+            <field name="exploitation_id" ref="exploitation_demo_meknes"/>
+            <field name="description">Maintenir et améliorer la diversité biologique de l'exploitation</field>
+            <field name="notes">Nombre d'espèces cultivées, Présence d'auxiliaires, Habitats naturels</field>
+        </record>
+
+        <!-- PLANS DE ROTATION CULTURELLE -->
+        <record id="rotation_cereales_meknes" model="smart_agri_rotation_culturelle">
+            <field name="name">Rotation Céréales - Meknès</field>
+            <field name="code">ROT_MEK_001</field>
+            <field name="exploitation_id" ref="exploitation_demo_meknes"/>
+            <field name="parcelle_id" ref="parcelle_demo_meknes_1"/>
+            <field name="date_debut" eval="(DateTime.today() - relativedelta(months=2)).strftime('%Y-%m-%d')"/>
+            <field name="date_fin" eval="(DateTime.today() + relativedelta(years=3)).strftime('%Y-%m-%d')"/>
+            <field name="objectif_principal">productivite</field>
+            <field name="objectifs_secondaires" eval="[(6, 0, [ref('objectif_durabilite'), ref('objectif_economie')])]"/>
+            <field name="priorite_rotation">elevee</field>
+            <field name="culture_precedente_id" ref="culture_ble_dur"/>
+            <field name="culture_actuelle_id" ref="culture_orge"/>
+            <field name="culture_suivante_id" ref="culture_legumineuses"/>
+            <field name="rendement_attendu">4.2</field>
+            <field name="rendement_reel">4.1</field>
+            <field name="benefices_rotation">Diversification des cultures, amélioration de la structure du sol, réduction des risques de maladies</field>
+            <field name="risques_rotation">Risque de sécheresse en été, pression des ravageurs sur les céréales</field>
+            <field name="recommandations_ia">Intégrer des légumineuses pour la fixation d'azote, maintenir une couverture végétale en hiver</field>
+            <field name="state">en_cours</field>
+        </record>
+
+        <record id="rotation_arboriculture_agadir" model="smart_agri_rotation_culturelle">
+            <field name="name">Rotation Arboriculture - Agadir</field>
+            <field name="code">ROT_AGA_001</field>
+            <field name="exploitation_id" ref="exploitation_demo_agadir"/>
+            <field name="parcelle_id" ref="parcelle_demo_agadir_1"/>
+            <field name="date_debut" eval="(DateTime.today() - relativedelta(months=1)).strftime('%Y-%m-%d')"/>
+            <field name="date_fin" eval="(DateTime.today() + relativedelta(years=5)).strftime('%Y-%m-%d')"/>
+            <field name="objectif_principal">durabilite</field>
+            <field name="objectifs_secondaires" eval="[(6, 0, [ref('objectif_resilience'), ref('objectif_biodiversite')])]"/>
+            <field name="priorite_rotation">critique</field>
+            <field name="culture_precedente_id" ref="culture_agrumes"/>
+            <field name="culture_actuelle_id" ref="culture_oliviers"/>
+            <field name="culture_suivante_id" ref="culture_agrumes"/>
+            <field name="rendement_attendu">3.8</field>
+            <field name="rendement_reel">3.9</field>
+            <field name="benefices_rotation">Stabilité des revenus, résistance à la sécheresse, diversification des risques</field>
+            <field name="risques_rotation">Sensibilité aux gelées tardives, pression des maladies fongiques</field>
+            <field name="recommandations_ia">Privilégier les variétés résistantes, optimiser l'irrigation, surveillance phytosanitaire renforcée</field>
+            <field name="state">en_cours</field>
+        </record>
+
+        <record id="rotation_maraichage_meknes" model="smart_agri_rotation_culturelle">
+            <field name="name">Rotation Maraîchage - Meknès</field>
+            <field name="code">ROT_MEK_002</field>
+            <field name="exploitation_id" ref="exploitation_demo_meknes"/>
+            <field name="parcelle_id" ref="parcelle_demo_meknes_2"/>
+            <field name="date_debut" eval="DateTime.today().strftime('%Y-%m-%d')"/>
+            <field name="date_fin" eval="(DateTime.today() + relativedelta(years=2)).strftime('%Y-%m-%d')"/>
+            <field name="objectif_principal">qualite</field>
+            <field name="objectifs_secondaires" eval="[(6, 0, [ref('objectif_productivite'), ref('objectif_durabilite')])]"/>
+            <field name="priorite_rotation">normale</field>
+            <field name="culture_precedente_id" ref="culture_tomates"/>
+            <field name="culture_actuelle_id" ref="culture_poivrons"/>
+            <field name="culture_suivante_id" ref="culture_legumes_feuilles"/>
+            <field name="rendement_attendu">25.0</field>
+            <field name="rendement_reel">24.5</field>
+            <field name="benefices_rotation">Production continue, qualité des légumes, gestion optimale de l'espace</field>
+            <field name="risques_rotation">Accumulation de pathogènes du sol, épuisement des nutriments</field>
+            <field name="recommandations_ia">Rotation avec légumineuses, apport de compost, désinfection du sol</field>
+            <field name="state">planifie</field>
+        </record>
+
+        <!-- INDICATEURS DE PERFORMANCE -->
+        <record id="indicateur_rendement_moyen" model="smart_agri_indicateur_performance">
+            <field name="name">Rendement Moyen par Hectare</field>
+            <field name="code">RENDEMENT_MOYEN</field>
+            <field name="type_indicateur">metrique</field>
+            <field name="categorie">productivite</field>
+            <field name="sous_categorie">Production</field>
+            <field name="formule_calcul">Moyenne des rendements prédits par l'IA pour une exploitation donnée</field>
+            <field name="unite">t/ha</field>
+            <field name="seuil_alerte">3.5</field>
+            <field name="seuil_critique">2.5</field>
+            <field name="description">Indicateur clé de la productivité agricole</field>
+            <field name="indicateurs">Rendement par culture, Évolution temporelle, Comparaison avec objectifs</field>
+            <field name="actions_concretes">Optimisation des pratiques culturales, Ajustement des apports, Planification des rotations</field>
+        </record>
+
+        <record id="indicateur_taux_realisation" model="smart_agri_indicateur_performance">
+            <field name="name">Taux de Réalisation des Objectifs</field>
+            <field name="code">TAUX_REALISATION</field>
+            <field name="type_indicateur">ratio</field>
+            <field name="categorie">productivite</field>
+            <field name="sous_categorie">Performance</field>
+            <field name="formule_calcul">(Rendement réel / Rendement attendu) * 100</field>
+            <field name="unite">%</field>
+            <field name="seuil_alerte">85</field>
+            <field name="seuil_critique">70</field>
+            <field name="description">Mesure l'efficacité de la planification et de l'exécution</field>
+            <field name="indicateurs">Écart de rendement, Causes des déviations, Actions correctives</field>
+            <field name="actions_concretes">Analyse des écarts, Ajustement des prévisions, Amélioration des pratiques</field>
+        </record>
+
+        <record id="indicateur_score_rotation" model="smart_agri_indicateur_performance">
+            <field name="name">Score de Rotation Culturelle</field>
+            <field name="code">SCORE_ROTATION</field>
+            <field name="type_indicateur">metrique</field>
+            <field name="categorie">durabilite</field>
+            <field name="sous_categorie">Gestion des sols</field>
+            <field name="formule_calcul">Score IA basé sur la compatibilité, diversité et saisonnalité des cultures</field>
+            <field name="unite">%</field>
+            <field name="seuil_alerte">60</field>
+            <field name="seuil_critique">40</field>
+            <field name="description">Évalue la qualité des plans de rotation culturelle</field>
+            <field name="indicateurs">Diversité des cultures, Compatibilité agronomique, Planification temporelle</field>
+            <field name="actions_concretes">Optimisation des rotations, Intégration de légumineuses, Planification à long terme</field>
+        </record>
+
+        <!-- ALERTES INTELLIGENTES -->
+        <record id="alerte_secheresse_meknes" model="smart_agri_alerte">
+            <field name="name">Alerte Sécheresse - Meknès</field>
+            <field name="code">ALERTE_MEK_001</field>
+            <field name="type_alerte">climatique</field>
+            <field name="priorite">elevee</field>
+            <field name="exploitation_id" ref="exploitation_demo_meknes"/>
+            <field name="description">Déficit hydrique important détecté sur l'exploitation de Meknès</field>
+            <field name="cause_racine">Précipitations inférieures de 40% aux moyennes saisonnières, températures élevées</field>
+            <field name="recommandations">Activer l'irrigation d'appoint, ajuster les doses d'engrais, surveiller le stress hydrique</field>
+            <field name="actions_immediates">Programmer l'irrigation, réduire les apports d'azote, surveiller les cultures sensibles</field>
+            <field name="actions_preventives">Installer des capteurs d'humidité, optimiser le système d'irrigation, planifier des cultures résistantes</field>
+            <field name="state">active</field>
+        </record>
+
+        <record id="alerte_ph_sol_agadir" model="smart_agri_alerte">
+            <field name="name">Alerte pH du Sol - Agadir</field>
+            <field name="code">ALERTE_AGA_001</field>
+            <field name="type_alerte">agronomique</field>
+            <field name="priorite">normale</field>
+            <field name="exploitation_id" ref="exploitation_demo_agadir"/>
+            <field name="description">pH du sol trop acide détecté sur certaines parcelles</field>
+            <field name="cause_racine">Accumulation d'engrais azotés, lessivage des bases, absence de chaulage</field>
+            <field name="recommandations">Programmer un chaulage, ajuster les apports d'engrais, surveiller l'évolution du pH</field>
+            <field name="actions_immediates">Analyser le pH sur toutes les parcelles, identifier les zones critiques</field>
+            <field name="actions_preventives">Planifier le chaulage pour la prochaine saison, équilibrer les apports d'engrais</field>
+            <field name="state">active</field>
+        </record>
+
+        <record id="alerte_rotation_optimisation" model="smart_agri_alerte">
+            <field name="name">Optimisation Rotation Culturelle</field>
+            <field name="code">ALERTE_ROT_001</field>
+            <field name="type_alerte">agronomique</field>
+            <field name="priorite">normale</field>
+            <field name="exploitation_id" ref="exploitation_demo_meknes"/>
+            <field name="description">Opportunité d'optimiser la rotation culturelle pour améliorer la durabilité</field>
+            <field name="cause_racine">Score de rotation moyen de 65%, possibilité d'amélioration avec l'intégration de légumineuses</field>
+            <field name="recommandations">Intégrer des légumineuses dans la rotation, diversifier les cultures, planifier sur 4-5 ans</field>
+            <field name="actions_immediates">Analyser les rotations actuelles, identifier les opportunités d'amélioration</field>
+            <field name="actions_preventives">Élaborer un plan de rotation optimisé, former les équipes aux nouvelles pratiques</field>
+            <field name="state">active</field>
+        </record>
+
+    </data>
+</odoo>

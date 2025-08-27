@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ======================================== -->
+    <!-- DÉTECTION AUTOMATIQUE DE STRESS IA -->
+    <!-- Alertes intelligentes + Actions auto -->
+    <!-- ======================================== -->
+
+    <!-- VUE DÉTECTION STRESS IA -->
+    <record id="view_ia_detection_stress_form" model="ir.ui.view">
+        <field name="name">smart_agri_ia_detection_stress.form</field>
+        <field name="model">smart_agri_ia_detection_stress</field>
+        <field name="arch" type="xml">
+                            <form string="Détection IA - Stress Climatique &amp; Hydrique">
+                <header>
+                    <button name="action_analyser_stress" type="object" string="🔍 Analyser Stress" class="btn-primary"/>
+                    <button name="action_generer_alertes" type="object" string="🚨 Générer Alertes" class="btn-warning"/>
+                    <button name="action_appliquer_corrections" type="object" string="⚡ Appliquer Corrections" class="btn-success"/>
+                    <button name="action_planifier_surveillance" type="object" string="📅 Planifier Surveillance" class="btn-info"/>
+                    <field name="state" widget="statusbar" statusbar_visible="surveillance,detection,alerte,correction,resolu"/>
+                </header>
+
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Nom de la Détection de Stress"/>
+                        </h1>
+                        <h3>
+                            <field name="description" placeholder="Description de la détection"/>
+                        </h3>
+                    </div>
+
+                                         <!-- INFORMATIONS GÉNÉRALES -->
+                     <div class="row mt-3">
+                         <div class="col-md-6">
+                             <div class="o_form_label">🌱 Exploitation</div>
+                             <field name="exploitation_id"/>
+                         </div>
+                         <div class="col-md-6">
+                             <div class="o_form_label">🌍 Parcelle</div>
+                             <field name="parcelle_id"/>
+                         </div>
+                     </div>
+
+                    <!-- DÉTECTION AUTOMATIQUE IA -->
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <div class="card border-warning">
+                                <div class="card-header bg-warning text-white">
+                                    <h5>🤖 Détection Automatique IA - Analyse en Temps Réel</h5>
+                                </div>
+                                <div class="card-body">
+                                                                         <div class="row">
+                                         <div class="col-md-3">
+                                             <div class="o_form_label">🔍 Type de Stress Détecté</div>
+                                             <field name="type_stress" widget="badge" 
+                                                    decoration-success="type_stress == 'aucun'" 
+                                                    decoration-warning="type_stress == 'modere'" 
+                                                    decoration-danger="type_stress == 'eleve'"/>
+                                         </div>
+                                         <div class="col-md-3">
+                                             <div class="o_form_label">📊 Niveau de Stress</div>
+                                             <field name="niveau_stress" widget="integer"/>
+                                         </div>
+                                         <div class="col-md-3">
+                                             <div class="o_form_label">🎯 Confiance IA</div>
+                                             <field name="confiance_detection" widget="integer"/>
+                                         </div>
+                                         <div class="col-md-3">
+                                             <div class="o_form_label">⏰ Dernière Détection</div>
+                                             <field name="date_detection" widget="datetime"/>
+                                         </div>
+                                     </div>
+                                     <div class="row mt-2">
+                                         <div class="col-md-12">
+                                             <div class="o_form_label">📝 Description du Stress</div>
+                                             <field name="description_stress" widget="text"/>
+                                         </div>
+                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PARAMÈTRES CLIMATIQUES ANALYSÉS -->
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <div class="card border-info">
+                                <div class="card-header bg-info text-white">
+                                    <h5>🌍 Paramètres Climatiques Analysés par l'IA</h5>
+                                </div>
+                                <div class="card-body">
+                                                                         <div class="row">
+                                         <div class="col-md-3">
+                                             <div class="o_form_label">🌡️ Température Actuelle (°C)</div>
+                                             <field name="temperature_actuelle" widget="float"/>
+                                         </div>
+                                         <div class="col-md-3">
+                                             <div class="o_form_label">🌡️ Température Seuil (°C)</div>
+                                             <field name="temperature_seuil" widget="float"/>
+                                         </div>
+                                         <div class="col-md-3">
+                                             <div class="o_form_label">🌡️ Écart Température (°C)</div>
+                                             <field name="ecart_temperature" widget="float"/>
+                                         </div>
+                                         <div class="col-md-3">
+                                             <div class="o_form_label">🌡️ Statut Température</div>
+                                             <field name="statut_temperature" widget="badge" 
+                                                    decoration-success="statut_temperature == 'normal'" 
+                                                    decoration-warning="statut_temperature == 'attention'" 
+                                                    decoration-danger="statut_temperature == 'critique'"/>
+                                         </div>
+                                     </div>
+                                                                         <div class="row mt-2">
+                                         <div class="col-md-3">
+                                             <div class="o_form_label">💧 Humidité Sol (%)</div>
+                                             <field name="humidite_sol" widget="float"/>
+                                         </div>
+                                         <div class="col-md-3">
+                                             <div class="o_form_label">💧 Humidité Seuil (%)</div>
+                                             <field name="humidite_seuil" widget="float"/>
+                                         </div>
+                                         <div class="col-md-3">
+                                             <div class="o_form_label">💧 Déficit Hydrique (%)</div>
+                                             <field name="deficit_hydrique" widget="float"/>
+                                         </div>
+                                         <div class="col-md-3">
+                                             <div class="o_form_label">💧 Statut Hydrique</div>
+                                             <field name="statut_hydrique" widget="badge" 
+                                                    decoration-success="statut_hydrique == 'optimal'" 
+                                                    decoration-warning="statut_hydrique == 'faible'" 
+                                                    decoration-danger="statut_hydrique == 'critique'"/>
+                                         </div>
+                                     </div>
+                                                                         <div class="row mt-2">
+                                         <div class="col-md-3">
+                                             <div class="o_form_label">🌧️ Précipitations (mm)</div>
+                                             <field name="precipitations" widget="float"/>
+                                         </div>
+                                         <div class="col-md-3">
+                                             <div class="o_form_label">🌧️ Précipitations Normales (mm)</div>
+                                             <field name="precipitations_normales" widget="float"/>
+                                         </div>
+                                         <div class="col-md-3">
+                                             <div class="o_form_label">🌧️ Déficit Précipitations (mm)</div>
+                                             <field name="deficit_precipitations" widget="float"/>
+                                         </div>
+                                         <div class="col-md-3">
+                                             <div class="o_form_label">🌧️ Statut Précipitations</div>
+                                             <field name="statut_precipitations" widget="badge" 
+                                                    decoration-success="statut_precipitations == 'suffisant'" 
+                                                    decoration-warning="statut_precipitations == 'insuffisant'" 
+                                                    decoration-danger="statut_precipitations == 'deficitaire'"/>
+                                         </div>
+                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ANALYSE DES CULTURES -->
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <div class="card border-success">
+                                <div class="card-header bg-success text-white">
+                                    <h5>🌱 Analyse des Cultures - Impact du Stress</h5>
+                                </div>
+                                <div class="card-body">
+                                                                         <div class="row">
+                                         <div class="col-md-3">
+                                             <div class="o_form_label">🌱 Culture Affectée</div>
+                                             <field name="culture_affectee"/>
+                                         </div>
+                                         <div class="col-md-3">
+                                             <div class="o_form_label">🌿 Stade de Développement</div>
+                                             <field name="stade_developpement"/>
+                                         </div>
+                                         <div class="col-md-3">
+                                             <div class="o_form_label">📊 Impact sur Rendement (%)</div>
+                                             <field name="impact_rendement" widget="float"/>
+                                         </div>
+                                         <div class="col-md-3">
+                                             <div class="o_form_label">⏰ Durée d'Exposition</div>
+                                             <field name="duree_exposition" widget="float"/>
+                                         </div>
+                                     </div>
+                                     <div class="row mt-2">
+                                         <div class="col-md-6">
+                                             <div class="o_form_label">🌱 Symptômes Visibles</div>
+                                             <field name="symptomes_visibles" widget="text"/>
+                                         </div>
+                                         <div class="col-md-6">
+                                             <div class="o_form_label">🌱 Résistance de la Culture</div>
+                                             <field name="resistance_culture"/>
+                                         </div>
+                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                                         <!-- ALERTES INTELLIGENTES -->
+                     <div class="row mt-3">
+                         <div class="col-md-12">
+                             <div class="card border-danger">
+                                 <div class="card-header bg-danger text-white">
+                                     <h5>🚨 Alertes IA Intelligentes - Actions Recommandées</h5>
+                                 </div>
+                                 <div class="card-body">
+                                     <div class="alert alert-info">
+                                         <strong>ℹ️ Information :</strong> Les alertes IA détaillées seront disponibles dans une prochaine version.
+                                         <br/>Pour l'instant, utilisez le bouton "Générer Alertes" dans l'en-tête.
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+
+                                         <!-- ACTIONS CORRECTIVES AUTOMATIQUES -->
+                     <div class="row mt-3">
+                         <div class="col-md-12">
+                             <div class="card border-primary">
+                                 <div class="card-header bg-primary text-white">
+                                     <h5>⚡ Actions Correctives Automatiques - Gestion IA</h5>
+                                 </div>
+                                 <div class="card-body">
+                                     <div class="alert alert-info">
+                                         <strong>ℹ️ Information :</strong> Les actions correctives détaillées seront disponibles dans une prochaine version.
+                                         <br/>Pour l'instant, utilisez le bouton "Appliquer Corrections" dans l'en-tête.
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+
+                    <!-- SURVEILLANCE CONTINUE -->
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>📊 Surveillance Continue - Suivi IA</h5>
+                                </div>
+                                <div class="card-body">
+                                                                         <div class="row">
+                                         <div class="col-md-3">
+                                             <div class="o_form_label">📅 Fréquence Surveillance</div>
+                                             <field name="frequence_surveillance"/>
+                                         </div>
+                                         <div class="col-md-3">
+                                             <div class="o_form_label">⏰ Prochaine Analyse</div>
+                                             <field name="prochaine_analyse" widget="datetime"/>
+                                         </div>
+                                         <div class="col-md-3">
+                                             <div class="o_form_label">📊 Nombre d'Analyses</div>
+                                             <field name="nombre_analyses" widget="integer"/>
+                                         </div>
+                                         <div class="col-md-3">
+                                             <div class="o_form_label">📈 Tendance Stress</div>
+                                             <field name="tendance_stress"/>
+                                         </div>
+                                     </div>
+                                     <div class="row mt-2">
+                                         <div class="col-md-12">
+                                             <div class="o_form_label">📝 Notes de Surveillance</div>
+                                             <field name="notes_surveillance" widget="text"/>
+                                         </div>
+                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- GRAPHIQUES D'ÉVOLUTION -->
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6>📈 Évolution du Stress dans le Temps</h6>
+                                </div>
+                                <div class="card-body">
+                                    <field name="graphique_evolution_stress" widget="chart"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6>🌍 Répartition des Types de Stress</h6>
+                                </div>
+                                <div class="card-body">
+                                    <field name="graphique_repartition_stress" widget="chart"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </sheet>
+
+                                 <!-- Note: Le modèle n'hérite pas de mail.thread, donc pas de chatter -->
+            </form>
+        </field>
+    </record>
+
+    <!-- VUE LISTE DÉTECTION STRESS IA -->
+    <record id="view_ia_detection_stress_list" model="ir.ui.view">
+        <field name="name">smart_agri_ia_detection_stress.list</field>
+        <field name="model">smart_agri_ia_detection_stress</field>
+        <field name="arch" type="xml">
+            <list string="Détections de Stress IA">
+                <field name="name"/>
+                <field name="exploitation_id"/>
+                <field name="type_stress" widget="badge" 
+                       decoration-success="type_stress == 'aucun'" 
+                       decoration-warning="type_stress == 'modere'" 
+                       decoration-danger="type_stress == 'eleve'"/>
+                <field name="niveau_stress"/>
+                <field name="culture_affectee"/>
+                <field name="impact_rendement"/>
+                <field name="date_detection"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ACTION DÉTECTION STRESS IA -->
+    <record id="action_ia_detection_stress" model="ir.actions.act_window">
+        <field name="name">Détection Stress IA</field>
+        <field name="res_model">smart_agri_ia_detection_stress</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_ia_detection_stress_list"/>
+        <field name="context">{'search_default_stress_actifs': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Aucune détection de stress active !
+            </p>
+            <p>
+                Le système de détection IA surveille automatiquement :
+                <ul>
+                    <li>🌡️ Stress thermique (température)</li>
+                    <li>💧 Stress hydrique (sécheresse)</li>
+                    <li>🌧️ Stress hydrique (excès d'eau)</li>
+                    <li>🌪️ Stress climatique (vents, événements extrêmes)</li>
+                    <li>🌱 Impact sur les cultures</li>
+                </ul>
+            </p>
+        </field>
+    </record>
+
+</odoo>

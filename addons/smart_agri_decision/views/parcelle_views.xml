@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
+    
         <!-- Vue liste pour les parcelles -->
         <record id="view_smart_agri_parcelle_list" model="ir.ui.view">
             <field name="name">smart.agri.parcelle.list</field>
@@ -9,9 +9,8 @@
                 <list string="Parcelles">
                     <field name="name"/>
                     <field name="code"/>
+                    <field name="exploitation_id"/>
                     <field name="surface"/>
-                    <field name="soil_type_id"/>
-                    <field name="date_creation"/>
                 </list>
             </field>
         </record>
@@ -23,29 +22,39 @@
             <field name="arch" type="xml">
                 <form string="Parcelle">
                     <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Nom de la parcelle"/>
+                            </h1>
+                        </div>
                         <group>
                             <group string="Informations de base">
                                 <field name="name"/>
                                 <field name="code"/>
+                                <field name="exploitation_id"/>
                                 <field name="description"/>
                             </group>
-                            <group string="Surface et localisation">
-                                <field name="surface"/>
-                                <field name="latitude"/>
-                                <field name="longitude"/>
-                            </group>
-                        </group>
-                        <group>
                             <group string="Caractéristiques">
-                                <field name="soil_type_id"/>
-                            </group>
-                            <group string="Dates">
-                                <field name="date_creation"/>
+                                <field name="surface"/>
+                                <field name="type_sol_id"/>
                             </group>
                         </group>
-                        <group>
-                            <field name="notes"/>
-                        </group>
+                        <notebook>
+                            <page string="Cultures">
+                                <field name="culture_ids" readonly="1">
+                                    <list>
+                                        <field name="name"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Interventions">
+                                <field name="intervention_ids" readonly="1">
+                                    <list>
+                                        <field name="name"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
@@ -65,5 +74,5 @@
                 </p>
             </field>
         </record>
-    </data>
+    
 </odoo>

@@ -1,67 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-        <!-- Vue liste pour les prédictions IA -->
-        <record id="view_smart_agri_ia_predictions_list" model="ir.ui.view">
-            <field name="name">smart.agri.ia.predictions.list</field>
-            <field name="model">smart_agri_ia_predictions</field>
-            <field name="arch" type="xml">
-                <list string="Prédictions IA">
-                    <field name="name"/>
-                    <field name="type_prediction"/>
-                    <field name="date_creation"/>
-                    <field name="confiance"/>
-                </list>
-            </field>
-        </record>
-
-        <!-- Vue formulaire pour les prédictions IA -->
-        <record id="view_smart_agri_ia_predictions_form" model="ir.ui.view">
-            <field name="name">smart.agri.ia.predictions.form</field>
-            <field name="model">smart_agri_ia_predictions</field>
-            <field name="arch" type="xml">
-                <form string="Prédiction IA">
-                    <sheet>
+    
+    <!-- ======================================== -->
+    <!-- VUES PRÉDICTIONS IA MINIMALES -->
+    <!-- ======================================== -->
+    
+    <!-- Vue liste prédictions IA -->
+    <record id="view_smart_agri_ia_predictions_list" model="ir.ui.view">
+        <field name="name">smart.agri.ia.predictions.list</field>
+        <field name="model">smart_agri_ia_predictions</field>
+        <field name="arch" type="xml">
+            <list string="Prédictions IA">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="type_prediction"/>
+                <field name="date_creation"/>
+                <field name="exploitation_id"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+    
+    <!-- Vue formulaire prédictions IA -->
+    <record id="view_smart_agri_ia_predictions_form" model="ir.ui.view">
+        <field name="name">smart.agri.ia.predictions.form</field>
+        <field name="model">smart_agri_ia_predictions</field>
+        <field name="arch" type="xml">
+            <form string="Prédiction IA">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Nom de la prédiction"/>
+                        </h1>
+                    </div>
+                    
+                    <group>
                         <group>
-                            <group string="Informations de base">
-                                <field name="name"/>
-                                <field name="description"/>
-                                <field name="type_prediction"/>
-                            </group>
-                            <group string="Dates">
-                                <field name="date_creation"/>
-                            </group>
+                            <field name="code"/>
+                            <field name="type_prediction"/>
+                            <field name="date_creation"/>
                         </group>
                         <group>
-                            <group string="Données d'entrée">
-                                <field name="donnees_entree"/>
-                            </group>
-                            <group string="Résultats">
-                                <field name="resultat"/>
+                            <field name="exploitation_id"/>
+                            <field name="parcelle_id"/>
+                            <field name="culture_id"/>
+                        </group>
+                    </group>
+                    
+                    <notebook>
+                        <page string="Détails" name="details">
+                            <group>
+                                <field name="description"/>
+                                <field name="resultat_principal"/>
                                 <field name="confiance"/>
                             </group>
-                        </group>
-                        <group>
-                            <field name="notes"/>
-                        </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
-
-        <!-- Action pour ouvrir les prédictions IA -->
-        <record id="action_smart_agri_ia_predictions" model="ir.actions.act_window">
-            <field name="name">Prédictions IA</field>
-            <field name="res_model">smart_agri_ia_predictions</field>
-            <field name="view_mode">list,form</field>
-            <field name="help" type="html">
-                <p class="o_view_nocontent_smiling_face">
-                    Créez votre première prédiction IA
-                </p>
-                <p>
-                    L'intelligence artificielle vous aide à prendre de meilleures décisions agricoles.
-                </p>
-            </field>
-        </record>
-    </data>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <!-- Vue recherche prédictions IA -->
+    <record id="view_smart_agri_ia_predictions_search" model="ir.ui.view">
+        <field name="name">smart.agri.ia.predictions.search</field>
+        <field name="model">smart_agri_ia_predictions</field>
+        <field name="arch" type="xml">
+            <search string="Recherche Prédictions IA">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="type_prediction"/>
+                <field name="exploitation_id"/>
+                
+                <filter string="En Cours" name="en_cours" domain="[('state', '=', 'en_cours')]"/>
+                <filter string="Terminées" name="terminees" domain="[('state', '=', 'termine')]"/>
+                <filter string="Brouillon" name="brouillon" domain="[('state', '=', 'brouillon')]"/>
+                
+                <group expand="0" string="Regrouper par">
+                    <filter string="Type" name="group_type" context="{'group_by': 'type_prediction'}"/>
+                    <filter string="Exploitation" name="group_exploitation" context="{'group_by': 'exploitation_id'}"/>
+                                         <filter string="Statut" name="group_statut" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    
+    <!-- Action prédictions IA -->
+    <record id="action_smart_agri_ia_predictions" model="ir.actions.act_window">
+        <field name="name">Prédictions IA</field>
+        <field name="res_model">smart_agri_ia_predictions</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Aucune prédiction IA disponible
+            </p>
+            <p>
+                Créez votre première prédiction IA pour commencer l'analyse intelligente.
+            </p>
+        </field>
+    </record>
+    
 </odoo>

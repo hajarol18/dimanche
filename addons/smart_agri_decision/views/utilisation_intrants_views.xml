@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
+    
         <!-- Vue liste pour les utilisations d'intrants -->
         <record id="view_utilisation_intrants_list" model="ir.ui.view">
             <field name="name">smart.agri.utilisation.intrants.list</field>
             <field name="model">smart_agri_utilisation_intrant</field>
             <field name="arch" type="xml">
                 <list string="Utilisations d'Intrants">
+                    <field name="name"/>
                     <field name="intrant_id"/>
-                    <field name="date_utilisation"/>
                     <field name="parcelle_id"/>
+                    <field name="date_utilisation"/>
                     <field name="quantite_utilisee"/>
-                    <field name="cout_utilisation"/>
-                    <field name="efficacite"/>
                 </list>
             </field>
         </record>
@@ -26,42 +25,41 @@
                     <sheet>
                         <div class="oe_title">
                             <h1>
-                                <field name="intrant_id" placeholder="Sélectionner un intrant"/>
+                                <field name="name" placeholder="Nom de l'utilisation"/>
                             </h1>
                         </div>
                         <group>
                             <group string="Informations de base">
+                                <field name="name"/>
                                 <field name="intrant_id"/>
-                                <field name="intervention_id"/>
                                 <field name="parcelle_id"/>
+                                <field name="exploitation_id"/>
                             </group>
-                            <group string="Utilisation">
+                            <group string="Détails">
                                 <field name="date_utilisation"/>
                                 <field name="quantite_utilisee"/>
-                                <field name="unite_utilisation"/>
-                            </group>
-                        </group>
-                        <group>
-                            <group string="Coûts">
-                                <field name="cout_unitaire"/>
-                                <field name="cout_utilisation"/>
-                            </group>
-                            <group string="Conditions d'application">
-                                <field name="temperature_application"/>
-                                <field name="humidite_application"/>
-                            </group>
-                        </group>
-                        <group>
-                            <group string="Efficacité">
-                                <field name="efficacite"/>
-                            </group>
-                            <group string="Observations">
-                                <field name="observations"/>
+                                <field name="unite_quantite"/>
                             </group>
                         </group>
                         <notebook>
+                            <page string="Informations">
+                                <group>
+                                    <field name="description"/>
+                                    <field name="notes"/>
+                                </group>
+                            </page>
+                            <page string="Efficacité">
+                                <group>
+                                    <field name="efficacite"/>
+                                    <field name="observations"/>
+                                </group>
+                            </page>
                             <page string="Conditions météo">
-                                <field name="conditions_meteo"/>
+                                <group>
+                                    <field name="conditions_meteo"/>
+                                    <field name="temperature_application"/>
+                                    <field name="humidite_application"/>
+                                </group>
                             </page>
                         </notebook>
                     </sheet>
@@ -76,12 +74,12 @@
             <field name="view_mode">list,form</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
-                    Enregistrez votre première utilisation d'intrant !
+                    Créez votre première utilisation d'intrant
                 </p>
                 <p>
-                    Suivez l'utilisation de vos intrants par parcelle et par intervention.
+                    Suivez l'utilisation des intrants sur vos parcelles.
                 </p>
             </field>
         </record>
-    </data>
+    
 </odoo>

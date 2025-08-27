@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- ======================================== -->
+        <!-- DONNÉES DE DÉMONSTRATION SIMPLES -->
+        <!-- ======================================== -->
+        
+        <!-- Types de sol -->
+        <record id="soil_type_limoneux" model="smart_agri_soil_type">
+            <field name="name">Sol Limoneux</field>
+            <field name="code">LIM001</field>
+            <field name="description">Sol équilibré, idéal pour la plupart des cultures</field>
+            <field name="water_retention">70.0</field>
+            <field name="drainage">65.0</field>
+            <field name="fertility">85.0</field>
+            <field name="ph_min">6.5</field>
+            <field name="ph_max">7.0</field>
+            <field name="organic_matter">2.8</field>
+            <field name="color">#D2B48C</field>
+        </record>
+        
+        <!-- Exploitation -->
+        <record id="exploitation_demo_1" model="smart_agri_exploitation">
+            <field name="name">Ferme de la Vallée</field>
+            <field name="code">VAL001</field>
+            <field name="description">Exploitation céréalière moderne</field>
+            <field name="surface_totale">150.0</field>
+            <field name="region">Meknès-Tafilalet</field>
+            <field name="type_exploitation">cereales</field>
+            <field name="active">True</field>
+        </record>
+        
+        <!-- Parcelle -->
+        <record id="parcelle_demo_1" model="smart_agri_parcelle">
+            <field name="name">Parcelle Nord - Blé</field>
+            <field name="code">VAL001-NORD</field>
+            <field name="exploitation_id" ref="exploitation_demo_1"/>
+            <field name="surface">25.0</field>
+            <field name="type_sol_id" ref="soil_type_limoneux"/>
+            <field name="active">True</field>
+        </record>
+        
+        <!-- Culture -->
+        <record id="culture_demo_ble" model="smart_agri_culture">
+            <field name="name">Blé Dur</field>
+            <field name="code">BLE001</field>
+            <field name="exploitation_id" ref="exploitation_demo_1"/>
+            <field name="parcelle_id" ref="parcelle_demo_1"/>
+            <field name="famille">cereales</field>
+            <field name="description">Blé dur de qualité pour la semoulerie</field>
+            <field name="duree_cycle">240</field>
+            <field name="saison_plantation">automne</field>
+            <field name="rendement_moyen">6.5</field>
+            <field name="surface_utilisee">25.0</field>
+            <field name="date_plantation">2024-10-15</field>
+            <field name="date_recolte_prevue">2025-06-15</field>
+            <field name="state">active</field>
+            <field name="active">True</field>
+        </record>
+        
+        <!-- Prédiction IA de base -->
+        <record id="ia_prediction_demo_1" model="smart_agri_ia_predictions">
+            <field name="name">Prédiction Rendement Blé - Janvier 2025</field>
+            <field name="code">IA-BLE-001</field>
+            <field name="exploitation_id" ref="exploitation_demo_1"/>
+            <field name="parcelle_id" ref="parcelle_demo_1"/>
+            <field name="culture_id" ref="culture_demo_ble"/>
+            <field name="type_prediction">rendement</field>
+            <field name="description">Prédiction de rendement basée sur les conditions actuelles</field>
+            <field name="temperature_moyenne">13.4</field>
+            <field name="precipitation_totale">25.0</field>
+            <field name="ph_sol">6.8</field>
+            <field name="azote_sol">45.0</field>
+            <field name="phosphore_sol">28.0</field>
+            <field name="potassium_sol">180.0</field>
+            <field name="rendement_predit">6.8</field>
+            <field name="rendement_optimal">7.2</field>
+            <field name="confiance">78.5</field>
+            <field name="precision">82.3</field>
+            <field name="resultat_principal">Rendement prédit : 6.8 t/ha (94% de l'optimal)</field>
+            <field name="recommandations">Maintenir l'irrigation actuelle, surveiller les apports azotés</field>
+            <field name="active">True</field>
+        </record>
+        
+    </data>
+</odoo>

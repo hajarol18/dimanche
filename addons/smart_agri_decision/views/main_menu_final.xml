@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- ======================================== -->
+        <!-- MENU PRINCIPAL FINAL - SmartAgriDecision -->
+        <!-- ======================================== -->
+        
+        <!-- Menu principal SmartAgriDecision -->
+        <menuitem id="menu_smart_agri_root_final" name="🌾 SmartAgriDecision" sequence="10"/>
+        
+        <!-- 1. GESTION DES DONNÉES AGRICOLES -->
+        <menuitem id="menu_smart_agri_data_final" name="📊 Gestion des Données" parent="menu_smart_agri_root_final" sequence="10"/>
+        
+        <!-- Types de sol -->
+        <menuitem id="menu_smart_agri_soil_type_final" name="🌱 Types de Sol" parent="menu_smart_agri_data_final" action="action_smart_agri_soil_type" sequence="10"/>
+        
+        <!-- Exploitations -->
+        <menuitem id="menu_smart_agri_exploitation_final" name="🏡 Exploitations" parent="menu_smart_agri_data_final" action="action_smart_agri_exploitation" sequence="20"/>
+        
+        <!-- Parcelles -->
+        <menuitem id="menu_smart_agri_parcelle_final" name="🗺️ Parcelles" parent="menu_smart_agri_data_final" action="action_smart_agri_parcelle" sequence="30"/>
+        
+        <!-- Cultures -->
+        <menuitem id="menu_smart_agri_culture_final" name="🌾 Cultures" parent="menu_smart_agri_data_final" action="action_smart_agri_culture" sequence="40"/>
+        
+        <!-- Interventions -->
+        <menuitem id="menu_smart_agri_intervention_final" name="🔧 Interventions" parent="menu_smart_agri_data_final" action="action_smart_agri_intervention" sequence="50"/>
+        
+        <!-- Intrants -->
+        <menuitem id="menu_smart_agri_intrants_final" name="📦 Intrants" parent="menu_smart_agri_data_final" action="action_smart_agri_intrants" sequence="60"/>
+        
+        <!-- Utilisation des intrants -->
+        <menuitem id="menu_smart_agri_utilisation_intrant_final" name="📈 Utilisation Intrants" parent="menu_smart_agri_data_final" action="action_smart_agri_utilisation_intrant" sequence="70"/>
+        
+        <!-- Rotations culturelles -->
+        <menuitem id="menu_smart_agri_rotation_culturelle_final" name="🔄 Rotations Culturelles" parent="menu_smart_agri_data_final" action="action_smart_agri_rotation_culturelle" sequence="80"/>
+        
+        <!-- 2. DONNÉES MÉTÉOROLOGIQUES -->
+        <menuitem id="menu_smart_agri_meteo_final" name="🌤️ Données Météo" parent="menu_smart_agri_root_final" sequence="20"/>
+        
+        <!-- Données météo -->
+        <menuitem id="menu_smart_agri_meteo_data_final" name="📊 Données Météo" parent="menu_smart_agri_meteo_final" action="action_smart_agri_meteo" sequence="10"/>
+        
+        <!-- Import Meteostat -->
+        <menuitem id="menu_smart_agri_meteostat_import_final" name="⬇️ Import Meteostat" parent="menu_smart_agri_meteo_final" action="action_smart_agri_meteostat_import" sequence="20"/>
+        
+        <!-- 3. ANALYSE CLIMATIQUE -->
+        <menuitem id="menu_smart_agri_climate_final" name="🌍 Analyse Climatique" parent="menu_smart_agri_root_final" sequence="30"/>
+        
+        <!-- Alertes climatiques -->
+        <menuitem id="menu_smart_agri_alerte_climatique_final" name="⚠️ Alertes Climatiques" parent="menu_smart_agri_climate_final" action="action_smart_agri_alerte_climatique" sequence="10"/>
+        
+        <!-- Tendances climatiques -->
+        <menuitem id="menu_smart_agri_tendance_climatique_final" name="📈 Tendances Climatiques" parent="menu_smart_agri_climate_final" action="action_smart_agri_tendance_climatique" sequence="20"/>
+        
+        <!-- Scénarios climatiques -->
+        <menuitem id="menu_smart_agri_scenario_climatique_final" name="🎭 Scénarios Climatiques" parent="menu_smart_agri_climate_final" action="action_smart_agri_scenario_climatique" sequence="30"/>
+        
+        <!-- Scénarios RCP -->
+        <menuitem id="menu_smart_agri_rcp_scenario_final" name="🌡️ Scénarios RCP" parent="menu_smart_agri_climate_final" action="action_smart_agri_rcp_scenario" sequence="40"/>
+        
+        <!-- 4. INTELLIGENCE ARTIFICIELLE -->
+        <menuitem id="menu_smart_agri_ia_final" name="🤖 Intelligence Artificielle" parent="menu_smart_agri_root_final" sequence="40"/>
+        
+        <!-- Prédictions IA -->
+        <menuitem id="menu_ia_predictions_final" name="🔮 Prédictions IA" parent="menu_smart_agri_ia_final" action="action_smart_agri_ia_predictions" sequence="10"/>
+        
+        <!-- Dashboard IA (Mode Contournement) -->
+        <menuitem id="menu_ia_dashboard_final" name="🤖 Dashboard IA" parent="menu_smart_agri_ia_final" action="action_smart_agri_ia_dashboard" sequence="20"/>
+        
+        <!-- Détection Stress (Mode Contournement) -->
+        <menuitem id="menu_ia_detection_stress_final" name="⚠️ Détection Stress" parent="menu_smart_agri_ia_final" action="action_smart_agri_ia_detection_stress" sequence="30"/>
+        
+        <!-- Simulateur IA (Mode Contournement) -->
+        <menuitem id="menu_ia_simulateur_final" name="🧪 Simulateur IA" parent="menu_smart_agri_ia_final" action="action_smart_agri_ia_simulateur" sequence="40"/>
+        
+        <!-- Optimisation Ressources (Mode Contournement) -->
+        <menuitem id="menu_ia_optimisation_ressources_final" name="⚡ Optimisation Ressources" parent="menu_smart_agri_ia_final" action="action_smart_agri_ia_optimisation_ressources" sequence="50"/>
+        
+        <!-- 5. TABLEAUX DE BORD -->
+        <menuitem id="menu_smart_agri_dashboard_final" name="📊 Tableaux de Bord" parent="menu_smart_agri_root_final" sequence="50"/>
+        
+        <!-- Tableau de bord principal -->
+        <menuitem id="menu_smart_agri_tableau_bord_final" name="📈 Tableau de Bord" parent="menu_smart_agri_dashboard_final" action="action_smart_agri_tableau_bord" sequence="10"/>
+        
+        <!-- Dashboard -->
+        <menuitem id="menu_smart_agri_dashboard_main_final" name="🎯 Dashboard" parent="menu_smart_agri_dashboard_final" action="action_smart_agri_dashboard" sequence="20"/>
+        
+        <!-- 6. RAPPORTS -->
+        <menuitem id="menu_smart_agri_rapports_final" name="📋 Rapports" parent="menu_smart_agri_root_final" sequence="60"/>
+        
+        <!-- Rapports IA -->
+        <menuitem id="menu_rapports_ia_final" name="🤖 Rapports IA" parent="menu_smart_agri_rapports_final" action="action_smart_agri_ia_predictions" sequence="10"/>
+        
+        <!-- 7. CONFIGURATION -->
+        <menuitem id="menu_smart_agri_config_final" name="⚙️ Configuration" parent="menu_smart_agri_root_final" sequence="70"/>
+        
+    </data>
+</odoo>

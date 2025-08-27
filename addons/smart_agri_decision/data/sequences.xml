@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- ======================================== -->
+        <!-- SÉQUENCES AUTOMATIQUES SMARTAGRI -->
+        <!-- ======================================== -->
+        
+        <!-- Séquence pour les exploitations -->
+        <record id="seq_smart_agri_exploitation" model="ir.sequence">
+            <field name="name">Séquence Exploitation Agricole</field>
+            <field name="code">smart.agri.exploitation</field>
+            <field name="prefix">EXP</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">1</field>
+        </record>
+        
+        <!-- Séquence pour les parcelles -->
+        <record id="seq_smart_agri_parcelle" model="ir.sequence">
+            <field name="name">Séquence Parcelle Agricole</field>
+            <field name="code">smart.agri.parcelle</field>
+            <field name="prefix">PAR</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">1</field>
+        </record>
+        
+        <!-- Séquence pour les cultures -->
+        <record id="seq_smart_agri_culture" model="ir.sequence">
+            <field name="name">Séquence Culture Agricole</field>
+            <field name="code">smart.agri.culture</field>
+            <field name="prefix">CUL</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">1</field>
+        </record>
+        
+        <!-- Séquence pour les données météo -->
+        <record id="seq_smart_agri_meteo" model="ir.sequence">
+            <field name="name">Séquence Données Météo</field>
+            <field name="code">smart.agri.meteo</field>
+            <field name="prefix">MET</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">1</field>
+        </record>
+        
+        <!-- Séquence pour les prédictions IA -->
+        <record id="seq_smart_agri_ia_predictions" model="ir.sequence">
+            <field name="name">Séquence Prédictions IA</field>
+            <field name="code">smart.agri.ia.predictions</field>
+            <field name="prefix">IA</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">1</field>
+        </record>
+        
+        <!-- Séquence pour les détections de stress -->
+        <record id="seq_smart_agri_ia_detection_stress" model="ir.sequence">
+            <field name="name">Séquence Détection Stress IA</field>
+            <field name="code">smart.agri.ia.detection.stress</field>
+            <field name="prefix">STR</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">1</field>
+        </record>
+        
+        <!-- Séquence pour les simulateurs IA -->
+        <record id="seq_smart_agri_ia_simulateur" model="ir.sequence">
+            <field name="name">Séquence Simulateur IA</field>
+            <field name="code">smart.agri.ia.simulateur</field>
+            <field name="prefix">SIM</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">1</field>
+        </record>
+        
+        <!-- Séquence pour l'optimisation des ressources -->
+        <record id="seq_smart_agri_ia_optimisation_ressources" model="ir.sequence">
+            <field name="name">Séquence Optimisation Ressources IA</field>
+            <field name="code">smart.agri.ia.optimisation.ressources</field>
+            <field name="prefix">OPT</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">1</field>
+        </record>
+        
+        <!-- Séquence pour les scénarios climatiques -->
+        <record id="seq_smart_agri_scenario_climatique" model="ir.sequence">
+            <field name="name">Séquence Scénario Climatique</field>
+            <field name="code">smart.agri.scenario.climatique</field>
+            <field name="prefix">SC</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">1</field>
+        </record>
+        
+        <!-- Séquence pour les scénarios RCP -->
+        <record id="seq_smart_agri_rcp_scenario" model="ir.sequence">
+            <field name="name">Séquence Scénario RCP</field>
+            <field name="code">smart.agri.rcp.scenario</field>
+            <field name="prefix">RCP</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">1</field>
+        </record>
+        
+        <!-- Séquence pour les tendances climatiques -->
+        <record id="seq_smart_agri_tendance_climatique" model="ir.sequence">
+            <field name="name">Séquence Tendance Climatique</field>
+            <field name="code">smart.agri.tendance.climatique</field>
+            <field name="prefix">TC</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">1</field>
+        </record>
+        
+        <!-- Séquence pour les alertes climatiques -->
+        <record id="seq_smart_agri_alerte_climatique" model="ir.sequence">
+            <field name="name">Séquence Alerte Climatique</field>
+            <field name="code">smart.agri.alerte.climatique</field>
+            <field name="prefix">AL</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">1</field>
+        </record>
+        
+        <!-- Séquence pour les interventions -->
+        <record id="seq_smart_agri_intervention" model="ir.sequence">
+            <field name="name">Séquence Intervention Agricole</field>
+            <field name="code">smart.agri.intervention</field>
+            <field name="prefix">INT</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">1</field>
+        </record>
+        
+        <!-- Séquence pour les intrants -->
+        <record id="seq_smart_agri_intrants" model="ir.sequence">
+            <field name="name">Séquence Intrants Agricoles</field>
+            <field name="code">smart.agri.intrants</field>
+            <field name="prefix">IN</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">1</field>
+        </record>
+        
+        <!-- Séquence pour l'utilisation des intrants -->
+        <record id="seq_smart_agri_utilisation_intrant" model="ir.sequence">
+            <field name="name">Séquence Utilisation Intrants</field>
+            <field name="code">smart.agri.utilisation.intrant</field>
+            <field name="prefix">UTIL</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">1</field>
+        </record>
+        
+        <!-- Séquence pour les rotations culturelles -->
+        <record id="seq_smart_agri_rotation_culturelle" model="ir.sequence">
+            <field name="name">Séquence Rotation Culturelle</field>
+            <field name="code">smart.agri.rotation.culturelle</field>
+            <field name="prefix">ROT</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">1</field>
+        </record>
+        
+        <!-- Séquence pour les tableaux de bord -->
+        <record id="seq_smart_agri_tableau_bord" model="ir.sequence">
+            <field name="name">Séquence Tableau de Bord</field>
+            <field name="code">smart.agri.tableau.bord</field>
+            <field name="prefix">TB</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">1</field>
+        </record>
+        
+        <!-- Séquence pour les objectifs de rotation -->
+        <record id="seq_smart_agri_objectif_rotation" model="ir.sequence">
+            <field name="name">Séquence Objectif Rotation</field>
+            <field name="code">smart.agri.objectif.rotation</field>
+            <field name="prefix">OBJ</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">1</field>
+        </record>
+        
+        <!-- Séquence pour les types de sol -->
+        <record id="seq_smart_agri_soil_type" model="ir.sequence">
+            <field name="name">Séquence Type de Sol</field>
+            <field name="code">smart.agri.soil.type</field>
+            <field name="prefix">SOL</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">1</field>
+        </record>
+        
+        <!-- Séquence pour les imports Meteostat -->
+        <record id="seq_smart_agri_meteostat_import" model="ir.sequence">
+            <field name="name">Séquence Import Meteostat</field>
+            <field name="code">smart.agri.meteostat.import</field>
+            <field name="prefix">MET-IMP</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">1</field>
+        </record>
+        
+    </data>
+</odoo>

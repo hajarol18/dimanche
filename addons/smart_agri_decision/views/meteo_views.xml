@@ -1,71 +1,303 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-        <!-- Vue liste pour la météo -->
-        <record id="view_smart_agri_meteo_list" model="ir.ui.view">
-            <field name="name">smart.agri.meteo.list</field>
-            <field name="model">smart_agri_meteo</field>
-            <field name="arch" type="xml">
-                <list string="Données Météo">
-                    <field name="name"/>
-                    <field name="date"/>
-                    <field name="temperature_min"/>
-                    <field name="temperature_max"/>
-                    <field name="precipitation"/>
-                    <field name="humidite"/>
-                </list>
-            </field>
-        </record>
-
-        <!-- Vue formulaire pour la météo -->
-        <record id="view_smart_agri_meteo_form" model="ir.ui.view">
-            <field name="name">smart.agri.meteo.form</field>
-            <field name="model">smart_agri_meteo</field>
-            <field name="arch" type="xml">
-                <form string="Données Météo">
-                    <sheet>
+    
+    <!-- ======================================== -->
+    <!-- VUES MÉTÉO AMÉLIORÉES ET PROFESSIONNELLES -->
+    <!-- ======================================== -->
+    
+    <!-- Vue liste météo améliorée -->
+    <record id="view_smart_agri_meteo_list" model="ir.ui.view">
+        <field name="name">smart.agri.meteo.list</field>
+        <field name="model">smart_agri_meteo</field>
+        <field name="arch" type="xml">
+            <list string="Données Météorologiques" decoration-info="date_mesure == context_today()" decoration-warning="qualite_donnees == 'faible'">
+                <field name="name"/>
+                <field name="date_mesure"/>
+                <field name="exploitation_id"/>
+                <field name="temperature" widget="float_time" decoration-danger="temperature &gt; 35" decoration-info="temperature &lt; 5"/>
+                <field name="precipitation" widget="float_time" decoration-info="precipitation &gt; 0"/>
+                <field name="humidite" widget="percentage" decoration-warning="humidite &lt; 30" decoration-info="humidite &gt; 80"/>
+                <field name="vitesse_vent" widget="float_time" decoration-warning="vitesse_vent &gt; 30"/>
+                <field name="source"/>
+                <field name="qualite_donnees"/>
+            </list>
+        </field>
+    </record>
+    
+    <!-- Vue formulaire météo professionnelle -->
+    <record id="view_smart_agri_meteo_form" model="ir.ui.view">
+        <field name="name">smart.agri.meteo.form</field>
+        <field name="model">smart_agri_meteo</field>
+        <field name="arch" type="xml">
+            <form string="Données Météorologiques">
+                <header>
+                    <button name="action_voir_exploitation" 
+                            string="Voir Exploitation" 
+                            type="object" 
+                            class="oe_highlight"
+                            invisible="not exploitation_id"/>
+                    <button name="action_voir_parcelle" 
+                            string="Voir Parcelle" 
+                            type="object" 
+                            class="oe_highlight"
+                            invisible="not parcelle_id"/>
+                    <button name="action_analyser_tendances" 
+                            string="Analyser Tendances" 
+                            type="object" 
+                            class="oe_highlight"/>
+                    <field name="active" widget="boolean_toggle"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Nom de la mesure météo"/>
+                        </h1>
+                    </div>
+                    
+                    <!-- INFORMATIONS DE BASE -->
+                    <group string="Informations de Base">
                         <group>
-                            <group string="Informations de base">
-                                <field name="name"/>
-                                <field name="date"/>
-                            </group>
-                            <group string="Températures">
-                                <field name="temperature_min"/>
-                                <field name="temperature_max"/>
-                                <field name="temperature_moyenne"/>
-                            </group>
+                            <field name="exploitation_id" required="1"/>
+                            <field name="parcelle_id"/>
+                            <field name="date_mesure" required="1"/>
+                            <field name="heure_mesure" widget="float_time" help="Format 24h (ex: 14.5 = 14h30)"/>
                         </group>
                         <group>
-                            <group string="Conditions atmosphériques">
-                                <field name="humidite"/>
-                                <field name="precipitation"/>
-                                <field name="ensoleillement"/>
-                            </group>
-                            <group string="Vent">
-                                <field name="vitesse_vent"/>
-                            </group>
+                            <field name="source" required="1"/>
+                            <field name="qualite_donnees"/>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                    
+                    <!-- TEMPÉRATURES -->
+                    <group string="Températures (°C)" decoration-danger="temperature &gt; 35" decoration-warning="temperature &gt; 25">
+                        <group>
+                            <field name="temperature" required="1" widget="float_time"/>
+                            <field name="temperature_min" widget="float_time"/>
+                            <field name="temperature_max" widget="float_time"/>
                         </group>
                         <group>
-                            <field name="notes"/>
+                            <field name="pression_atmospherique" widget="float_time" help="Pression en hPa (moyenne: 1013.25)"/>
+                            <field name="rayonnement_solaire" widget="float_time" help="Rayonnement en W/m²"/>
                         </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
-
-        <!-- Action pour ouvrir la météo -->
-        <record id="action_smart_agri_meteo" model="ir.actions.act_window">
-            <field name="name">Données Météo</field>
-            <field name="res_model">smart_agri_meteo</field>
-            <field name="view_mode">list,form</field>
-            <field name="help" type="html">
-                <p class="o_view_nocontent_smiling_face">
-                    Ajoutez vos premières données météo
-                </p>
-                <p>
-                    Les données météorologiques sont essentielles pour la planification agricole.
-                </p>
-            </field>
-        </record>
-    </data>
+                    </group>
+                    
+                    <!-- PRÉCIPITATIONS ET HUMIDITÉ -->
+                    <group string="Précipitations et Humidité" decoration-info="precipitation &gt; 0" decoration-warning="humidite &lt; 30">
+                        <group>
+                            <field name="precipitation" widget="float_time" help="Précipitations en mm"/>
+                            <field name="humidite" widget="percentage" help="Humidité relative en %"/>
+                        </group>
+                        <group>
+                            <field name="duree_ensoleillement" widget="float_time" help="Durée en heures"/>
+                        </group>
+                    </group>
+                    
+                    <!-- VENT -->
+                    <group string="Vent" decoration-warning="vitesse_vent &gt; 30">
+                        <group>
+                            <field name="vitesse_vent" widget="float_time" help="Vitesse en km/h"/>
+                            <field name="direction_vent"/>
+                        </group>
+                    </group>
+                    
+                    <!-- NOTES ET OBSERVATIONS -->
+                    <notebook>
+                        <page string="Observations" name="observations">
+                            <group>
+                                <field name="observations" nolabel="1" placeholder="Observations météorologiques détaillées..."/>
+                            </group>
+                        </page>
+                        <page string="Notes Additionnelles" name="notes">
+                            <group>
+                                <field name="notes" nolabel="1" placeholder="Notes techniques, remarques..."/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <!-- Vue recherche météo améliorée -->
+    <record id="view_smart_agri_meteo_search" model="ir.ui.view">
+        <field name="name">smart.agri.meteo.search</field>
+        <field name="model">smart_agri_meteo</field>
+        <field name="arch" type="xml">
+            <search string="Recherche Météo">
+                <field name="name"/>
+                <field name="exploitation_id"/>
+                <field name="parcelle_id"/>
+                <field name="date_mesure"/>
+                <field name="source"/>
+                
+                <!-- Filtres temporels -->
+                <filter string="Mesures Aujourd'hui" name="aujourd_hui" domain="[('date_mesure', '=', context_today())]"/>
+                <filter string="Cette Semaine" name="cette_semaine" domain="[('date_mesure', '>=', (context_today() - datetime.timedelta(days=7)).strftime('%Y-%m-%d'))]"/>
+                <filter string="Ce Mois" name="ce_mois" domain="[('date_mesure', '>=', (context_today() - datetime.timedelta(days=30)).strftime('%Y-%m-%d'))]"/>
+                <filter string="Dernière Année" name="derniere_annee" domain="[('date_mesure', '>=', (context_today() - datetime.timedelta(days=365)).strftime('%Y-%m-%d'))]"/>
+                
+                <!-- Filtres météorologiques -->
+                <filter string="Température &gt; 25°C" name="temp_elevee" domain="[('temperature', '&gt;', 25)]"/>
+                <filter string="Température &lt; 10°C" name="temp_basse" domain="[('temperature', '&lt;', 10)]"/>
+                <filter string="Précipitations &gt; 0" name="avec_precipitations" domain="[('precipitation', '&gt;', 0)]"/>
+                <filter string="Humidité &lt; 40%" name="humidite_basse" domain="[('humidite', '&lt;', 40)]"/>
+                <filter string="Vent &gt; 20 km/h" name="vent_fort" domain="[('vitesse_vent', '&gt;', 20)]"/>
+                
+                <!-- Filtres par source -->
+                <filter string="Station Locale" name="station_locale" domain="[('source', '=', 'station_locale')]"/>
+                <filter string="Meteostat" name="meteostat" domain="[('source', '=', 'meteostat')]"/>
+                <filter string="Météo France" name="meteo_france" domain="[('source', '=', 'meteo_france')]"/>
+                
+                <!-- Filtres par qualité -->
+                <filter string="Qualité Excellente" name="qualite_excellente" domain="[('qualite_donnees', '=', 'excellente')]"/>
+                <filter string="Qualité Faible" name="qualite_faible" domain="[('qualite_donnees', '=', 'faible')]"/>
+                
+                <!-- Groupement -->
+                <group expand="0" string="Regrouper par">
+                    <filter string="Exploitation" name="group_exploitation" context="{'group_by': 'exploitation_id'}"/>
+                    <filter string="Parcelle" name="group_parcelle" context="{'group_by': 'parcelle_id'}"/>
+                    <filter string="Date" name="group_date" context="{'group_by': 'date_mesure'}"/>
+                    <filter string="Source" name="group_source" context="{'group_by': 'source'}"/>
+                    <filter string="Qualité" name="group_qualite" context="{'group_by': 'qualite_donnees'}"/>
+                    <filter string="Mois" name="group_mois" context="{'group_by': 'date_mesure:month'}"/>
+                    <filter string="Année" name="group_annee" context="{'group_by': 'date_mesure:year'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    
+    <!-- Vue kanban météo pour tableau de bord -->
+    <record id="view_smart_agri_meteo_kanban" model="ir.ui.view">
+        <field name="name">smart.agri.meteo.kanban</field>
+        <field name="model">smart_agri_meteo</field>
+        <field name="arch" type="xml">
+            <kanban string="Météo" class="o_kanban_dashboard" default_group_by="date_mesure">
+                <field name="name"/>
+                <field name="date_mesure"/>
+                <field name="temperature"/>
+                <field name="precipitation"/>
+                <field name="humidite"/>
+                <field name="vitesse_vent"/>
+                <field name="exploitation_id"/>
+                <field name="qualite_donnees"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card oe_kanban_global_click" t-attf-class="#{record.qualite_donnees.value == 'faible' ? 'oe_kanban_color_3' : record.qualite_donnees.value == 'excellente' ? 'oe_kanban_color_5' : 'oe_kanban_color_2'}">
+                            <div class="oe_kanban_content">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <field name="name"/>
+                                        </strong>
+                                        <div class="o_kanban_record_subtitle">
+                                            <field name="exploitation_id"/>
+                                        </div>
+                                    </div>
+                                    <div class="o_kanban_record_top_right">
+                                        <span class="badge badge-pill" t-attf-class="#{record.qualite_donnees.value == 'excellente' ? 'badge-success' : record.qualite_donnees.value == 'faible' ? 'badge-danger' : 'badge-warning'}">
+                                            <field name="qualite_donnees"/>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <strong>📅 Date:</strong><br/>
+                                            <field name="date_mesure"/>
+                                        </div>
+                                        <div class="col-6">
+                                            <strong>🌡️ Temp:</strong><br/>
+                                            <span t-attf-class="#{record.temperature.value &gt; 25 ? 'text-danger' : record.temperature.value &lt; 10 ? 'text-info' : ''}">
+                                                <field name="temperature"/>°C
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-6">
+                                            <strong>🌧️ Pluie:</strong><br/>
+                                            <span t-attf-class="#{record.precipitation.value &gt; 0 ? 'text-info' : ''}">
+                                                <field name="precipitation"/> mm
+                                            </span>
+                                        </div>
+                                        <div class="col-6">
+                                            <strong>💧 Humidité:</strong><br/>
+                                            <span t-attf-class="#{record.humidite.value &lt; 30 ? 'text-warning' : record.humidite.value &gt; 80 ? 'text-info' : ''}">
+                                                <field name="humidite"/>%
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-6">
+                                            <strong>💨 Vent:</strong><br/>
+                                            <span t-attf-class="#{record.vitesse_vent.value &gt; 20 ? 'text-warning' : ''}">
+                                                <field name="vitesse_vent"/> km/h
+                                            </span>
+                                        </div>
+                                        <div class="col-6">
+                                            <strong>🏡 Exploitation:</strong><br/>
+                                            <field name="exploitation_id"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    
+    <!-- Vue graphique pour analyse des tendances -->
+    <record id="view_smart_agri_meteo_graph" model="ir.ui.view">
+        <field name="name">smart.agri.meteo.graph</field>
+        <field name="model">smart_agri_meteo</field>
+        <field name="arch" type="xml">
+            <graph string="Évolution Météo" type="line" sample="1">
+                <field name="date_mesure" interval="day"/>
+                <field name="temperature" type="measure"/>
+                <field name="precipitation" type="measure"/>
+                <field name="humidite" type="measure"/>
+            </graph>
+        </field>
+    </record>
+    
+    <!-- Vue pivot pour analyse croisée -->
+    <record id="view_smart_agri_meteo_pivot" model="ir.ui.view">
+        <field name="name">smart.agri.meteo.pivot</field>
+        <field name="model">smart_agri_meteo</field>
+        <field name="arch" type="xml">
+            <pivot string="Analyse Croisée Météo" sample="1">
+                <field name="date_mesure" type="row" interval="month"/>
+                <field name="exploitation_id" type="row"/>
+                <field name="temperature" type="measure"/>
+                <field name="precipitation" type="measure"/>
+                <field name="humidite" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    
+    <!-- Action météo améliorée -->
+    <record id="action_smart_agri_meteo" model="ir.actions.act_window">
+        <field name="name">Données Météorologiques</field>
+        <field name="res_model">smart_agri_meteo</field>
+        <field name="view_mode">kanban,list,form,graph,pivot</field>
+        <field name="view_id" ref="view_smart_agri_meteo_kanban"/>
+        <field name="context">{'search_default_cette_semaine': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocent_smiling_face">
+                Aucune donnée météorologique disponible
+            </p>
+            <p>
+                Créez votre première mesure météo pour commencer le suivi climatique.
+            </p>
+            <p>
+                <strong>Conseils :</strong><br/>
+                • Enregistrez les mesures quotidiennes pour un suivi optimal<br/>
+                • Utilisez les alertes pour détecter les anomalies<br/>
+                • Analysez les tendances pour anticiper les risques
+            </p>
+        </field>
+    </record>
+    
 </odoo>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- ======================================== -->
+        <!-- FORÇAGE DU CHARGEMENT DES MODÈLES IA -->
+        <!-- ======================================== -->
+        
+        <!-- Création d'une exploitation de test pour les relations -->
+        <record id="exploitation_test_ia" model="smart_agri_exploitation">
+            <field name="name">Exploitation Test IA</field>
+            <field name="description">Exploitation de test pour les modèles IA</field>
+            <field name="adresse">123 Rue Test IA</field>
+            <field name="ville">Ville Test</field>
+            <field name="code_postal">12345</field>
+            <field name="pays">Maroc</field>
+            <field name="telephone">+212123456789</field>
+            <field name="email">test@ia.com</field>
+            <field name="surface_totale">100.0</field>
+            <field name="unite_surface">hectares</field>
+            <field name="type_exploitation">mixte</field>
+            <field name="statut">active</field>
+        </record>
+        
+        <!-- Création d'une parcelle de test pour les relations -->
+        <record id="parcelle_test_ia" model="smart_agri_parcelle">
+            <field name="name">Parcelle Test IA</field>
+            <field name="exploitation_id" ref="exploitation_test_ia"/>
+            <field name="surface">25.0</field>
+            <field name="unite_surface">hectares</field>
+            <field name="type_sol">argileux</field>
+            <field name="statut">active</field>
+        </record>
+        
+        <!-- Test du modèle IA Dashboard avec tous les champs obligatoires -->
+        <record id="test_ia_dashboard_complet" model="smart_agri_ia_dashboard">
+            <field name="name">Test Dashboard IA Complet</field>
+            <field name="description">Test de chargement du modèle IA Dashboard avec tous les champs</field>
+            <field name="state">actif</field>
+            <field name="score_ia_global">75</field>
+            <field name="nombre_predictions_actives">5</field>
+            <field name="nombre_alertes_climatiques">2</field>
+            <field name="nombre_risques_eleves">1</field>
+            <field name="date_derniere_actualisation" eval="DateTime.now()"/>
+            <field name="simulation_temperature">2.5</field>
+            <field name="simulation_precipitations">-10.0</field>
+            <field name="simulation_scenario_rcp">rcp45</field>
+        </record>
+        
+        <!-- Test du modèle IA Detection Stress avec tous les champs obligatoires -->
+        <record id="test_ia_detection_stress_complet" model="smart_agri_ia_detection_stress">
+            <field name="name">Test Detection Stress Complet</field>
+            <field name="description">Test de chargement du modèle IA Detection Stress avec tous les champs</field>
+            <field name="state">surveillance</field>
+            <field name="exploitation_id" ref="exploitation_test_ia"/>
+            <field name="parcelle_id" ref="parcelle_test_ia"/>
+            <field name="type_stress">modere</field>
+            <field name="niveau_stress">25</field>
+            <field name="confiance_detection">80</field>
+            <field name="date_detection" eval="DateTime.now()"/>
+            <field name="description_stress">Stress modéré détecté par l'IA</field>
+            <field name="temperature_actuelle">28.5</field>
+            <field name="temperature_seuil">30.0</field>
+            <field name="ecart_temperature">1.5</field>
+            <field name="statut_temperature">attention</field>
+        </record>
+        
+        <!-- Test du modèle IA Simulateur avec tous les champs obligatoires -->
+        <record id="test_ia_simulateur_complet" model="smart_agri_ia_simulateur">
+            <field name="name">Test Simulateur IA Complet</field>
+            <field name="description">Test de chargement du modèle IA Simulateur avec tous les champs</field>
+            <field name="state">brouillon</field>
+            <field name="date_creation" eval="DateTime.now()"/>
+            <field name="augmentation_temperature">2.5</field>
+            <field name="variation_precipitations">-10.0</field>
+            <field name="vitesse_vent">12.0</field>
+            <field name="rayonnement_solaire">650.0</field>
+            <field name="humidite_relative">65.0</field>
+            <field name="frequence_evenements_extremes">25.0</field>
+            <field name="amplitude_thermique">15.0</field>
+            <field name="scenario_rcp">rcp45</field>
+            <field name="type_culture">cereales</field>
+        </record>
+        
+        <!-- Test du modèle IA Optimisation Ressources avec tous les champs obligatoires -->
+        <record id="test_ia_optimisation_ressources_complet" model="smart_agri_ia_optimisation_ressources">
+            <field name="name">Test Optimisation Ressources Complet</field>
+            <field name="description">Test de chargement du modèle IA Optimisation Ressources avec tous les champs</field>
+            <field name="state">analyse</field>
+            <field name="exploitation_id" ref="exploitation_test_ia"/>
+            <field name="parcelle_id" ref="parcelle_test_ia"/>
+            <field name="besoin_eau_actuel">150.0</field>
+            <field name="besoin_eau_optimise">120.0</field>
+            <field name="systeme_irrigation">goutte_goutte</field>
+            <field name="frequence_irrigation_optimale">3</field>
+            <field name="dose_irrigation_optimale">8.0</field>
+            <field name="horaires_irrigation_optimaux">06:00-08:00</field>
+            <field name="duree_irrigation_optimale">120</field>
+        </record>
+        
+    </data>
+</odoo>

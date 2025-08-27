@@ -11,6 +11,9 @@ class SmartAgriAlerteClimatique(models.Model):
     _description = 'Alertes Climatiques Agricoles'
     _order = 'date_alerte desc'
 
+    # RELATION PRINCIPALE - LOGIQUE MÉTIER
+    exploitation_id = fields.Many2one('smart_agri_exploitation', string='Exploitation', required=True, ondelete='cascade')
+
     # Champs de base
     name = fields.Char('Nom de l\'alerte', required=True)
     description = fields.Text('Description détaillée')
@@ -98,8 +101,8 @@ class SmartAgriAlerteClimatique(models.Model):
     
     # Statut
     active = fields.Boolean('Actif', default=True)
-    
-    # Calcul automatique de la durée
+
+    # Calcul de la durée
     @api.depends('date_debut', 'date_fin')
     def _compute_duree(self):
         for record in self:

@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ======================================== -->
+    <!-- TABLEAU DE BORD IA INTELLIGENT -->
+    <!-- Métriques en temps réel + Alertes auto -->
+    <!-- ======================================== -->
+
+    <!-- VUE TABLEAU DE BORD IA -->
+    <record id="view_ia_dashboard_form" model="ir.ui.view">
+        <field name="name">smart_agri_ia_dashboard.form</field>
+        <field name="model">smart_agri_ia_dashboard</field>
+        <field name="arch" type="xml">
+            <form string="Tableau de Bord IA - SmartAgriDecision">
+                <header>
+                    <button name="action_actualiser_dashboard" type="object" string="🔄 Actualiser" class="btn-primary"/>
+                    <button name="action_generer_rapport_ia" type="object" string="📊 Rapport IA" class="btn-secondary"/>
+                    <button name="action_alerte_automatique" type="object" string="🚨 Alertes Auto" class="btn-warning"/>
+                    <field name="state" widget="statusbar" statusbar_visible="brouillon,actif,termine"/>
+                </header>
+
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Nom du Tableau de Bord"/>
+                        </h1>
+                    </div>
+
+                    <!-- MÉTRIQUES IA EN TEMPS RÉEL -->
+                    <div class="row mt-3">
+                        <div class="col-md-3">
+                            <div class="card border-success">
+                                <div class="card-header bg-success text-white">
+                                    <h5 class="mb-0">🎯 Score IA Global</h5>
+                                </div>
+                                <div class="card-body text-center">
+                                    <h2 class="text-success">
+                                        <field name="score_ia_global" widget="integer"/>%
+                                    </h2>
+                                    <small>Performance IA</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="card border-info">
+                                <div class="card-header bg-info text-white">
+                                    <h5 class="mb-0">🌱 Prédictions Actives</h5>
+                                </div>
+                                <div class="card-body text-center">
+                                    <h2 class="text-info">
+                                        <field name="nombre_predictions_actives" widget="integer"/>
+                                    </h2>
+                                    <small>En cours</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="card border-warning">
+                                <div class="card-header bg-warning text-white">
+                                    <h5 class="mb-0">⚠️ Alertes Climatiques</h5>
+                                </div>
+                                <div class="card-body text-center">
+                                    <h2 class="text-warning">
+                                        <field name="nombre_alertes_climatiques" widget="integer"/>
+                                    </h2>
+                                    <small>À traiter</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="card border-danger">
+                                <div class="card-header bg-danger text-white">
+                                    <h5 class="mb-0">🚨 Risques Élevés</h5>
+                                </div>
+                                <div class="card-body text-center">
+                                    <h2 class="text-danger">
+                                        <field name="nombre_risques_eleves" widget="integer"/>
+                                    </h2>
+                                    <small>Urgent</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- GRAPHIQUES IA INTERACTIFS -->
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>📈 Évolution des Scores IA</h5>
+                                </div>
+                                <div class="card-body">
+                                    <field name="graphique_evolution_scores" widget="chart"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>🌍 Répartition des Risques par Zone</h5>
+                                </div>
+                                <div class="card-body">
+                                    <field name="graphique_repartition_risques" widget="chart"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                                         <!-- ALERTES INTELLIGENTES AUTOMATIQUES -->
+                     <div class="row mt-3">
+                         <div class="col-md-12">
+                             <div class="card border-warning">
+                                 <div class="card-header bg-warning text-white">
+                                     <h5>🚨 Alertes IA Automatiques - Détection Intelligente</h5>
+                                 </div>
+                                 <div class="card-body">
+                                     <div class="alert alert-info">
+                                         <strong>ℹ️ Information :</strong> Les alertes IA détaillées seront disponibles dans une prochaine version.
+                                         <br/>Pour l'instant, utilisez le bouton "Alertes Auto" dans l'en-tête pour générer des alertes.
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+
+                                         <!-- OPTIMISATIONS IA RECOMMANDÉES -->
+                     <div class="row mt-3">
+                         <div class="col-md-6">
+                             <div class="card border-success">
+                                 <div class="card-header bg-success text-white">
+                                     <h5>💡 Optimisations IA Recommandées</h5>
+                                 </div>
+                                 <div class="card-body">
+                                     <div class="alert alert-info">
+                                         <strong>ℹ️ Information :</strong> Les optimisations IA détaillées seront disponibles dans une prochaine version.
+                                         <br/>Pour l'instant, utilisez les boutons d'action dans l'en-tête.
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                         
+                         <div class="col-md-6">
+                             <div class="card border-info">
+                                 <div class="card-header bg-info text-white">
+                                     <h5>🎯 Prédictions IA Récentes</h5>
+                                 </div>
+                                 <div class="card-body">
+                                     <div class="alert alert-info">
+                                         <strong>ℹ️ Information :</strong> Les prédictions IA détaillées seront disponibles dans une prochaine version.
+                                         <br/>Pour l'instant, utilisez les boutons d'action dans l'en-tête.
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+
+                    <!-- CARTE INTERACTIVE DES PARCELLES IA -->
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>🗺️ Cartographie IA des Parcelles - Analyse Spatiale Intelligente</h5>
+                                </div>
+                                <div class="card-body">
+                                    <field name="carte_parcelles_ia" widget="map"/>
+                                    <div class="mt-2">
+                                        <small class="text-muted">
+                                            🎯 <strong>Légende IA :</strong> 
+                                            🟢 Zone optimale | 🟡 Zone à surveiller | 🔴 Zone à risque | 
+                                            💧 Irrigation optimisée | 🌱 Culture recommandée
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SIMULATION DE SCÉNARIOS IA -->
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <div class="card border-primary">
+                                <div class="card-header bg-primary text-white">
+                                    <h5>🧪 Simulateur de Scénarios IA - Changement Climatique</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="o_form_label">🌡️ Augmentation Température (°C)</div>
+                                            <field name="simulation_temperature" widget="float"/>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="o_form_label">🌧️ Variation Précipitations (%)</div>
+                                            <field name="simulation_precipitations" widget="float"/>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="o_form_label">🌍 Scénario RCP</div>
+                                            <field name="simulation_scenario_rcp"/>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-12">
+                                            <button name="action_simuler_scenario_ia" type="object" string="🚀 Lancer Simulation IA" class="btn btn-primary btn-lg btn-block"/>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-12">
+                                            <field name="resultats_simulation_ia" widget="html"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                                         <!-- ANALYTICS IA AVANCÉS -->
+                     <div class="row mt-3">
+                         <div class="col-md-12">
+                             <div class="card">
+                                 <div class="card-header">
+                                     <h5>📊 Analytics IA Avancés - Machine Learning Insights</h5>
+                                 </div>
+                                 <div class="card-body">
+                                     <div class="alert alert-info">
+                                         <strong>ℹ️ Information :</strong> Les analytics IA avancés seront disponibles dans une prochaine version.
+                                         <br/>Pour l'instant, utilisez les boutons d'action dans l'en-tête pour générer des rapports.
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                </sheet>
+
+                                 <!-- Note: Le modèle n'hérite pas de mail.thread, donc pas de chatter -->
+            </form>
+        </field>
+    </record>
+
+    <!-- VUE LISTE TABLEAU DE BORD IA -->
+    <record id="view_ia_dashboard_list" model="ir.ui.view">
+        <field name="name">smart_agri_ia_dashboard.list</field>
+        <field name="model">smart_agri_ia_dashboard</field>
+        <field name="arch" type="xml">
+            <list string="Tableaux de Bord IA">
+                <field name="name"/>
+                <field name="score_ia_global" widget="badge" decoration-success="score_ia_global &gt;= 80" decoration-warning="score_ia_global &gt;= 60" decoration-danger="score_ia_global &lt; 60"/>
+                <field name="nombre_predictions_actives"/>
+                <field name="nombre_alertes_climatiques"/>
+                <field name="nombre_risques_eleves"/>
+                <field name="date_derniere_actualisation"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ACTION TABLEAU DE BORD IA -->
+    <record id="action_ia_dashboard" model="ir.actions.act_window">
+        <field name="name">Tableau de Bord IA</field>
+        <field name="res_model">smart_agri_ia_dashboard</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_ia_dashboard_list"/>
+        <field name="context">{'search_default_dashboard_actifs': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Créez votre premier tableau de bord IA intelligent !
+            </p>
+            <p>
+                Le tableau de bord IA vous donne une vue d&apos;ensemble en temps réel de :
+                <ul>
+                    <li>🎯 Scores IA et performances</li>
+                    <li>🚨 Alertes climatiques automatiques</li>
+                    <li>💡 Optimisations recommandées</li>
+                    <li>🗺️ Cartographie spatiale intelligente</li>
+                    <li>🧪 Simulation de scénarios climatiques</li>
+                </ul>
+            </p>
+        </field>
+    </record>
+
+</odoo>

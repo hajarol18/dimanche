@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- ======================================== -->
+        <!-- DONNÉES DE DÉMONSTRATION SMARTAGRI -->
+        <!-- ======================================== -->
+        
+        <!-- Types de Sol de démonstration -->
+        <record id="soil_type_argileux" model="smart_agri_soil_type">
+            <field name="name">Argileux</field>
+            <field name="code">ARG</field>
+            <field name="description">Sol riche en argile, bonne rétention d'eau</field>
+            <field name="water_retention">35.0</field>
+            <field name="drainage">25.0</field>
+            <field name="fertility">80.0</field>
+            <field name="ph_min">6.0</field>
+            <field name="ph_max">7.0</field>
+            <field name="organic_matter">3.5</field>
+            <field name="color">#8B4513</field>
+        </record>
+        
+        <record id="soil_type_limoneux" model="smart_agri_soil_type">
+            <field name="name">Limoneux</field>
+            <field name="code">LIM</field>
+            <field name="description">Sol équilibré, bon compromis argile-sable</field>
+            <field name="water_retention">28.0</field>
+            <field name="drainage">30.0</field>
+            <field name="fertility">85.0</field>
+            <field name="ph_min">6.5</field>
+            <field name="ph_max">7.2</field>
+            <field name="organic_matter">4.0</field>
+            <field name="color">#D2B48C</field>
+        </record>
+        
+        <record id="soil_type_sableux" model="smart_agri_soil_type">
+            <field name="name">Sableux</field>
+            <field name="code">SAB</field>
+            <field name="description">Sol léger, bon drainage, réchauffement rapide</field>
+            <field name="water_retention">15.0</field>
+            <field name="drainage">40.0</field>
+            <field name="fertility">60.0</field>
+            <field name="ph_min">5.8</field>
+            <field name="ph_max">6.5</field>
+            <field name="organic_matter">1.5</field>
+            <field name="color">#F4A460</field>
+        </record>
+        
+        <!-- Exploitation de démonstration -->
+        <record id="exploitation_demo" model="smart_agri_exploitation">
+            <field name="name">Ferme de la Vallée Verte</field>
+            <field name="code">FERME001</field>
+            <field name="proprietaire">Jean Dupont</field>
+            <field name="surface_totale">150.0</field>
+            <field name="commune">Saint-Étienne</field>
+            <field name="departement">Loire</field>
+            <field name="region">Auvergne-Rhône-Alpes</field>
+            <field name="type_exploitation">mixte</field>
+            <field name="state">active</field>
+        </record>
+        
+        <!-- Parcelle de démonstration -->
+        <record id="parcelle_demo" model="smart_agri_parcelle">
+            <field name="name">Parcelle A - Blé d'Hiver</field>
+            <field name="code">PARC001</field>
+            <field name="exploitation_id" ref="exploitation_demo"/>
+            <field name="type_sol_id" ref="soil_type_limoneux"/>
+            <field name="surface">25.0</field>
+            <field name="active">True</field>
+        </record>
+        
+        <!-- Culture de démonstration -->
+        <record id="culture_demo" model="smart_agri_culture">
+            <field name="name">Blé d'Hiver - Variété Premium</field>
+            <field name="code">BLE001</field>
+            <field name="exploitation_id" ref="exploitation_demo"/>
+            <field name="parcelle_id" ref="parcelle_demo"/>
+            <field name="famille">cereales</field>
+            <field name="duree_cycle">270</field>
+            <field name="rendement_moyen">8.5</field>
+            <field name="surface_utilisee">25.0</field>
+            <field name="date_plantation">2024-10-15</field>
+            <field name="date_recolte_prevue">2025-07-15</field>
+            <field name="state">active</field>
+        </record>
+        
+        <!-- Données météo de démonstration -->
+        <record id="meteo_demo" model="smart_agri_meteo">
+            <field name="name">Mesure météo - 27/12/2024</field>
+            <field name="exploitation_id" ref="exploitation_demo"/>
+            <field name="parcelle_id" ref="parcelle_demo"/>
+            <field name="date_mesure">2024-12-27</field>
+            <field name="temperature">5.2</field>
+            <field name="temperature_min">2.5</field>
+            <field name="temperature_max">8.0</field>
+            <field name="humidite">85</field>
+            <field name="precipitation">12.5</field>
+            <field name="duree_ensoleillement">2.5</field>
+            <field name="vitesse_vent">15.0</field>
+        </record>
+        
+        <!-- Intervention de démonstration -->
+        <record id="intervention_demo" model="smart_agri_intervention">
+            <field name="name">Fertilisation azotée - Parcelle A</field>
+            <field name="exploitation_id" ref="exploitation_demo"/>
+            <field name="parcelle_id" ref="parcelle_demo"/>
+            <field name="culture_id" ref="culture_demo"/>
+            <field name="type_intervention">fertilisation</field>
+            <field name="description">Apport d'azote pour stimuler la croissance</field>
+            <field name="date_planifiee">2024-12-20</field>
+            <field name="date_execution">2024-12-20</field>
+            <field name="state">terminee</field>
+            <field name="cout_estime">45.0</field>
+        </record>
+        
+        <!-- Intrant de démonstration -->
+        <record id="intrant_demo" model="smart_agri_intrants">
+            <field name="name">Engrais Azoté NPK 20-10-10</field>
+            <field name="code">ENG001</field>
+            <field name="exploitation_id" ref="exploitation_demo"/>
+            <field name="categorie_principale">fertilisants</field>
+            <field name="type_intrant">engrais_complexe</field>
+            <field name="description">Engrais complet pour céréales</field>
+            <field name="unite">kg</field>
+            <field name="prix_unitaire">1.2</field>
+            <field name="stock_disponible">500.0</field>
+        </record>
+        
+        <!-- Utilisation d'intrant de démonstration -->
+        <record id="utilisation_intrant_demo" model="smart_agri_utilisation_intrant">
+            <field name="name">Utilisation Engrais NPK - Parcelle A</field>
+            <field name="exploitation_id" ref="exploitation_demo"/>
+            <field name="parcelle_id" ref="parcelle_demo"/>
+            <field name="intervention_id" ref="intervention_demo"/>
+            <field name="intrant_id" ref="intrant_demo"/>
+            <field name="quantite_utilisee">150.0</field>
+            <field name="date_utilisation">2024-12-20</field>
+            <field name="efficacite">excellente</field>
+        </record>
+        
+        <!-- Alerte climatique de démonstration -->
+        <record id="alerte_climatique_demo" model="smart_agri_alerte_climatique">
+            <field name="name">Alerte Gel - Parcelle A</field>
+            <field name="exploitation_id" ref="exploitation_demo"/>
+            <field name="type_alerte">gel</field>
+            <field name="niveau_gravite">modere</field>
+            <field name="source_alerte">api_meteo</field>
+            <field name="description">Risque de gel nocturne dans les prochaines 48h</field>
+            <field name="date_alerte">2024-12-27 08:00:00</field>
+            <field name="date_debut">2024-12-27</field>
+            <field name="date_fin">2024-12-29</field>
+            <field name="state">active</field>
+        </record>
+        
+        <!-- Scénario climatique de démonstration -->
+        <record id="scenario_climatique_demo" model="smart_agri_scenario_climatique">
+            <field name="name">Scénario RCP 4.5 - 2050</field>
+            <field name="code_scenario">RCP 4.5</field>
+            <field name="description">Scénario de réchauffement modéré</field>
+            <field name="type_scenario">rcp45</field>
+            <field name="augmentation_temperature">2.1</field>
+            <field name="variation_precipitation">-5</field>
+            <field name="exploitation_id" ref="exploitation_demo"/>
+            <field name="state">valide</field>
+        </record>
+        
+        <!-- Prédiction IA de démonstration -->
+        <record id="ia_prediction_demo" model="smart_agri_ia_predictions">
+            <field name="name">Prédiction Rendement Blé d'Hiver - Parcelle A</field>
+            <field name="code">PRED-2024-001</field>
+            <field name="type_prediction">rendement</field>
+            <field name="date_creation">2024-12-27</field>
+            <field name="exploitation_id" ref="exploitation_demo"/>
+            <field name="parcelle_id" ref="parcelle_demo"/>
+            <field name="culture_id" ref="culture_demo"/>
+            <field name="description">Prédiction de rendement basée sur les données météo et sol</field>
+            <field name="resultat_principal">8.7 t/ha</field>
+            <field name="confiance">87</field>
+        </record>
+        
+        <!-- Rotation culturale de démonstration -->
+        <record id="rotation_culturelle_demo" model="smart_agri_rotation_culturelle">
+            <field name="name">Rotation Blé-Colza-Orge</field>
+            <field name="code">ROT001</field>
+            <field name="exploitation_id" ref="exploitation_demo"/>
+            <field name="parcelle_id" ref="parcelle_demo"/>
+            <field name="description">Rotation classique pour améliorer la structure du sol</field>
+            <field name="date_debut">2024-01-01</field>
+            <field name="date_fin">2026-12-31</field>
+            <field name="objectif_principal">durabilite</field>
+            <field name="state">en_cours</field>
+        </record>
+        
+
+        
+    </data>
+</odoo>

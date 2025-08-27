@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-        <!-- Action pour les types de sol -->
+    <data noupdate="1">
+        <!-- ======================================== -->
+        <!-- ACTIONS TEMPORAIRES POUR SATISFAIRE ODOO -->
+        <!-- ======================================== -->
+        
+        <!-- Actions de base pour les modèles fonctionnels -->
+        
+        <!-- Types de sol -->
         <record id="action_smart_agri_soil_type" model="ir.actions.act_window">
             <field name="name">Types de Sol</field>
             <field name="res_model">smart_agri_soil_type</field>
             <field name="view_mode">list,form</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
-                    Ajoutez votre premier type de sol
+                    Créez votre premier type de sol
                 </p>
                 <p>
-                    Définissez les différents types de sol de votre exploitation.
+                    Définissez les caractéristiques des types de sol pour vos parcelles.
                 </p>
             </field>
         </record>
-
-        <!-- Action pour les exploitations -->
+        
+        <!-- Exploitations -->
         <record id="action_smart_agri_exploitation" model="ir.actions.act_window">
-            <field name="name">Exploitations Agricoles</field>
+            <field name="name">Exploitations</field>
             <field name="res_model">smart_agri_exploitation</field>
             <field name="view_mode">list,form</field>
             <field name="help" type="html">
@@ -30,53 +36,53 @@
                 </p>
             </field>
         </record>
-
-        <!-- Action pour les parcelles -->
+        
+        <!-- Parcelles -->
         <record id="action_smart_agri_parcelle" model="ir.actions.act_window">
             <field name="name">Parcelles</field>
             <field name="res_model">smart_agri_parcelle</field>
             <field name="view_mode">list,form</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
-                    Ajoutez votre première parcelle
+                    Créez votre première parcelle
                 </p>
                 <p>
-                    Gérez vos parcelles agricoles avec géolocalisation.
+                    Cartographiez et gérez vos parcelles cultivées.
                 </p>
             </field>
         </record>
-
-        <!-- Action pour les cultures -->
+        
+        <!-- Cultures -->
         <record id="action_smart_agri_culture" model="ir.actions.act_window">
             <field name="name">Cultures</field>
             <field name="res_model">smart_agri_culture</field>
             <field name="view_mode">list,form</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
-                    Ajoutez votre première culture
+                    Créez votre première culture
                 </p>
                 <p>
-                    Planifiez et suivez vos cultures par parcelle.
+                    Planifiez et suivez vos cultures par saison.
                 </p>
             </field>
         </record>
-
-        <!-- Action pour la météo -->
+        
+        <!-- Données météo -->
         <record id="action_smart_agri_meteo" model="ir.actions.act_window">
             <field name="name">Données Météo</field>
             <field name="res_model">smart_agri_meteo</field>
-            <field name="view_mode">list,form,graph</field>
+            <field name="view_mode">list,form</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
                     Ajoutez vos premières données météo
                 </p>
                 <p>
-                    Suivez les conditions météorologiques de votre exploitation.
+                    Enregistrez et analysez les données météorologiques.
                 </p>
             </field>
         </record>
-
-        <!-- Action pour les interventions -->
+        
+        <!-- Interventions -->
         <record id="action_smart_agri_intervention" model="ir.actions.act_window">
             <field name="name">Interventions</field>
             <field name="res_model">smart_agri_intervention</field>
@@ -86,100 +92,242 @@
                     Planifiez votre première intervention
                 </p>
                 <p>
-                    Gérez vos interventions agricoles et leur planning.
+                    Gérez vos interventions agricoles (semis, irrigation, traitements).
                 </p>
             </field>
         </record>
-
-        <!-- Action pour les intrants -->
+        
+        <!-- Intrants -->
         <record id="action_smart_agri_intrants" model="ir.actions.act_window">
-            <field name="name">Intrants Agricoles</field>
+            <field name="name">Intrants</field>
             <field name="res_model">smart_agri_intrants</field>
-            <field name="view_mode">list,form,graph</field>
+            <field name="view_mode">list,form</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
                     Ajoutez votre premier intrant
                 </p>
                 <p>
-                    Les intrants incluent semences, engrais, pesticides, eau, etc.
+                    Gérez vos semences, engrais et autres intrants.
                 </p>
             </field>
         </record>
-
-        <!-- Action pour les utilisations d'intrants -->
-        <record id="action_utilisation_intrants" model="ir.actions.act_window">
-            <field name="name">Utilisations d'Intrants</field>
+        
+        <!-- Utilisation des intrants -->
+        <record id="action_smart_agri_utilisation_intrant" model="ir.actions.act_window">
+            <field name="name">Utilisation Intrants</field>
             <field name="res_model">smart_agri_utilisation_intrant</field>
             <field name="view_mode">list,form</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
-                    Enregistrez votre première utilisation d'intrant !
+                    Enregistrez votre première utilisation d'intrant
                 </p>
                 <p>
-                    Suivez l'utilisation de vos intrants par parcelle et par intervention.
+                    Suivez l'utilisation de vos intrants par parcelle.
                 </p>
             </field>
         </record>
-
-        <!-- Action pour les prédictions IA -->
-        <record id="action_smart_agri_ia_predictions" model="ir.actions.act_window">
-            <field name="name">Prédictions IA</field>
-            <field name="res_model">smart_agri_ia_predictions</field>
-            <field name="view_mode">list,form</field>
-            <field name="help" type="html">
-                <p class="o_view_nocontent_smiling_face">
-                    Aucune prédiction IA disponible
-                </p>
-                <p>
-                    Obtenez des prédictions basées sur l'IA pour vos cultures.
-                </p>
-            </field>
-        </record>
-
-        <!-- Action pour les imports Meteostat -->
-        <record id="action_meteostat_import" model="ir.actions.act_window">
-            <field name="name">Imports Meteostat</field>
+        
+        <!-- Import Meteostat -->
+        <record id="action_smart_agri_meteostat_import" model="ir.actions.act_window">
+            <field name="name">Import Meteostat</field>
             <field name="res_model">smart_agri_meteostat_import</field>
             <field name="view_mode">list,form</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
-                    Créez votre premier import Meteostat !
+                    Importez vos premières données Meteostat
                 </p>
                 <p>
-                    Configurez l'import automatique des données climatiques depuis Meteostat.
+                    Importez automatiquement les données météorologiques.
                 </p>
             </field>
         </record>
-
-        <!-- Action pour les alertes climatiques -->
-        <record id="action_alerte_climatique" model="ir.actions.act_window">
+        
+        <!-- Alertes climatiques -->
+        <record id="action_smart_agri_alerte_climatique" model="ir.actions.act_window">
             <field name="name">Alertes Climatiques</field>
             <field name="res_model">smart_agri_alerte_climatique</field>
             <field name="view_mode">list,form</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
-                    Aucune alerte climatique active !
+                    Créez votre première alerte climatique
                 </p>
                 <p>
-                    Créez des alertes pour surveiller les conditions climatiques menaçantes.
+                    Gérez les alertes de sécheresse, gel et canicule.
                 </p>
             </field>
         </record>
-
-        <!-- Action pour les tendances climatiques -->
-        <record id="action_tendance_climatique" model="ir.actions.act_window">
+        
+        <!-- Tendances climatiques -->
+        <record id="action_smart_agri_tendance_climatique" model="ir.actions.act_window">
             <field name="name">Tendances Climatiques</field>
             <field name="res_model">smart_agri_tendance_climatique</field>
-            <field name="view_mode">list,form,graph</field>
+            <field name="view_mode">list,form</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
-                    Aucune tendance climatique analysée !
+                    Analysez vos premières tendances climatiques
                 </p>
                 <p>
-                    Analysez les tendances climatiques à long terme pour votre exploitation.
+                    Analysez les tendances climatiques historiques et projetées.
                 </p>
             </field>
         </record>
-
+        
+        <!-- Scénarios climatiques -->
+        <record id="action_smart_agri_scenario_climatique" model="ir.actions.act_window">
+            <field name="name">Scénarios Climatiques</field>
+            <field name="res_model">smart_agri_scenario_climatique</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Créez votre premier scénario climatique
+                </p>
+                <p>
+                    Simulez l'impact du changement climatique.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Scénarios RCP -->
+        <record id="action_smart_agri_rcp_scenario" model="ir.actions.act_window">
+            <field name="name">Scénarios RCP</field>
+            <field name="res_model">smart_agri_rcp_scenario</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Créez votre premier scénario RCP
+                </p>
+                <p>
+                    Utilisez les scénarios IPCC RCP pour vos simulations.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Rotations culturelles -->
+        <record id="action_smart_agri_rotation_culturelle" model="ir.actions.act_window">
+            <field name="name">Rotations Culturelles</field>
+            <field name="res_model">smart_agri_rotation_culturelle</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Planifiez votre première rotation culturelle
+                </p>
+                <p>
+                    Optimisez vos rotations de cultures.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Tableau de bord -->
+        <record id="action_smart_agri_tableau_bord" model="ir.actions.act_window">
+            <field name="name">Tableau de Bord</field>
+            <field name="res_model">smart_agri_tableau_bord</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Consultez votre tableau de bord
+                </p>
+                <p>
+                    Tableau de bord principal avec indicateurs clés.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Dashboard -->
+        <record id="action_smart_agri_dashboard" model="ir.actions.act_window">
+            <field name="name">Dashboard</field>
+            <field name="res_model">smart_agri_dashboard</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Consultez votre dashboard
+                </p>
+                <p>
+                    Dashboard avancé avec graphiques et analyses.
+                </p>
+            </field>
+        </record>
+        
+        <!-- ======================================== -->
+        <!-- ACTIONS DE CONTOURNEMENT IA TEMPORAIRES -->
+        <!-- ======================================== -->
+        
+        <!-- Prédictions IA (Mode Contournement) -->
+        <record id="action_smart_agri_ia_predictions" model="ir.actions.act_window">
+            <field name="name">Prédictions IA</field>
+            <field name="res_model">smart_agri_ia_predictions</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Consultez vos prédictions IA
+                </p>
+                <p>
+                    Prédictions de rendement et recommandations IA.
+                </p>
+                <p style="color: orange;">
+                    <strong>Note :</strong> Mode contournement temporaire - Les modèles IA sont en cours d'initialisation.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Dashboard IA -->
+        <record id="action_smart_agri_ia_dashboard" model="ir.actions.act_window">
+            <field name="name">Dashboard IA</field>
+            <field name="res_model">smart_agri_ia_dashboard</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Consultez votre dashboard IA
+                </p>
+                <p>
+                    Tableau de bord intelligent avec recommandations et alertes IA.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Détection Stress IA -->
+        <record id="action_smart_agri_ia_detection_stress" model="ir.actions.act_window">
+            <field name="name">Détection Stress IA</field>
+            <field name="res_model">smart_agri_ia_detection_stress</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Consultez la détection de stress
+                </p>
+                <p>
+                    Détection automatique de stress climatique ou hydrique.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Simulateur IA -->
+        <record id="action_smart_agri_ia_simulateur" model="ir.actions.act_window">
+            <field name="name">Simulateur IA</field>
+            <field name="res_model">smart_agri_ia_simulateur</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Utilisez le simulateur IA
+                </p>
+                <p>
+                    Simulation de scénarios agricoles avec IA.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Optimisation Ressources IA -->
+        <record id="action_smart_agri_ia_optimisation_ressources" model="ir.actions.act_window">
+            <field name="name">Optimisation Ressources IA</field>
+            <field name="res_model">smart_agri_ia_optimisation_ressources</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Consultez l'optimisation des ressources
+                </p>
+                <p>
+                    Optimisation des ressources (eau, engrais, main-d'œuvre).
+                </p>
+            </field>
+        </record>
+        
     </data>
 </odoo>

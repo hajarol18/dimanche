@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ======================================== -->
+    <!-- OPTIMISATION DES RESSOURCES IA -->
+    <!-- Eau, engrais, main-d'œuvre intelligente -->
+    <!-- ======================================== -->
+
+    <!-- VUE OPTIMISATION RESSOURCES IA -->
+    <record id="view_ia_optimisation_ressources_form" model="ir.ui.view">
+        <field name="name">smart_agri_ia_optimisation_ressources.form</field>
+        <field name="model">smart_agri_ia_optimisation_ressources</field>
+        <field name="arch" type="xml">
+            <form string="Optimisation IA - Ressources Agricoles">
+                <header>
+                    <button name="action_optimiser_ressources" type="object" string="⚡ Optimiser Ressources" class="btn-primary"/>
+                    <button name="action_calculer_economies" type="object" string="💰 Calculer Économies" class="btn-success"/>
+                    <button name="action_planifier_actions" type="object" string="📅 Planifier Actions" class="btn-info"/>
+                    <button name="action_generer_rapport" type="object" string="📊 Rapport Optimisation" class="btn-secondary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="analyse,optimisation,planification,execution,termine"/>
+                </header>
+
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Nom de l'Optimisation des Ressources"/>
+                        </h1>
+                        <h3>
+                            <field name="description" placeholder="Description de l'optimisation"/>
+                        </h3>
+                    </div>
+
+                    <!-- INFORMATIONS GÉNÉRALES -->
+                    <div class="row mt-3">
+                                                                <div class="col-md-6">
+                                            <div class="o_form_label">🌱 Exploitation</div>
+                                            <field name="exploitation_id"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="o_form_label">🌍 Parcelle</div>
+                                            <field name="parcelle_id"/>
+                                        </div>
+                    </div>
+
+                    <!-- OPTIMISATION IRRIGATION IA -->
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <div class="card border-primary">
+                                <div class="card-header bg-primary text-white">
+                                    <h5>💧 Optimisation Irrigation IA - Gestion Intelligente de l'Eau</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="o_form_label">💧 Besoin en Eau Actuel (mm)</div>
+                                            <field name="besoin_eau_actuel" widget="float"/>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="o_form_label">💧 Besoin en Eau Optimisé (mm)</div>
+                                            <field name="besoin_eau_optimise" widget="float"/>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="o_form_label">💧 Économie d'Eau (%)</div>
+                                            <field name="economie_eau" widget="float"/>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="o_form_label">💧 Système d'Irrigation</div>
+                                            <field name="systeme_irrigation"/>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-3">
+                                            <div class="o_form_label">💧 Fréquence Optimale (jours)</div>
+                                            <field name="frequence_irrigation_optimale" widget="integer"/>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="o_form_label">💧 Dose Optimale (mm)</div>
+                                            <field name="dose_irrigation_optimale" widget="float"/>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="o_form_label">💧 Horaires Optimaux</div>
+                                            <field name="horaires_irrigation_optimaux"/>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="o_form_label">💧 Durée Optimale (min)</div>
+                                            <field name="duree_irrigation_optimale" widget="integer"/>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-6">
+                                            <div class="o_form_label">💧 Capteurs Recommandés</div>
+                                            <field name="capteurs_recommandes" widget="text"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="o_form_label">💧 Actions d'Optimisation</div>
+                                            <field name="actions_optimisation_irrigation" widget="text"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- OPTIMISATION ENGRAIS IA -->
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <div class="card border-success">
+                                <div class="card-header bg-success text-white">
+                                    <h5>🌿 Optimisation Engrais IA - Fertilisation Intelligente</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="o_form_label">🌿 Azote Actuel (kg/ha)</div>
+                                            <field name="azote_actuel" widget="float"/>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="o_form_label">🌿 Azote Optimisé (kg/ha)</div>
+                                            <field name="azote_optimise" widget="float"/>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="o_form_label">🌿 Économie Azote (%)</div>
+                                            <field name="economie_azote" widget="float"/>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="o_form_label">🌿 Type d'Engrais Azoté</div>
+                                            <field name="type_engrais_azote"/>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-3">
+                                            <div class="o_form_label">🌿 Phosphore Actuel (kg/ha)</div>
+                                            <field name="phosphore_actuel" widget="float"/>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="o_form_label">🌿 Phosphore Optimisé (kg/ha)</div>
+                                            <field name="phosphore_optimise" widget="float"/>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="o_form_label">🌿 Économie Phosphore (%)</div>
+                                            <field name="economie_phosphore" widget="float"/>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="o_form_label">🌿 Type d'Engrais Phosphoré</div>
+                                            <field name="type_engrais_phosphore"/>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-3">
+                                            <div class="o_form_label">🌿 Potassium Actuel (kg/ha)</div>
+                                            <field name="potassium_actuel" widget="float"/>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="o_form_label">🌿 Potassium Optimisé (kg/ha)</div>
+                                            <field name="potassium_optimise" widget="float"/>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="o_form_label">🌿 Économie Potassium (%)</div>
+                                            <field name="economie_potassium" widget="float"/>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="o_form_label">🌿 Type d'Engrais Potassique</div>
+                                            <field name="type_engrais_potassique"/>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-6">
+                                            <div class="o_form_label">🌿 Plan de Fertilisation</div>
+                                            <field name="plan_fertilisation" widget="text"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="o_form_label">🌿 Actions d'Optimisation</div>
+                                            <field name="actions_optimisation_engrais" widget="text"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- OPTIMISATION MAIN-D'ŒUVRE IA -->
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <div class="card border-warning">
+                                <div class="card-header bg-warning text-white">
+                                    <h5>👷 Optimisation Main-d'Œuvre IA - Planification Intelligente</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="o_form_label">👷 Heures Actuelles (h/ha)</div>
+                                            <field name="heures_main_oeuvre_actuelles" widget="float"/>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="o_form_label">👷 Heures Optimisées (h/ha)</div>
+                                            <field name="heures_main_oeuvre_optimisees" widget="float"/>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="o_form_label">👷 Économie Heures (%)</div>
+                                            <field name="economie_heures" widget="float"/>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="o_form_label">👷 Coût Main-d'Œuvre (€/ha)</div>
+                                            <field name="cout_main_oeuvre" widget="float"/>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-3">
+                                            <div class="o_form_label">👷 Tâches Prioritaires</div>
+                                            <field name="taches_prioritaires"/>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="o_form_label">👷 Séquence Optimale</div>
+                                            <field name="sequence_optimale"/>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="o_form_label">👷 Équipements Recommandés</div>
+                                            <field name="equipements_recommandes"/>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="o_form_label">👷 Formation Requise</div>
+                                            <field name="formation_requise"/>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-6">
+                                            <div class="o_form_label">👷 Plan de Travail Optimisé</div>
+                                            <field name="plan_travail_optimise" widget="text"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="o_form_label">👷 Actions d'Optimisation</div>
+                                            <field name="actions_optimisation_main_oeuvre" widget="text"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ANALYSE ÉCONOMIQUE IA -->
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <div class="card border-info">
+                                <div class="card-header bg-info text-white">
+                                    <h5>💰 Analyse Économique IA - ROI et Économies</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="text-center">
+                                                <h4 class="text-success">
+                                                    <field name="economies_totales" widget="float"/> €/ha
+                                                </h4>
+                                                <small>Économies Totales</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="text-center">
+                                                <h4 class="text-info">
+                                                    <field name="roi_optimisation" widget="float"/>%
+                                                </h4>
+                                                <small>ROI Optimisation</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="text-center">
+                                                <h4 class="text-warning">
+                                                    <field name="cout_implementation" widget="float"/> €/ha
+                                                </h4>
+                                                <small>Coût Implémentation</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="text-center">
+                                                <h4 class="text-primary">
+                                                    <field name="delai_retour_investissement" widget="float"/> mois
+                                                </h4>
+                                                <small>Délai Retour</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                                                         <div class="row mt-3">
+                                         <div class="col-md-6">
+                                             <h6>📊 Répartition des Économies</h6>
+                                             <div class="alert alert-info">
+                                                 <strong>ℹ️ Information :</strong> La répartition détaillée des économies sera disponible dans une prochaine version.
+                                             </div>
+                                         </div>
+                                         <div class="col-md-6">
+                                             <h6>📈 Projections Économiques</h6>
+                                             <div class="alert alert-info">
+                                                 <strong>ℹ️ Information :</strong> Les projections économiques seront disponibles dans une prochaine version.
+                                             </div>
+                                         </div>
+                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                                         <!-- PLAN D'ACTION OPTIMISATION -->
+                     <div class="row mt-3">
+                         <div class="col-md-12">
+                             <div class="card border-success">
+                                 <div class="card-header bg-success text-white">
+                                     <h5>📋 Plan d'Action IA - Implémentation de l'Optimisation</h5>
+                                 </div>
+                                 <div class="card-body">
+                                     <div class="alert alert-info">
+                                         <strong>ℹ️ Information :</strong> Le plan d'action détaillé sera disponible dans une prochaine version.
+                                         <br/>Pour l'instant, utilisez les boutons d'action dans l'en-tête pour optimiser vos ressources.
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+
+                    <!-- SUIVI ET PERFORMANCE -->
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>📊 Suivi et Performance - Métriques IA</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="o_form_label">📊 Score d'Optimisation</div>
+                                            <field name="score_optimisation" widget="integer"/>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="o_form_label">📊 Confiance IA</div>
+                                            <field name="confiance_optimisation" widget="integer"/>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="o_form_label">📊 Précision Prédictions</div>
+                                            <field name="precision_predictions" widget="integer"/>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="o_form_label">📊 Date Dernière Optimisation</div>
+                                            <field name="date_derniere_optimisation" widget="datetime"/>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-6">
+                                            <div class="o_form_label">📊 Indicateurs de Performance</div>
+                                            <field name="indicateurs_performance" widget="text"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="o_form_label">📊 Recommandations d'Amélioration</div>
+                                            <field name="recommandations_amelioration" widget="text"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- GRAPHIQUES D'OPTIMISATION -->
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6>📈 Évolution des Économies</h6>
+                                </div>
+                                <div class="card-body">
+                                    <field name="graphique_evolution_economies" widget="chart"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6>🌍 Répartition des Ressources</h6>
+                                </div>
+                                <div class="card-body">
+                                    <field name="graphique_repartition_ressources" widget="chart"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </sheet>
+
+                                 <!-- Note: Le modèle n'hérite pas de mail.thread, donc pas de chatter -->
+            </form>
+        </field>
+    </record>
+
+    <!-- VUE LISTE OPTIMISATION RESSOURCES IA -->
+    <record id="view_ia_optimisation_ressources_list" model="ir.ui.view">
+        <field name="name">smart_agri_ia_optimisation_ressources.list</field>
+        <field name="model">smart_agri_ia_optimisation_ressources</field>
+        <field name="arch" type="xml">
+            <list string="Optimisations IA Ressources">
+                <field name="name"/>
+                <field name="exploitation_id"/>
+                <field name="economies_totales"/>
+                <field name="roi_optimisation"/>
+                <field name="score_optimisation" widget="badge" 
+                       decoration-success="score_optimisation &gt;= 80" 
+                       decoration-warning="score_optimisation &gt;= 60" 
+                       decoration-danger="score_optimisation &lt; 60"/>
+                <field name="confiance_optimisation"/>
+                <field name="date_derniere_optimisation"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ACTION OPTIMISATION RESSOURCES IA -->
+    <record id="action_ia_optimisation_ressources" model="ir.actions.act_window">
+        <field name="name">Optimisation Ressources IA</field>
+        <field name="res_model">smart_agri_ia_optimisation_ressources</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_ia_optimisation_ressources_list"/>
+        <field name="context">{'search_default_optimisations_actives': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Créez votre première optimisation IA des ressources !
+            </p>
+            <p>
+                L'optimisation IA des ressources vous permet de :
+                <ul>
+                    <li>💧 Optimiser l'irrigation et économiser l'eau</li>
+                    <li>🌿 Optimiser les engrais et réduire les coûts</li>
+                    <li>👷 Optimiser la main-d'œuvre et améliorer l'efficacité</li>
+                    <li>💰 Calculer les économies et le ROI</li>
+                    <li>📊 Suivre les performances d'optimisation</li>
+                </ul>
+            </p>
+        </field>
+    </record>
+
+    </odoo>
