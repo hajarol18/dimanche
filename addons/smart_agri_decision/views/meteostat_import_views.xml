@@ -1,63 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    
-        <!-- Vue liste pour les imports Meteostat -->
+    <data>
+        
+        <!-- ======================================== -->
+        <!-- VUES IMPORT MÉTÉO COMPLÈTES SELON CAHIER DES CHARGES -->
+        <!-- ======================================== -->
+        
+        <!-- Vue liste des imports Meteostat avec indicateurs -->
         <record id="view_meteostat_import_list" model="ir.ui.view">
             <field name="name">smart.agri.meteostat.import.list</field>
             <field name="model">smart_agri_meteostat_import</field>
             <field name="arch" type="xml">
-                <list string="Imports Meteostat">
+                <list string="Imports Météo - Données Climatiques" 
+                      decoration-info="state == 'planifie'"
+                      decoration-warning="state == 'en_cours'"
+                      decoration-success="state == 'termine'"
+                      decoration-danger="state == 'erreur'">
                     <field name="name"/>
+                    <field name="exploitation_id"/>
+                    <field name="station_id"/>
+                    <field name="parametres_import"/>
+                    <field name="date_debut"/>
+                    <field name="date_fin"/>
                     <field name="date_import"/>
                     <field name="state"/>
+                    <field name="nombre_enregistrements"/>
+                    <field name="import_automatique"/>
+                    <field name="frequence_import"/>
                 </list>
             </field>
         </record>
 
-        <!-- Vue formulaire pour les imports Meteostat -->
+        <!-- Vue formulaire complète des imports Meteostat -->
         <record id="view_meteostat_import_form" model="ir.ui.view">
             <field name="name">smart.agri.meteostat.import.form</field>
             <field name="model">smart_agri_meteostat_import</field>
             <field name="arch" type="xml">
-                <form string="Import Meteostat">
+                <form string="Import Météo - Données Climatiques">
                     <header>
-                        <button name="importer_donnees_meteostat" type="object" string="Importer" class="oe_highlight"/>
-                        <field name="state" widget="statusbar" statusbar_visible="planifie,en_cours,termine"/>
+                        <button name="importer_donnees_meteostat" type="object" string="🌤️ Importer Données" 
+                                class="oe_highlight" 
+                                invisible="state in ['en_cours', 'termine']"/>
+                        <button name="creer_alertes_climatiques" type="object" string="🚨 Créer Alertes" 
+                                class="btn-warning"
+                                invisible="state != 'termine'"/>
+                        <field name="state" widget="statusbar" 
+                               statusbar_visible="planifie,en_cours,termine,erreur"/>
                     </header>
+                    
                     <sheet>
-                        <div class="oe_title">
-                            <h1>
-                                <field name="name" placeholder="Nom de l'import"/>
-                            </h1>
-                        </div>
+                        <!-- Informations de base -->
                         <group>
-                            <group string="Informations de base">
+                            <group string="🏞️ Exploitation">
+                                <field name="exploitation_id" required="1" 
+                                       context="{'default_state': 'active'}"/>
                                 <field name="name"/>
                                 <field name="description"/>
                             </group>
-                            <group string="Paramètres">
-                                <field name="date_import"/>
-                                <field name="state"/>
+                            <group string="🌍 Station Météo">
+                                <field name="station_id" required="1"/>
+                                <field name="latitude" required="1"/>
+                                <field name="longitude" required="1"/>
                             </group>
+                        </group>
+                        
+                        <!-- Configuration de l'import -->
+                        <group string="⚙️ Configuration Import">
+                            <group string="Période d'import">
+                                <field name="date_debut" required="1"/>
+                                <field name="date_fin" required="1"/>
+                                <field name="date_import" readonly="1"/>
+                            </group>
+                            <group string="Paramètres météo">
+                                <field name="parametres_import" required="1"/>
+                                <field name="import_automatique"/>
+                                <field name="frequence_import" 
+                                       invisible="not import_automatique"/>
+                                <field name="prochaine_import" 
+                                       invisible="not import_automatique"/>
+                            </group>
+                        </group>
+                        
+                        <!-- Résultats et statistiques -->
+                        <group string="📊 Résultats Import" 
+                               invisible="state == 'planifie'">
+                            <group string="Statistiques">
+                                <field name="nombre_enregistrements" readonly="1"/>
+                                <field name="duree_import" readonly="1"/>
+                            </group>
+                            <group string="Logs">
+                                <field name="erreur_import" readonly="1" 
+                                       invisible="state != 'erreur'"/>
+                                <field name="log_import" readonly="1" nolabel="1"/>
+                            </group>
+                        </group>
+                        
+                        <!-- Notes -->
+                        <group string="📝 Notes">
+                            <field name="notes" nolabel="1"/>
                         </group>
                     </sheet>
                 </form>
             </field>
         </record>
-
-        <!-- Action pour ouvrir les imports Meteostat -->
+        
+        <!-- Vue graphique des imports par exploitation -->
+        <record id="view_meteostat_import_graph" model="ir.ui.view">
+            <field name="name">smart.agri.meteostat.import.graph</field>
+            <field name="model">smart_agri_meteostat_import</field>
+            <field name="arch" type="xml">
+                <graph string="Imports Météo par Exploitation" type="bar">
+                    <field name="exploitation_id"/>
+                    <field name="nombre_enregistrements" type="measure"/>
+                </graph>
+            </field>
+        </record>
+        
+        <!-- Vue pivot des imports météo -->
+        <record id="view_meteostat_import_pivot" model="ir.ui.view">
+            <field name="name">smart.agri.meteostat.import.pivot</field>
+            <field name="model">smart_agri_meteostat_import</field>
+            <field name="arch" type="xml">
+                <pivot string="Analyse des Imports Météo">
+                    <field name="exploitation_id" type="row"/>
+                    <field name="parametres_import" type="row"/>
+                    <field name="nombre_enregistrements" type="measure"/>
+                    <field name="duree_import" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+        
+        <!-- Action pour les imports Meteostat -->
         <record id="action_meteostat_import" model="ir.actions.act_window">
-            <field name="name">Imports Meteostat</field>
+            <field name="name">🌤️ Imports Météo</field>
             <field name="res_model">smart_agri_meteostat_import</field>
-            <field name="view_mode">list,form</field>
+            <field name="view_mode">list,form,graph,pivot</field>
+            <field name="context">{'default_import_automatique': True}</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
-                    Créez votre premier import Meteostat
+                    Créez votre premier import de données météo !
                 </p>
                 <p>
-                    Importez des données météorologiques depuis l'API Meteostat.
+                    Importez des données climatiques depuis Meteostat pour :
+                    <br/>• Surveiller les conditions météorologiques
+                    <br/>• Créer des alertes climatiques (sécheresse, gel, canicule)
+                    <br/>• Analyser les tendances climatiques
+                    <br/>• Aider à la décision agricole
                 </p>
             </field>
         </record>
-    
+        
+        <!-- LES MENUS SONT MAINTENANT DÉFINIS DANS menu_meteo_climat.xml -->
+        
+    </data>
 </odoo>

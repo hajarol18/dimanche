@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <!-- Template pour le rendu de la carte Leaflet -->
+    <t t-name="smart_agri_decision.LeafletMapRenderer" owl="1">
+        <div class="o_leaflet_map_container">
+            <div class="o_leaflet_map" t-ref="map"></div>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vue liste des modèles IA -->
+        <record id="view_smart_agri_ai_model_list" model="ir.ui.view">
+            <field name="name">smart.agri.ai.model.list</field>
+            <field name="model">smart_agri_ai_model</field>
+            <field name="arch" type="xml">
+                <list string="Modèles IA" decoration-info="state == 'draft'" decoration-warning="state == 'training'" decoration-success="state == 'deployed'">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="type_modele"/>
+                    <field name="algorithme"/>
+                    <field name="version"/>
+                    <field name="state"/>
+                    <field name="performance_globale" widget="progressbar"/>
+                    <field name="actif"/>
+                    <field name="production"/>
+                    <field name="date_derniere_entrainement"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Vue formulaire des modèles IA -->
+        <record id="view_smart_agri_ai_model_form" model="ir.ui.view">
+            <field name="name">smart.agri.ai.model.form</field>
+            <field name="model">smart_agri_ai_model</field>
+            <field name="arch" type="xml">
+                <form string="Modèle IA">
+                    <header>
+                                                 <button name="action_entrainer_modele" string="Entraîner" type="object" 
+                                 class="btn-primary" 
+                                 invisible="state not in ['draft', 'trained', 'evaluated']"/>
+                         <button name="action_evaluer_modele" string="Évaluer" type="object" 
+                                 class="btn-secondary" 
+                                 invisible="state != 'trained'"/>
+                         <button name="action_deployer_modele" string="Déployer" type="object" 
+                                 class="btn-success" 
+                                 invisible="state != 'evaluated'"/>
+                         <button name="action_archiver_modele" string="Archiver" type="object" 
+                                 class="btn-warning" 
+                                 invisible="state == 'archived'"/>
+                        <field name="state" widget="statusbar" 
+                               statusbar_visible="draft,training,trained,evaluated,deployed"/>
+                    </header>
+                    
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Nom du modèle IA"/>
+                            </h1>
+                            <h2>
+                                <field name="code" placeholder="Code unique"/>
+                            </h2>
+                        </div>
+                        
+                        <group>
+                            <group string="Identification">
+                                <field name="description"/>
+                                <field name="type_modele"/>
+                                <field name="algorithme"/>
+                                <field name="version"/>
+                                <field name="auteur"/>
+                            </group>
+                            
+                            <group string="Statut">
+                                <field name="actif"/>
+                                <field name="production"/>
+                                <field name="date_creation"/>
+                                <field name="date_derniere_entrainement"/>
+                                <field name="date_derniere_evaluation"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Performance" name="performance">
+                                <group>
+                                    <group string="Métriques de classification">
+                                        <field name="accuracy" widget="percentage"/>
+                                        <field name="precision" widget="percentage"/>
+                                        <field name="recall" widget="percentage"/>
+                                        <field name="f1_score" widget="percentage"/>
+                                    </group>
+                                    
+                                    <group string="Métriques de régression">
+                                        <field name="mse"/>
+                                        <field name="mae"/>
+                                        <field name="r2_score" widget="percentage"/>
+                                    </group>
+                                    
+                                    <group string="Performance globale">
+                                        <field name="performance_globale" widget="progressbar"/>
+                                    </group>
+                                </group>
+                            </page>
+                            
+                            <page string="Données d'entraînement" name="training_data">
+                                <group>
+                                    <group string="Échantillons">
+                                        <field name="nb_echantillons_entrainement"/>
+                                        <field name="nb_echantillons_test"/>
+                                    </group>
+                                    
+                                    <group string="Caractéristiques">
+                                        <field name="nb_features"/>
+                                        <field name="nb_classes"/>
+                                    </group>
+                                </group>
+                                
+                                <group string="Paramètres">
+                                    <field name="parametres" widget="ace" options="{'mode': 'json'}"/>
+                                    <field name="hyperparametres" widget="ace" options="{'mode': 'json'}"/>
+                                </group>
+                            </page>
+                            
+                            <page string="Fichiers" name="files">
+                                <group>
+                                    <field name="chemin_modele"/>
+                                    <field name="chemin_scaler"/>
+                                    <field name="chemin_encoder"/>
+                                </group>
+                            </page>
+                            
+                            <page string="Documentation" name="documentation">
+                                <group>
+                                    <field name="documentation" widget="html"/>
+                                    <field name="limitations"/>
+                                    <field name="notes"/>
+                                </group>
+                            </page>
+                            
+                            <!-- TEMPORAIREMENT COMMENTÉ POUR RÉSOLUDRE L'ERREUR DE CHARGEMENT
+                            <page string="Prédictions" name="predictions">
+                                <field name="prediction_ids" readonly="1">
+                                    <list>
+                                        <field name="name"/>
+                                        <field name="type_prediction"/>
+                                        <field name="probabilite"/>
+                                        <field name="state"/>
+                                        <field name="date_creation"/>
+                                    </list>
+                                </field>
+                            </page>
+                            -->
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vue graphique des modèles IA -->
+        <record id="view_smart_agri_ai_model_graph" model="ir.ui.view">
+            <field name="name">smart.agri.ai.model.graph</field>
+            <field name="model">smart_agri_ai_model</field>
+            <field name="arch" type="xml">
+                <graph string="Performance des modèles IA" type="bar">
+                    <field name="algorithme"/>
+                    <field name="performance_globale" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- Vue pivot des modèles IA -->
+        <record id="view_smart_agri_ai_model_pivot" model="ir.ui.view">
+            <field name="name">smart.agri.ai.model.pivot</field>
+            <field name="model">smart_agri_ai_model</field>
+            <field name="arch" type="xml">
+                <pivot string="Analyse des modèles IA">
+                    <field name="type_modele" type="row"/>
+                    <field name="algorithme" type="col"/>
+                    <field name="performance_globale" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <!-- Action pour ouvrir les modèles IA -->
+        <record id="action_smart_agri_ai_model" model="ir.actions.act_window">
+            <field name="name">Modèles IA</field>
+            <field name="res_model">smart_agri_ai_model</field>
+            <field name="view_mode">list,form,graph,pivot</field>
+            <field name="context">{'search_default_actifs': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Créez votre premier modèle d'Intelligence Artificielle !
+                </p>
+                <p>
+                    Les modèles IA vous permettront de prédire les rendements, 
+                    recommander des cultures optimales et optimiser vos ressources agricoles.
+                </p>
+            </field>
+        </record>
+
+        <!-- Filtres de recherche -->
+        <record id="view_smart_agri_ai_model_search" model="ir.ui.view">
+            <field name="name">smart.agri.ai.model.search</field>
+            <field name="model">smart_agri_ai_model</field>
+            <field name="arch" type="xml">
+                <search string="Recherche de modèles IA">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="type_modele"/>
+                    <field name="algorithme"/>
+                    <field name="state"/>
+                    
+                    <filter string="Modèles actifs" name="actifs" domain="[('actif', '=', True)]"/>
+                    <filter string="En production" name="production" domain="[('production', '=', True)]"/>
+                    <filter string="Déployés" name="deployes" domain="[('state', '=', 'deployed')]"/>
+                    <filter string="En entraînement" name="entrainement" domain="[('state', '=', 'training')]"/>
+                    
+                    <group expand="0" string="Regrouper par">
+                        <filter string="Type de modèle" name="type" context="{'group_by': 'type_modele'}"/>
+                        <filter string="Algorithme" name="algo" context="{'group_by': 'algorithme'}"/>
+                        <filter string="État" name="etat" context="{'group_by': 'state'}"/>
+                        <filter string="Auteur" name="auteur" context="{'group_by': 'auteur'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

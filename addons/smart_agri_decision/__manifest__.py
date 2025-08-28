@@ -29,8 +29,8 @@
     'website': 'https://www.smartagri.com',
     'depends': [
         'base',
-        'mail',
         'web',
+        'mail',
         'base_geolocalize',
     ],
     'data': [
@@ -60,6 +60,8 @@
         'views/tableau_bord_views.xml',
         'views/rotation_culturelle_views.xml',
         'views/dashboard_views.xml',
+        'views/geojson_wizard_views.xml',
+        'views/assets.xml',
         
         # Vues IA (sans références de menus)
         'views/ia_predictions_views.xml',
@@ -67,12 +69,17 @@
         'views/ia_optimisation_ressources_views.xml',
         'views/ia_dashboard_views.xml',
         'views/ia_detection_stress_views.xml',
+        'views/ai_model_views.xml',
         
-        # Menu principal (APRÈS toutes les vues et actions)
+        # Menu principal (AVANT tous les sous-menus)
         'views/main_menu.xml',
+        
+        # Menus organisés (APRÈS le menu principal)
+        'views/menu_meteo_climat.xml',
         
         # Données de démonstration (après la création des modèles et de la sécurité)
         'data/demo_data_complet.xml',
+        'data/demo_data_massive.xml',
     ],
     'demo': [
         'data/demo_data_complet.xml',

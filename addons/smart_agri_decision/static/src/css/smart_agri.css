@@ -1,0 +1,249 @@
+/* Styles pour le module Smart Agri Decision */
+
+/* Conteneur de la carte Leaflet */
+.o_leaflet_map_container {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    margin: 20px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.o_leaflet_map {
+    width: 100%;
+    height: 100%;
+    background-color: #f8f9fa;
+}
+
+/* Marqueurs de parcelles */
+.parcelle-marker {
+    background: transparent;
+    border: none;
+}
+
+.marker-content {
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    border: 2px solid white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.marker-content:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.marker-content.selected {
+    background: linear-gradient(135deg, #ff6b35, #f7931e);
+    transform: scale(1.2);
+    box-shadow: 0 6px 16px rgba(255, 107, 53, 0.5);
+}
+
+/* Popups des parcelles */
+.parcelle-popup {
+    min-width: 250px;
+    padding: 10px;
+}
+
+.parcelle-popup h4 {
+    margin: 0 0 10px 0;
+    color: #2c3e50;
+    font-size: 16px;
+    font-weight: 600;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 5px;
+}
+
+.parcelle-popup p {
+    margin: 5px 0;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.parcelle-popup strong {
+    color: #34495e;
+    font-weight: 600;
+}
+
+.popup-actions {
+    margin-top: 15px;
+    text-align: center;
+    padding-top: 10px;
+    border-top: 1px solid #ecf0f1;
+}
+
+.popup-actions .btn {
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.popup-actions .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Styles pour les champs géospatiaux */
+.field_geo_point,
+.field_geo_polygon {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: #495057;
+}
+
+.field_geo_point:focus,
+.field_geo_polygon:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Indicateurs de statut géospatial */
+.geo-status-indicator {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.geo-status-valid {
+    background-color: #28a745;
+}
+
+.geo-status-invalid {
+    background-color: #dc3545;
+}
+
+.geo-status-warning {
+    background-color: #ffc107;
+}
+
+/* Boutons d'import/export GeoJSON */
+.btn-geojson {
+    margin: 5px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-import-geojson {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+}
+
+.btn-import-geojson:hover {
+    background: linear-gradient(135deg, #0056b3, #004085);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.btn-export-geojson {
+    background: linear-gradient(135deg, #28a745, #1e7e34);
+    color: white;
+}
+
+.btn-export-geojson:hover {
+    background: linear-gradient(135deg, #1e7e34, #155724);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+/* Alertes d'information géospatiale */
+.alert-geo-info {
+    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+    border: 1px solid #90caf9;
+    color: #1565c0;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+    box-shadow: 0 2px 8px rgba(33, 150, 243, 0.1);
+}
+
+.alert-geo-info p {
+    margin: 5px 0;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .o_leaflet_map_container {
+        height: 350px;
+    }
+    
+    .parcelle-popup {
+        min-width: 200px;
+    }
+    
+    .marker-content {
+        width: 25px;
+        height: 25px;
+        font-size: 9px;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.parcelle-popup {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Styles pour les contrôles de carte */
+.leaflet-control-zoom {
+    border: none !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+.leaflet-control-zoom a {
+    background: white !important;
+    color: #495057 !important;
+    border: 1px solid #dee2e6 !important;
+    transition: all 0.3s ease !important;
+}
+
+.leaflet-control-zoom a:hover {
+    background: #f8f9fa !important;
+    color: #007bff !important;
+    border-color: #007bff !important;
+}
+
+/* Styles pour les attributions */
+.leaflet-control-attribution {
+    background: rgba(255, 255, 255, 0.9) !important;
+    font-size: 11px !important;
+    color: #6c757d !important;
+}

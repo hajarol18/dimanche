@@ -60,6 +60,16 @@ class SmartAgriMeteo(models.Model):
         ('autre', 'Autre')
     ], string='Source des données', required=True, default='station_locale')
     
+    # NOUVEAUX CHAMPS POUR L'INTÉGRATION AVEC LES IMPORTS
+    station_id = fields.Char('ID Station météo')
+    scenario_climatique = fields.Selection([
+        ('rcp_26', '🌱 RCP 2.6 - Optimiste'),
+        ('rcp_45', '🌿 RCP 4.5 - Modéré'),
+        ('rcp_60', '🌳 RCP 6.0 - Intermédiaire'),
+        ('rcp_85', '🔥 RCP 8.5 - Pessimiste'),
+        ('historique', '📊 Données historiques')
+    ], string='Scénario climatique IPCC', default='historique')
+    
     # Qualité des données
     qualite_donnees = fields.Selection([
         ('excellente', 'Excellente'),

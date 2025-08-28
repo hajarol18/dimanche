@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noupdate="1">
+    <data>
         <!-- ======================================== -->
         <!-- MENU PRINCIPAL SMARTAGRI DECISION -->
         <!-- ======================================== -->
@@ -166,6 +166,13 @@
                   parent="menu_ia" 
                   action="action_smart_agri_ia_dashboard" 
                   sequence="50"/>
+        
+        <!-- Modèles IA -->
+        <menuitem id="menu_smart_agri_ai_model"
+                  name="🧠 Modèles IA"
+                  parent="menu_ia"
+                  action="action_smart_agri_ai_model"
+                  sequence="60"/>
         
         <!-- ======================================== -->
         <!-- SECTION 4: ANALYSE ET PLANIFICATION -->

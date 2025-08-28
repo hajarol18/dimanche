@@ -1,0 +1,59 @@
+/* Leaflet CSS */
+.leaflet-container {
+    height: 400px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.leaflet-popup-content-wrapper {
+    padding: 1px;
+    text-align: left;
+    border-radius: 12px;
+}
+
+.map-info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+
+.map-info h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+
+.parcelle-popup {
+    min-width: 250px;
+}
+
+.parcelle-popup h3 {
+    margin: 0 0 10px 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+.parcelle-popup table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.parcelle-popup table td {
+    padding: 3px;
+    border-bottom: 1px solid #f4f4f4;
+}
+
+.parcelle-popup table tr:last-child td {
+    border-bottom: none;
+}
+
+.parcelle-popup .label {
+    font-weight: bold;
+    width: 40%;
+}
+
+.parcelle-popup .value {
+    width: 60%;
+}

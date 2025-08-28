@@ -1,95 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    
-        <!-- Vue liste pour les alertes climatiques -->
+    <data>
+        
+        <!-- ======================================== -->
+        <!-- VUES ALERTES CLIMATIQUES COMPLÈTES -->
+        <!-- ======================================== -->
+        
+        <!-- Vue liste des alertes climatiques avec indicateurs -->
         <record id="view_alerte_climatique_list" model="ir.ui.view">
             <field name="name">smart.agri.alerte.climatique.list</field>
             <field name="model">smart_agri_alerte_climatique</field>
             <field name="arch" type="xml">
-                <list string="Alertes Climatiques">
+                <list string="🚨 Alertes Climatiques Agricoles" 
+                      decoration-info="state == 'surveillee'"
+                      decoration-warning="state == 'active'"
+                      decoration-success="state == 'resolue'"
+                      decoration-danger="state == 'active' and niveau in ['rouge', 'noir']">
                     <field name="name"/>
+                    <field name="exploitation_id"/>
                     <field name="type_alerte"/>
-                    <field name="niveau_gravite"/>
-                    <field name="date_alerte"/>
+                    <field name="niveau" widget="badge"
+                           decoration-success="niveau == 'vert'"
+                           decoration-warning="niveau == 'jaune'"
+                           decoration-danger="niveau in ['orange', 'rouge', 'noir']"/>
+                    <field name="priorite" widget="badge"
+                           decoration-success="priorite == 'basse'"
+                           decoration-warning="priorite == 'normale'"
+                           decoration-danger="priorite in ['haute', 'urgente', 'critique']"/>
+                    <field name="date_detection"/>
                     <field name="state"/>
+                    <field name="source"/>
+                    <field name="niveau_impact"/>
                 </list>
             </field>
         </record>
 
-        <!-- Vue formulaire pour les alertes climatiques -->
+        <!-- Vue formulaire complète des alertes climatiques -->
         <record id="view_alerte_climatique_form" model="ir.ui.view">
             <field name="name">smart.agri.alerte.climatique.form</field>
             <field name="model">smart_agri_alerte_climatique</field>
             <field name="arch" type="xml">
-                <form string="Alerte Climatique">
+                <form string="🚨 Alerte Climatique Agricole">
                     <header>
-                        <field name="state" widget="statusbar" statusbar_visible="draft,active,resolved"/>
+                        <button name="notifier_alerte" type="object" string="📢 Notifier" 
+                                class="btn-primary"
+                                invisible="notifiee"/>
+                        <button name="resoudre_alerte" type="object" string="✅ Résoudre" 
+                                class="btn-success"
+                                invisible="state != 'active'"/>
+                        <button name="archiver_alerte" type="object" string="📁 Archiver" 
+                                class="btn-secondary"
+                                invisible="state == 'archivée'"/>
+                        <field name="state" widget="statusbar" 
+                               statusbar_visible="active,surveillee,resolue"/>
                     </header>
+                    
                     <sheet>
-                        <div class="oe_title">
-                            <h1>
-                                <field name="name" placeholder="Nom de l'alerte"/>
-                            </h1>
-                        </div>
+                        <!-- Informations de base -->
                         <group>
-                            <group string="Informations de base">
+                            <group string="🏞️ Exploitation">
+                                <field name="exploitation_id" required="1"/>
                                 <field name="name"/>
-                                <field name="type_alerte"/>
-                                <field name="niveau_gravite"/>
                                 <field name="description"/>
                             </group>
+                            <group string="🚨 Détails Alerte">
+                                <field name="type_alerte" required="1"/>
+                                <field name="niveau" required="1"/>
+                                <field name="priorite" readonly="1"/>
+                                <field name="source" required="1"/>
+                            </group>
+                        </group>
+                        
+                        <!-- Dates et impact -->
+                        <group string="📅 Chronologie et Impact">
                             <group string="Dates">
-                                <field name="date_alerte"/>
+                                <field name="date_detection" required="1"/>
                                 <field name="date_debut"/>
                                 <field name="date_fin"/>
                             </group>
+                            <group string="Impact Agricole">
+                                <field name="niveau_impact"/>
+                                <field name="impact_cultures" widget="many2many_tags"/>
+                                <field name="impact_parcelles" widget="many2many_tags"/>
+                            </group>
                         </group>
-                        <notebook>
-                            <page string="Détails">
-                                <group>
-                                    <group string="Conditions météo">
-                                        <field name="temperature_min"/>
-                                        <field name="temperature_max"/>
-                                        <field name="precipitation"/>
-                                        <field name="humidite"/>
-                                        <field name="vitesse_vent"/>
-                                    </group>
-                                    <group string="Impact">
-                                        <field name="impact_cultures"/>
-                                        <field name="cultures_menacees"/>
-                                        <field name="parcelles_concernées"/>
-                                    </group>
-                                </group>
-                            </page>
-                            <page string="Actions">
-                                <field name="mesures_prevention"/>
-                                <field name="actions_urgence"/>
-                                <field name="recommandations"/>
-                            </page>
-                            <page string="Documentation">
-                                <field name="source_alerte"/>
-                                <field name="documentation"/>
-                                <field name="notes"/>
-                            </page>
-                        </notebook>
+                        
+                        <!-- Paramètres météorologiques -->
+                        <group string="🌤️ Paramètres Météo Déclencheurs">
+                            <group string="Températures">
+                                <field name="temperature_min"/>
+                                <field name="temperature_max"/>
+                            </group>
+                            <group string="Autres paramètres">
+                                <field name="precipitation"/>
+                                <field name="humidite"/>
+                                <field name="vent_vitesse"/>
+                            </group>
+                        </group>
+                        
+                        <!-- Actions et recommandations -->
+                        <group string="💡 Actions et Recommandations">
+                            <group string="Actions recommandées">
+                                <field name="actions_recommandees" nolabel="1"/>
+                            </group>
+                            <group string="Actions urgentes">
+                                <field name="actions_urgentes" nolabel="1"/>
+                            </group>
+                        </group>
+                        
+                        <!-- Suivi et notifications -->
+                        <group string="📊 Suivi et Notifications">
+                            <group string="Statut">
+                                <field name="notifiee"/>
+                                <field name="date_notification" readonly="1"/>
+                            </group>
+                            <group string="Notes">
+                                <field name="notes" nolabel="1"/>
+                            </group>
+                        </group>
                     </sheet>
                 </form>
             </field>
         </record>
-
-        <!-- Action pour ouvrir les alertes climatiques -->
+        
+        <!-- Vue graphique des alertes par type -->
+        <record id="view_alerte_climatique_graph" model="ir.ui.view">
+            <field name="name">smart.agri.alerte.climatique.graph</field>
+            <field name="model">smart_agri_alerte_climatique</field>
+            <field name="arch" type="xml">
+                <graph string="Alertes Climatiques par Type" type="bar">
+                    <field name="type_alerte"/>
+                    <field name="id" type="measure"/>
+                </graph>
+            </field>
+        </record>
+        
+        <!-- Vue pivot des alertes climatiques -->
+        <record id="view_alerte_climatique_pivot" model="ir.ui.view">
+            <field name="name">smart.agri.alerte.climatique.pivot</field>
+            <field name="model">smart_agri_alerte_climatique</field>
+            <field name="arch" type="xml">
+                <pivot string="Analyse des Alertes Climatiques">
+                    <field name="type_alerte" type="row"/>
+                    <field name="niveau" type="row"/>
+                    <field name="exploitation_id" type="row"/>
+                    <field name="id" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+        
+        <!-- Action pour les alertes climatiques -->
         <record id="action_alerte_climatique" model="ir.actions.act_window">
-            <field name="name">Alertes Climatiques</field>
+            <field name="name">🚨 Alertes Climatiques</field>
             <field name="res_model">smart_agri_alerte_climatique</field>
-            <field name="view_mode">list,form</field>
+            <field name="view_mode">list,form,graph,pivot</field>
+            <field name="context">{'search_default_actives': 1}</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
-                    Créez votre première alerte climatique
+                    Aucune alerte climatique active !
                 </p>
                 <p>
-                    Surveillez et gérez les alertes climatiques pour protéger vos cultures.
+                    Les alertes climatiques vous informent des risques météorologiques :
+                    <br/>• 🌵 Sécheresse et stress hydrique
+                    <br/>• ❄️ Gel et dommages aux cultures
+                    <br/>• 🔥 Canicule et stress thermique
+                    <br/>• 🌊 Inondations et excès d'eau
+                    <br/>• 💨 Vents forts et dommages mécaniques
                 </p>
             </field>
         </record>
-    
+        
+        <!-- LES MENUS SONT MAINTENANT DÉFINIS DANS menu_meteo_climat.xml -->
+        
+    </data>
 </odoo>

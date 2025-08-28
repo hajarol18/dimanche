@@ -65,7 +65,7 @@
             <field name="exploitation_id" ref="exploitation_demo"/>
             <field name="type_sol_id" ref="soil_type_limoneux"/>
             <field name="surface">25.0</field>
-            <field name="active">True</field>
+            <field name="active">1</field>
         </record>
         
         <!-- Culture de démonstration -->
@@ -142,10 +142,10 @@
             <field name="name">Alerte Gel - Parcelle A</field>
             <field name="exploitation_id" ref="exploitation_demo"/>
             <field name="type_alerte">gel</field>
-            <field name="niveau_gravite">modere</field>
-            <field name="source_alerte">api_meteo</field>
+            <field name="niveau">jaune</field>
+            <field name="source">api_meteo</field>
             <field name="description">Risque de gel nocturne dans les prochaines 48h</field>
-            <field name="date_alerte">2024-12-27 08:00:00</field>
+            <field name="date_detection">2024-12-27</field>
             <field name="date_debut">2024-12-27</field>
             <field name="date_fin">2024-12-29</field>
             <field name="state">active</field>

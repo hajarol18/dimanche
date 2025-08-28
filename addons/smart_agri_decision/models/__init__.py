@@ -8,11 +8,13 @@ from . import smart_agri_exploitation
 
 # 3. MODÈLES AVEC DÉPENDANCES COMPLEXES
 from . import smart_agri_parcelle
+from . import smart_agri_parcelle_map
 from . import smart_agri_culture
 from . import smart_agri_meteo
 from . import smart_agri_intervention
 from . import smart_agri_intrants
 from . import smart_agri_utilisation_intrant
+from . import smart_agri_geojson_wizard
 
 # 4. MODÈLES SPÉCIALISÉS
 from . import smart_agri_ia_predictions
@@ -33,3 +35,10 @@ from . import ia_dashboard
 from . import ia_simulateur
 from . import ia_detection_stress
 from . import ia_optimisation_ressources
+# ÉTAPE 1 : RÉACTIVATION DU MODÈLE IA DE BASE
+from . import smart_agri_ai_model
+# from . import smart_agri_ai_prediction
+
+# 7. MODÈLES CLIMATIQUES AVANCÉS
+# TEMPORAIREMENT COMMENTÉ POUR RÉSOLUDRE L'ERREUR DE CHARGEMENT
+# from . import smart_agri_climate_data

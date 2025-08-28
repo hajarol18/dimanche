@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- MENU MÉTÉO SIMPLIFIÉ POUR TEST -->
+        <menuitem id="menu_smart_agri_meteo_simple"
+                  name="🌤️ Météo (Test)"
+                  parent="menu_smart_agri_root"
+                  sequence="20"/>
+        
+    </data>
+</odoo>

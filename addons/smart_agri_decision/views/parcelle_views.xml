@@ -11,6 +11,8 @@
                     <field name="code"/>
                     <field name="exploitation_id"/>
                     <field name="surface"/>
+                    <field name="latitude" optional="hide"/>
+                    <field name="longitude" optional="hide"/>
                 </list>
             </field>
         </record>
@@ -21,6 +23,11 @@
             <field name="model">smart_agri_parcelle</field>
             <field name="arch" type="xml">
                 <form string="Parcelle">
+                    <header>
+                        <!-- Boutons temporairement commentés en attendant l'activation de PostGIS -->
+                        <!-- <button name="action_import_geojson" string="Import GeoJSON" type="object" class="btn-primary"/> -->
+                        <!-- <button name="action_export_geojson" string="Export GeoJSON" type="object" attrs="{'invisible': [('geo_polygon', '=', False)]}"/> -->
+                    </header>
                     <sheet>
                         <div class="oe_title">
                             <h1>
@@ -37,9 +44,36 @@
                             <group string="Caractéristiques">
                                 <field name="surface"/>
                                 <field name="type_sol_id"/>
+                                <field name="forme"/>
                             </group>
                         </group>
                         <notebook>
+                            <page string="Géolocalisation" name="geolocation">
+                                <group>
+                                    <group string="Coordonnées">
+                                        <field name="latitude"/>
+                                        <field name="longitude"/>
+                                        <field name="altitude"/>
+                                    </group>
+                                    <group string="Données géospatiales">
+                                        <!-- Champs PostGIS temporairement commentés -->
+                                        <!-- <field name="geo_point"/> -->
+                                        <!-- <field name="geo_polygon"/> -->
+                                        <!-- <field name="geo_area"/> -->
+                                        <!-- <field name="source_geo_data"/> -->
+                                        <!-- <field name="precision_geo"/> -->
+                                    </group>
+                                </group>
+                                <!-- Alerte et carte temporairement commentées en attendant l'activation de PostGIS -->
+                                <!-- <div class="alert alert-info" role="alert" attrs="{'invisible': [('geo_polygon', '!=', False)]}">
+                                    <p>Cette parcelle n'a pas encore de géométrie définie.</p>
+                                    <p>Utilisez le bouton "Import GeoJSON" pour importer la géométrie de la parcelle.</p>
+                                </div> -->
+                                <!-- Carte Leaflet -->
+                                <!-- <div class="o_leaflet_map_container" attrs="{'invisible': [('geo_polygon', '=', False)]}">
+                                    <div t-ref="map" class="o_leaflet_map"></div>
+                                </div> -->
+                            </page>
                             <page string="Cultures">
                                 <field name="culture_ids" readonly="1">
                                     <list>
@@ -60,6 +94,24 @@
             </field>
         </record>
 
+        <!-- Vue carte pour les parcelles (temporairement commentée - type non supporté dans Odoo 18) -->
+        <!-- <record id="view_smart_agri_parcelle_map" model="ir.ui.view">
+            <field name="name">smart.agri.parcelle.map</field>
+            <field name="model">smart_agri_parcelle</field>
+            <field name="arch" type="xml">
+                <map string="Carte des parcelles" js_lib="leaflet">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="exploitation_id"/>
+                    <field name="surface"/>
+                    <field name="geo_area"/>
+                    <field name="latitude"/>
+                    <field name="longitude"/>
+                    <field name="geo_polygon"/>
+                </map>
+            </field>
+        </record> -->
+
         <!-- Action pour ouvrir les parcelles -->
         <record id="action_smart_agri_parcelle" model="ir.actions.act_window">
             <field name="name">Parcelles</field>
@@ -74,5 +126,7 @@
                 </p>
             </field>
         </record>
+        
+
     
 </odoo>
