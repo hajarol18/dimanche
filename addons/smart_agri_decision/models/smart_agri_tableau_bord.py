@@ -60,16 +60,16 @@ class SmartAgriTableauBord(models.Model):
     # ========================================
     # INDICATEURS ÉCONOMIQUES ET FINANCIERS
     # ========================================
-    cout_intrants = fields.Float('Coût intrants (€/ha)', digits=(10, 2))
-    revenu_attendu = fields.Float('Revenu attendu (€/ha)', digits=(10, 2))
-    marge_brute = fields.Float('Marge brute (€/ha)', digits=(10, 2))
+    cout_intrants = fields.Float('Coût intrants (MAD/ha)', digits=(10, 2))
+    revenu_attendu = fields.Float('Revenu attendu (MAD/ha)', digits=(10, 2))
+    marge_brute = fields.Float('Marge brute (MAD/ha)', digits=(10, 2))
     rentabilite = fields.Float('Rentabilité (%)', digits=(5, 2))
     
     # ========================================
     # EFFICACITÉ OPÉRATIONNELLE
     # ========================================
-    cout_par_hectare = fields.Float('Coût par hectare (€/ha)', digits=(10, 2))
-    productivite_main_oeuvre = fields.Float('Productivité main d\'œuvre (€/h)', digits=(10, 2))
+    cout_par_hectare = fields.Float('Coût par hectare (MAD/ha)', digits=(10, 2))
+    productivite_main_oeuvre = fields.Float('Productivité main d\'œuvre (MAD/h)', digits=(10, 2))
     efficacite_irrigation = fields.Float('Efficacité irrigation (%)', digits=(5, 2))
     optimisation_ressources = fields.Float('Optimisation ressources (%)', digits=(5, 2))
     

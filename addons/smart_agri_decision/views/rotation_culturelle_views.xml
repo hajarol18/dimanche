@@ -88,9 +88,9 @@
             </field>
         </record>
 
-        <!-- VUE TREE ROTATION CULTURELLE -->
-        <record id="view_smart_agri_rotation_culturelle_tree" model="ir.ui.view">
-            <field name="name">smart_agri_rotation_culturelle.tree</field>
+        <!-- VUE LIST ROTATION CULTURELLE -->
+        <record id="view_smart_agri_rotation_culturelle_list" model="ir.ui.view">
+            <field name="name">smart_agri_rotation_culturelle.list</field>
             <field name="model">smart_agri_rotation_culturelle</field>
             <field name="arch" type="xml">
                 <list string="Rotations Culturelles" decoration-info="state == 'planifie'" decoration-success="state == 'en_cours'" decoration-muted="state == 'termine'">
@@ -226,7 +226,7 @@
         <record id="action_smart_agri_rotation_culturelle" model="ir.actions.act_window">
             <field name="name">Rotations Culturelles</field>
             <field name="res_model">smart_agri_rotation_culturelle</field>
-            <field name="view_mode">kanban,tree,form,graph,pivot</field>
+                            <field name="view_mode">kanban,list,form,graph,pivot</field>
             <field name="view_id" ref="view_smart_agri_rotation_culturelle_kanban"/>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
@@ -281,9 +281,9 @@
             </field>
         </record>
 
-        <!-- VUE TREE OBJECTIF ROTATION -->
-        <record id="view_smart_agri_objectif_rotation_tree" model="ir.ui.view">
-            <field name="name">smart_agri_objectif_rotation.tree</field>
+        <!-- VUE LIST OBJECTIF ROTATION -->
+        <record id="view_smart_agri_objectif_rotation_list" model="ir.ui.view">
+            <field name="name">smart_agri_objectif_rotation.list</field>
             <field name="model">smart_agri_objectif_rotation</field>
             <field name="arch" type="xml">
                 <list string="Objectifs de Rotation">
@@ -299,7 +299,7 @@
         <record id="action_smart_agri_objectif_rotation" model="ir.actions.act_window">
             <field name="name">Objectifs de Rotation</field>
             <field name="res_model">smart_agri_objectif_rotation</field>
-            <field name="view_mode">tree,form</field>
+                            <field name="view_mode">list,form</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
                     Créez votre premier objectif de rotation !

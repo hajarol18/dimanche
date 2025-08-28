@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- ======================================== -->
+        <!-- VUES POUR LES STATIONS MÉTÉO -->
+        <!-- ======================================== -->
+        
+        <!-- Vue formulaire pour les stations météo -->
+        <record id="view_smart_agri_station_meteo_form" model="ir.ui.view">
+            <field name="name">smart_agri_station_meteo.form</field>
+            <field name="model">smart_agri_station_meteo</field>
+            <field name="arch" type="xml">
+                <form string="Station Météo">
+                    <header>
+                        <button name="action_activer_station" string="Activer" type="object" 
+                                class="oe_highlight" states="inactive,maintenance,erreur"/>
+                        <button name="action_desactiver_station" string="Désactiver" type="object" 
+                                states="active"/>
+                        <button name="action_maintenance" string="Maintenance" type="object" 
+                                states="active,erreur"/>
+                        <button name="action_tester_connexion" string="Tester Connexion" type="object" 
+                                class="oe_highlight" states="active"/>
+                        <button name="action_importer_donnees_test" string="Données Test" type="object" 
+                                states="active"/>
+                        <field name="state" widget="statusbar" 
+                               statusbar_visible="active,maintenance,erreur"/>
+                    </header>
+                    
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_activer_station" type="object" class="oe_stat_button" icon="fa-play" 
+                                    states="inactive,maintenance,erreur">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">Activer</span>
+                                </div>
+                            </button>
+                            <button name="action_desactiver_station" type="object" class="oe_stat_button" icon="fa-stop" 
+                                    states="active">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">Désactiver</span>
+                                </div>
+                            </button>
+                            <button name="action_maintenance" type="object" class="oe_stat_button" icon="fa-wrench" 
+                                    states="active,erreur">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">Maintenance</span>
+                                </div>
+                            </button>
+                        </div>
+                        
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Nom de la station"/>
+                            </h1>
+                        </div>
+                        
+                        <group>
+                            <group string="Informations Générales">
+                                <field name="code"/>
+                                <field name="description"/>
+                                <field name="type_station"/>
+                                <field name="source_donnees"/>
+                            </group>
+                            
+                            <group string="Géolocalisation">
+                                <field name="latitude"/>
+                                <field name="longitude"/>
+                                <field name="altitude"/>
+                                <field name="precision_geolocalisation"/>
+                            </group>
+                        </group>
+                        
+                        <group>
+                            <group string="Configuration Technique">
+                                <field name="frequence_mise_a_jour"/>
+                                <field name="qualite_donnees"/>
+                                <field name="format_donnees"/>
+                                <field name="encodage"/>
+                                <field name="fuseau_horaire"/>
+                            </group>
+                            
+                            <group string="Performance">
+                                <field name="taux_disponibilite"/>
+                                <field name="taux_erreur"/>
+                                <field name="temps_reponse_moyen"/>
+                                <field name="statut_operational"/>
+                            </group>
+                        </group>
+                        
+                        <group>
+                            <group string="Couverture">
+                                <field name="rayon_couverture"/>
+                                <field name="nombre_exploitations"/>
+                                <field name="distance_exploitation_proche"/>
+                            </group>
+                            
+                            <group string="Dates">
+                                <field name="date_activation"/>
+                                <field name="date_derniere_donnee"/>
+                                <field name="date_maintenance"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Exploitations Associées">
+                                <field name="exploitations_associees" widget="many2many_tags"/>
+                            </page>
+                            
+                            <page string="Paramètres Disponibles">
+                                <field name="parametres_disponibles" widget="many2many_tags"/>
+                            </page>
+                            
+                            <page string="Configuration API">
+                                <group>
+                                    <field name="url_api"/>
+                                    <field name="cle_api"/>
+                                </group>
+                            </page>
+                            
+                            <page string="Notes &amp; Documentation">
+                                <group>
+                                    <field name="notes"/>
+                                    <field name="documentation_url"/>
+                                    <field name="contact_technique"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Vue liste pour les stations météo -->
+        <record id="view_smart_agri_station_meteo_tree" model="ir.ui.view">
+            <field name="name">smart_agri_station_meteo.tree</field>
+            <field name="model">smart_agri_station_meteo</field>
+            <field name="arch" type="xml">
+                <tree string="Stations Météo">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="type_station"/>
+                    <field name="latitude"/>
+                    <field name="longitude"/>
+                    <field name="state"/>
+                    <field name="statut_operational"/>
+                    <field name="taux_disponibilite"/>
+                    <field name="nombre_exploitations"/>
+                    <field name="date_derniere_donnee"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Vue kanban pour les stations météo -->
+        <record id="view_smart_agri_station_meteo_kanban" model="ir.ui.view">
+            <field name="name">smart_agri_station_meteo.kanban</field>
+            <field name="model">smart_agri_station_meteo</field>
+            <field name="arch" type="xml">
+                <kanban string="Stations Météo" class="o_kanban_small_column">
+                    <field name="name"/>
+                    <field name="type_station"/>
+                    <field name="state"/>
+                    <field name="statut_operational"/>
+                    <field name="taux_disponibilite"/>
+                    <field name="nombre_exploitations"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_card oe_kanban_global_click">
+                                <div class="oe_kanban_content">
+                                    <div class="o_kanban_record_top">
+                                        <div class="o_kanban_record_headings">
+                                            <strong class="o_kanban_record_title">
+                                                <field name="name"/>
+                                            </strong>
+                                        </div>
+                                    </div>
+                                    <div class="o_kanban_record_body">
+                                        <div class="o_kanban_record_bottom">
+                                            <div class="oe_kanban_bottom_left">
+                                                <field name="type_station"/>
+                                            </div>
+                                            <div class="oe_kanban_bottom_right">
+                                                <field name="statut_operational" widget="label_selection" 
+                                                       options="{'classes': {'operationnel': 'success', 'attention': 'warning', 'probleme': 'danger', 'critique': 'danger'}}"/>
+                                            </div>
+                                        </div>
+                                        <div class="o_kanban_record_bottom">
+                                            <div class="oe_kanban_bottom_left">
+                                                <span>Disponibilité: <field name="taux_disponibilite"/>%</span>
+                                            </div>
+                                            <div class="oe_kanban_bottom_right">
+                                                <span>Exploitations: <field name="nombre_exploitations"/></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        
+        <!-- Vue recherche pour les stations météo -->
+        <record id="view_smart_agri_station_meteo_search" model="ir.ui.view">
+            <field name="name">smart_agri_station_meteo.search</field>
+            <field name="model">smart_agri_station_meteo</field>
+            <field name="arch" type="xml">
+                <search string="Recherche Stations Météo">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="type_station"/>
+                    <field name="source_donnees"/>
+                    <separator/>
+                    <filter string="Actives" name="active" domain="[('state', '=', 'active')]"/>
+                    <filter string="Inactives" name="inactive" domain="[('state', '=', 'inactive')]"/>
+                    <filter string="En Maintenance" name="maintenance" domain="[('state', '=', 'maintenance')]"/>
+                    <filter string="Erreur" name="erreur" domain="[('state', '=', 'erreur')]"/>
+                    <separator/>
+                    <filter string="Opérationnelles" name="operationnel" domain="[('statut_operational', '=', 'operationnel')]"/>
+                    <filter string="Attention" name="attention" domain="[('statut_operational', '=', 'attention')]"/>
+                    <filter string="Problème" name="probleme" domain="[('statut_operational', '=', 'probleme')]"/>
+                    <filter string="Critique" name="critique" domain="[('statut_operational', '=', 'critique')]"/>
+                    <separator/>
+                    <filter string="Meteostat" name="meteostat" domain="[('type_station', '=', 'meteostat')]"/>
+                    <filter string="Météo France" name="meteo_france" domain="[('type_station', '=', 'meteo_france')]"/>
+                    <filter string="Stations Locales" name="station_locale" domain="[('type_station', '=', 'station_locale')]"/>
+                    <group expand="0" string="Regrouper par">
+                        <filter string="Type de Station" name="group_type" context="{'group_by': 'type_station'}"/>
+                        <filter string="Statut" name="group_state" context="{'group_by': 'state'}"/>
+                        <filter string="Statut Opérationnel" name="group_statut" context="{'group_by': 'statut_operational'}"/>
+                        <filter string="Fréquence" name="group_freq" context="{'group_by': 'frequence_mise_a_jour'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- ======================================== -->
+        <!-- VUES POUR LES PARAMÈTRES MÉTÉO -->
+        <!-- ======================================== -->
+        
+        <!-- Vue formulaire pour les paramètres météo -->
+        <record id="view_smart_agri_parametre_meteo_form" model="ir.ui.view">
+            <field name="name">smart_agri_parametre_meteo.form</field>
+            <field name="model">smart_agri_parametre_meteo</field>
+            <field name="arch" type="xml">
+                <form string="Paramètre Météorologique">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="icone" readonly="1"/>
+                                <field name="name" placeholder="Nom du paramètre"/>
+                            </h1>
+                        </div>
+                        
+                        <group>
+                            <group string="Informations Générales">
+                                <field name="code"/>
+                                <field name="unite"/>
+                                <field name="categorie"/>
+                                <field name="importance_agricole"/>
+                            </group>
+                            
+                            <group string="Validation">
+                                <field name="valeur_min"/>
+                                <field name="valeur_max"/>
+                                <field name="valeur_defaut"/>
+                            </group>
+                        </group>
+                        
+                        <group>
+                            <field name="description" placeholder="Description du paramètre"/>
+                        </group>
+                        
+                        <group>
+                            <field name="active"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Vue liste pour les paramètres météo -->
+        <record id="view_smart_agri_parametre_meteo_tree" model="ir.ui.view">
+            <field name="name">smart_agri_parametre_meteo.tree</field>
+            <field name="model">smart_agri_parametre_meteo</field>
+            <field name="arch" type="xml">
+                <tree string="Paramètres Météorologiques">
+                    <field name="icone"/>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="unite"/>
+                    <field name="categorie"/>
+                    <field name="importance_agricole"/>
+                    <field name="valeur_min"/>
+                    <field name="valeur_max"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Vue recherche pour les paramètres météo -->
+        <record id="view_smart_agri_parametre_meteo_search" model="ir.ui.view">
+            <field name="name">smart_agri_parametre_meteo.search</field>
+            <field name="model">smart_agri_parametre_meteo</field>
+            <field name="arch" type="xml">
+                <search string="Recherche Paramètres Météo">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="categorie"/>
+                    <separator/>
+                    <filter string="Critiques" name="critique" domain="[('importance_agricole', '=', 'critique')]"/>
+                    <filter string="Élevés" name="elevee" domain="[('importance_agricole', '=', 'elevee')]"/>
+                    <filter string="Moyens" name="moyenne" domain="[('importance_agricole', '=', 'moyenne')]"/>
+                    <filter string="Faibles" name="faible" domain="[('importance_agricole', '=', 'faible')]"/>
+                    <separator/>
+                    <filter string="Température" name="temperature" domain="[('categorie', '=', 'temperature')]"/>
+                    <filter string="Humidité" name="humidite" domain="[('categorie', '=', 'humidite')]"/>
+                    <filter string="Précipitations" name="precipitation" domain="[('categorie', '=', 'precipitation')]"/>
+                    <filter string="Vent" name="vent" domain="[('categorie', '=', 'vent')]"/>
+                    <filter string="Pression" name="pression" domain="[('categorie', '=', 'pression')]"/>
+                    <filter string="Ensoleillement" name="ensoleillement" domain="[('categorie', '=', 'ensoleillement')]"/>
+                    <group expand="0" string="Regrouper par">
+                        <filter string="Catégorie" name="group_categorie" context="{'group_by': 'categorie'}"/>
+                        <filter string="Importance Agricole" name="group_importance" context="{'group_by': 'importance_agricole'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+    </data>
+</odoo>

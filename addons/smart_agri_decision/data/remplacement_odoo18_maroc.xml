@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        
+        <!-- ======================================== -->
+        <!-- REMPLACEMENT COMPLET ODOO 18 - MAROC -->
+        <!-- ======================================== -->
+        
+        <!-- REMPLACEMENT DES EXPLOITATIONS FRANÇAISES PAR DES MAROCAINES -->
+        <record id="exploitation_ferme_ble" model="smart_agri_exploitation">
+            <field name="name">Ferme du Blé d'Or - Maroc</field>
+            <field name="code">FB001</field>
+            <field name="proprietaire">Ahmed Benali</field>
+            <field name="surface_totale">150.0</field>
+            <field name="latitude">33.9716</field>
+            <field name="longitude">-6.8498</field>
+            <field name="altitude">35</field>
+            <field name="type_exploitation">cereales</field>
+            <field name="statut">active</field>
+            <field name="date_creation" eval="time.strftime('%Y-01-01')"/>
+            <field name="description">Exploitation céréalière moderne avec rotation intelligente - Région de Rabat, Maroc</field>
+            <field name="region">Rabat-Salé-Kénitra</field>
+            <field name="commune">Rabat</field>
+            <field name="departement">Rabat</field>
+        </record>
+        
+        <record id="exploitation_verger" model="smart_agri_exploitation">
+            <field name="name">Verger des Pommes d'Or - Maroc</field>
+            <field name="code">VP002</field>
+            <field name="proprietaire">Fatima Zahra</field>
+            <field name="surface_totale">80.0</field>
+            <field name="latitude">33.5731</field>
+            <field name="longitude">-7.5898</field>
+            <field name="altitude">40</field>
+            <field name="type_exploitation">arboriculture</field>
+            <field name="statut">active</field>
+            <field name="date_creation" eval="time.strftime('%Y-01-01')"/>
+            <field name="description">Verger de pommiers bio avec gestion intelligente - Région de Casablanca, Maroc</field>
+            <field name="region">Casablanca-Settat</field>
+            <field name="commune">Casablanca</field>
+            <field name="departement">Casablanca</field>
+        </record>
+        
+        <record id="exploitation_mais" model="smart_agri_exploitation">
+            <field name="name">Ferme du Maïs d'Argent - Maroc</field>
+            <field name="code">FM003</field>
+            <field name="proprietaire">Mohammed Alami</field>
+            <field name="surface_totale">120.0</field>
+            <field name="latitude">34.0209</field>
+            <field name="longitude">-6.8416</field>
+            <field name="altitude">38</field>
+            <field name="type_exploitation">cereales</field>
+            <field name="statut">active</field>
+            <field name="date_creation" eval="time.strftime('%Y-01-01')"/>
+            <field name="description">Spécialisée dans la culture intensive du maïs - Région de Salé, Maroc</field>
+            <field name="region">Rabat-Salé-Kénitra</field>
+            <field name="commune">Salé</field>
+            <field name="departement">Salé</field>
+        </record>
+        
+        <!-- REMPLACEMENT DES PARCELLES FRANÇAISES PAR DES MAROCAINES -->
+        <record id="parcelle_ble_1" model="smart_agri_parcelle">
+            <field name="name">Parcelle Blé Principal - Maroc</field>
+            <field name="code">PB001</field>
+            <field name="exploitation_id" ref="exploitation_ferme_ble"/>
+            <field name="soil_type_id" ref="soil_limoneux"/>
+            <field name="surface">50.0</field>
+            <field name="latitude">33.972</field>
+            <field name="longitude">-6.85</field>
+            <field name="altitude">35</field>
+            <field name="forme">rectangulaire</field>
+            <field name="pente">2</field>
+            <field name="exposition">sud</field>
+            <field name="statut">active</field>
+        </record>
+        
+        <record id="parcelle_orge_1" model="smart_agri_parcelle">
+            <field name="name">Parcelle Orge de Printemps - Maroc</field>
+            <field name="code">PO001</field>
+            <field name="exploitation_id" ref="exploitation_ferme_ble"/>
+            <field name="soil_type_id" ref="soil_argileux"/>
+            <field name="surface">40.0</field>
+            <field name="latitude">33.971</field>
+            <field name="longitude">-6.8495</field>
+            <field name="altitude">36</field>
+            <field name="forme">rectangulaire</field>
+            <field name="pente">1</field>
+            <field name="exposition">sud-est</field>
+            <field name="statut">active</field>
+        </record>
+        
+        <!-- REMPLACEMENT DES CULTURES FRANÇAISES PAR DES MAROCAINES -->
+        <record id="culture_ble_2024" model="smart_agri_culture">
+            <field name="name">Blé d'Hiver 2024 - Maroc</field>
+            <field name="code">BLE2024</field>
+            <field name="exploitation_id" ref="exploitation_ferme_ble"/>
+            <field name="parcelle_id" ref="parcelle_ble_1"/>
+            <field name="type_culture">cereale</field>
+            <field name="variete">Blé tendre d'hiver premium - Variété marocaine</field>
+            <field name="date_semis" eval="time.strftime('%Y-10-15')"/>
+            <field name="date_recolte" eval="time.strftime('%Y-07-20')"/>
+            <field name="rendement_attendu">9.0</field>
+            <field name="rendement_reel">8.8</field>
+            <field name="statut">termine</field>
+            <field name="notes">Année exceptionnelle malgré la sécheresse - Climat marocain</field>
+        </record>
+        
+        <!-- REMPLACEMENT DES MODÈLES IA FRANÇAIS PAR DES MAROCAINS -->
+        <record id="modele_ia_rendement" model="smart_agri_ai_model">
+            <field name="name">Modèle IA Rendement Maroc - XGBoost Premium</field>
+            <field name="code">MAROC-XGB-001</field>
+            <field name="description">Modèle XGBoost spécialement entraîné sur les données agricoles marocaines</field>
+            <field name="type_modele">prediction_rendement</field>
+            <field name="algorithme">xgboost</field>
+            <field name="version">2.1.0</field>
+            <field name="state">deployed</field>
+            <field name="actif">True</field>
+            <field name="production">True</field>
+            <field name="auteur">Équipe IA SmartAgri Maroc</field>
+            <field name="accuracy">94.2</field>
+            <field name="precision">0.923</field>
+            <field name="recall">0.918</field>
+            <field name="f1_score">0.920</field>
+            <field name="nb_echantillons_entrainement">15420</field>
+            <field name="nb_echantillons_test">3855</field>
+            <field name="nb_features">47</field>
+        </record>
+        
+        <!-- REMPLACEMENT DES PRÉDICTIONS IA FRANÇAISES PAR DES MAROCAINES -->
+        <record id="prediction_ble_2025" model="smart_agri_ia_predictions">
+            <field name="name">Prédiction Rendement Blé d'Hiver - Parcelle A - Maroc</field>
+            <field name="code">PRED-MAROC-2025-001</field>
+            <field name="modele_id" ref="modele_ia_rendement"/>
+            <field name="parcelle_id" ref="parcelle_ble_1"/>
+            <field name="culture_id" ref="culture_ble_2024"/>
+            <field name="type_prediction">rendement</field>
+            <field name="prediction_brute">8.7</field>
+            <field name="prediction_formatee">8.7 t/ha</field>
+            <field name="probabilite">87.0</field>
+            <field name="score_confiance">0.87</field>
+            <field name="recommandation_principale">Rendement excellent prévu grâce aux conditions météo favorables et à la qualité du sol limoneux. Recommandation : maintenir l'irrigation actuelle et surveiller les besoins en azote.</field>
+            <field name="actions_immediates">1. Vérifier l'humidité du sol (objectif : 70-80%) 2. Contrôler la teneur en azote 3. Préparer la récolte pour mi-juin</field>
+            <field name="date_creation" eval="time.strftime('%Y-12-27 01:00:00')"/>
+            <field name="date_prediction" eval="time.strftime('%Y-12-27')"/>
+            <field name="validee">True</field>
+            <field name="date_validation" eval="time.strftime('%Y-12-27')"/>
+            <field name="state">validated</field>
+            <field name="qualite_donnees">excellente</field>
+        </record>
+        
+        <!-- REMPLACEMENT DES INTERVENTIONS FRANÇAISES PAR DES MAROCAINES -->
+        <record id="intervention_semis_ble" model="smart_agri_intervention">
+            <field name="name">Semis Blé d'Hiver - Maroc</field>
+            <field name="code">INT-MAROC-001</field>
+            <field name="exploitation_id" ref="exploitation_ferme_ble"/>
+            <field name="parcelle_id" ref="parcelle_ble_1"/>
+            <field name="type_intervention">semis</field>
+            <field name="date_intervention" eval="time.strftime('%Y-10-15')"/>
+            <field name="cout_estime">1500.0</field>
+            <field name="devise">MAD</field>
+            <field name="description">Semis du blé d'hiver avec semoir de précision - Coût en Dirhams marocains</field>
+            <field name="statut">termine</field>
+        </record>
+        
+    </data>
+</odoo>

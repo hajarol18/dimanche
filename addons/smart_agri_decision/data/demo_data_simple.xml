@@ -3,84 +3,399 @@
     <data noupdate="1">
         
         <!-- ======================================== -->
-        <!-- DONNÉES DE DÉMONSTRATION SIMPLES -->
+        <!-- DONNÉES SIMPLES ET SAINES SMARTAGRI -->
         <!-- ======================================== -->
         
-        <!-- Types de sol -->
-        <record id="soil_type_limoneux" model="smart_agri_soil_type">
+        <!-- TYPES DE SOL -->
+        <record id="soil_argileux" model="smart_agri_soil_type">
+            <field name="name">Sol Argileux</field>
+            <field name="description">Sol riche en argile, bonne rétention d'eau</field>
+            <field name="ph_min">6.0</field>
+            <field name="ph_max">7.5</field>
+            <field name="capacite_retention">80</field>
+            <field name="drainage">Faible</field>
+            <field name="richesse_nutriments">Élevée</field>
+        </record>
+        
+        <record id="soil_limoneux" model="smart_agri_soil_type">
             <field name="name">Sol Limoneux</field>
-            <field name="code">LIM001</field>
             <field name="description">Sol équilibré, idéal pour la plupart des cultures</field>
-            <field name="water_retention">70.0</field>
-            <field name="drainage">65.0</field>
-            <field name="fertility">85.0</field>
             <field name="ph_min">6.5</field>
             <field name="ph_max">7.0</field>
-            <field name="organic_matter">2.8</field>
-            <field name="color">#D2B48C</field>
+            <field name="capacite_retention">70</field>
+            <field name="drainage">Moyen</field>
+            <field name="richesse_nutriments">Moyenne</field>
         </record>
         
-        <!-- Exploitation -->
-        <record id="exploitation_demo_1" model="smart_agri_exploitation">
-            <field name="name">Ferme de la Vallée</field>
-            <field name="code">VAL001</field>
-            <field name="description">Exploitation céréalière moderne</field>
-            <field name="surface_totale">150.0</field>
-            <field name="region">Meknès-Tafilalet</field>
+        <!-- EXPLOITATIONS AGRICOLES -->
+        <record id="exploitation_ferme_ble" model="smart_agri_exploitation">
+            <field name="name">Ferme du Blé</field>
+            <field name="code">FB001</field>
+            <field name="proprietaire">Jean Dupont</field>
+            <field name="surface_totale">100.0</field>
+            <field name="latitude">48.8566</field>
+            <field name="longitude">2.3522</field>
+            <field name="altitude">35</field>
             <field name="type_exploitation">cereales</field>
-            <field name="active">True</field>
+            <field name="statut">active</field>
+            <field name="date_creation" eval="time.strftime('%Y-01-01')"/>
+            <field name="description">Exploitation céréalière moderne</field>
         </record>
         
-        <!-- Parcelle -->
-        <record id="parcelle_demo_1" model="smart_agri_parcelle">
-            <field name="name">Parcelle Nord - Blé</field>
-            <field name="code">VAL001-NORD</field>
-            <field name="exploitation_id" ref="exploitation_demo_1"/>
+        <record id="exploitation_verger" model="smart_agri_exploitation">
+            <field name="name">Verger des Pommes</field>
+            <field name="code">VP002</field>
+            <field name="proprietaire">Marie Martin</field>
+            <field name="surface_totale">50.0</field>
+            <field name="latitude">48.8600</field>
+            <field name="longitude">2.3600</field>
+            <field name="altitude">40</field>
+            <field name="type_exploitation">arboriculture</field>
+            <field name="statut">active</field>
+            <field name="date_creation" eval="time.strftime('%Y-01-01')"/>
+            <field name="description">Verger de pommiers bio</field>
+        </record>
+        
+        <!-- PARCELLES -->
+        <record id="parcelle_ble_1" model="smart_agri_parcelle">
+            <field name="name">Parcelle Blé Principal</field>
+            <field name="code">PB001</field>
+            <field name="exploitation_id" ref="exploitation_ferme_ble"/>
+            <field name="soil_type_id" ref="soil_limoneux"/>
+            <field name="surface">30.0</field>
+            <field name="latitude">48.8570</field>
+            <field name="longitude">2.3525</field>
+            <field name="altitude">35</field>
+            <field name="forme">rectangulaire</field>
+            <field name="pente">2</field>
+            <field name="exposition">sud</field>
+            <field name="statut">active</field>
+        </record>
+        
+        <record id="parcelle_orge_1" model="smart_agri_parcelle">
+            <field name="name">Parcelle Orge</field>
+            <field name="code">PO001</field>
+            <field name="exploitation_id" ref="exploitation_ferme_ble"/>
+            <field name="soil_type_id" ref="soil_argileux"/>
             <field name="surface">25.0</field>
-            <field name="type_sol_id" ref="soil_type_limoneux"/>
-            <field name="active">True</field>
+            <field name="latitude">48.8560</field>
+            <field name="longitude">2.3518</field>
+            <field name="altitude">36</field>
+            <field name="forme">rectangulaire</field>
+            <field name="pente">1</field>
+            <field name="exposition">sud-est</field>
+            <field name="statut">active</field>
         </record>
         
-        <!-- Culture -->
-        <record id="culture_demo_ble" model="smart_agri_culture">
-            <field name="name">Blé Dur</field>
-            <field name="code">BLE001</field>
-            <field name="exploitation_id" ref="exploitation_demo_1"/>
-            <field name="parcelle_id" ref="parcelle_demo_1"/>
-            <field name="famille">cereales</field>
-            <field name="description">Blé dur de qualité pour la semoulerie</field>
-            <field name="duree_cycle">240</field>
-            <field name="saison_plantation">automne</field>
-            <field name="rendement_moyen">6.5</field>
-            <field name="surface_utilisee">25.0</field>
-            <field name="date_plantation">2024-10-15</field>
-            <field name="date_recolte_prevue">2025-06-15</field>
-            <field name="state">active</field>
-            <field name="active">True</field>
+        <record id="parcelle_pommes_1" model="smart_agri_parcelle">
+            <field name="name">Verger Pommes Golden</field>
+            <field name="code">PP001</field>
+            <field name="exploitation_id" ref="exploitation_verger"/>
+            <field name="soil_type_id" ref="soil_limoneux"/>
+            <field name="surface">20.0</field>
+            <field name="latitude">48.8605</field>
+            <field name="longitude">2.3605</field>
+            <field name="altitude">40</field>
+            <field name="forme">irreguliere</field>
+            <field name="pente">3</field>
+            <field name="exposition">sud-ouest</field>
+            <field name="statut">active</field>
         </record>
         
-        <!-- Prédiction IA de base -->
-        <record id="ia_prediction_demo_1" model="smart_agri_ia_predictions">
-            <field name="name">Prédiction Rendement Blé - Janvier 2025</field>
-            <field name="code">IA-BLE-001</field>
-            <field name="exploitation_id" ref="exploitation_demo_1"/>
-            <field name="parcelle_id" ref="parcelle_demo_1"/>
-            <field name="culture_id" ref="culture_demo_ble"/>
+        <!-- CULTURES -->
+        <record id="culture_ble_2024" model="smart_agri_culture">
+            <field name="name">Blé d'Hiver 2024</field>
+            <field name="code">BLE2024</field>
+            <field name="exploitation_id" ref="exploitation_ferme_ble"/>
+            <field name="parcelle_id" ref="parcelle_ble_1"/>
+            <field name="type_culture">cereale</field>
+            <field name="variete">Blé tendre d'hiver</field>
+            <field name="date_semis" eval="time.strftime('%Y-10-15')"/>
+            <field name="date_recolte" eval="time.strftime('%Y-07-20')"/>
+            <field name="rendement_attendu">8.5</field>
+            <field name="rendement_reel">8.2</field>
+            <field name="statut">termine</field>
+            <field name="notes">Bonne année malgré la sécheresse</field>
+        </record>
+        
+        <record id="culture_orge_2024" model="smart_agri_culture">
+            <field name="name">Orge de Printemps 2024</field>
+            <field name="code">ORG2024</field>
+            <field name="exploitation_id" ref="exploitation_ferme_ble"/>
+            <field name="parcelle_id" ref="parcelle_orge_1"/>
+            <field name="type_culture">cereale</field>
+            <field name="variete">Orge de printemps</field>
+            <field name="date_semis" eval="time.strftime('%Y-03-20')"/>
+            <field name="date_recolte" eval="time.strftime('%Y-08-15')"/>
+            <field name="rendement_attendu">7.0</field>
+            <field name="rendement_reel">6.8</field>
+            <field name="statut">termine</field>
+            <field name="notes">Rendement légèrement inférieur</field>
+        </record>
+        
+        <!-- STATIONS MÉTÉO -->
+        <record id="station_meteo_paris" model="smart_agri_station_meteo">
+            <field name="name">Station Météo Paris</field>
+            <field name="code_station">PARIS001</field>
+            <field name="latitude">48.8566</field>
+            <field name="longitude">2.3522</field>
+            <field name="altitude">35</field>
+            <field name="type_station">professionnelle</field>
+            <field name="precision_donnees">haute</field>
+            <field name="statut">active</field>
+        </record>
+        
+        <!-- IMPORT METEOSTAT -->
+        <record id="import_meteostat_2024" model="smart_agri_meteostat_import">
+            <field name="name">Import Météo 2024</field>
+            <field name="exploitation_id" ref="exploitation_ferme_ble"/>
+            <field name="parcelle_ids" eval="[(6, 0, [ref('parcelle_ble_1'), ref('parcelle_orge_1')])]"/>
+            <field name="station_meteo_id" ref="station_meteo_paris"/>
+            <field name="date_debut" eval="time.strftime('%Y-01-01')"/>
+            <field name="date_fin" eval="time.strftime('%Y-12-31')"/>
+            <field name="statut">termine</field>
+            <field name="nombre_donnees">8760</field>
+            <field name="notes">Import complet des données 2024</field>
+        </record>
+        
+        <!-- DONNÉES MÉTÉO -->
+        <record id="meteo_2024_01" model="smart_agri_meteo">
+            <field name="date" eval="time.strftime('%Y-01-15')"/>
+            <field name="parcelle_id" ref="parcelle_ble_1"/>
+            <field name="station_meteo_id" ref="station_meteo_paris"/>
+            <field name="temperature_min">2.5</field>
+            <field name="temperature_max">8.0</field>
+            <field name="temperature_moyenne">5.25</field>
+            <field name="humidite_min">65</field>
+            <field name="humidite_max">85</field>
+            <field name="humidite_moyenne">75</field>
+            <field name="precipitations">12.5</field>
+            <field name="ensoleillement">4.2</field>
+            <field name="vitesse_vent">15.0</field>
+            <field name="direction_vent">sud-ouest</field>
+            <field name="pression_atmospherique">1013.2</field>
+        </record>
+        
+        <!-- ALERTES CLIMATIQUES -->
+        <record id="alerte_secheresse_2024" model="smart_agri_alerte_climatique">
+            <field name="name">Alerte Sécheresse Juin 2024</field>
+            <field name="type_alerte">secheresse</field>
+            <field name="niveau_critique">elevee</field>
+            <field name="date_debut" eval="time.strftime('%Y-06-01')"/>
+            <field name="date_fin" eval="time.strftime('%Y-06-30')"/>
+            <field name="description">Période de sécheresse exceptionnelle</field>
+            <field name="impact_cultures">Réduction des rendements de 15-20%</field>
+            <field name="recommandations">Irrigation d'appoint recommandée</field>
+            <field name="statut">terminee</field>
+        </record>
+        
+        <!-- MODÈLES IA -->
+        <record id="modele_prediction" model="smart_agri_ai_model">
+            <field name="name">Modèle Prédiction Rendement</field>
+            <field name="type_modele">regression</field>
+            <field name="algorithme">Random Forest</field>
+            <field name="version">2.1</field>
+            <field name="precision_modele">89.5</field>
+            <field name="donnees_entrainement">2019-2024</field>
+            <field name="variables_entree">Météo, Sol, Rotation, Intrants</field>
+            <field name="statut">actif</field>
+            <field name="notes">Modèle principal pour la prédiction</field>
+        </record>
+        
+        <record id="modele_stress" model="smart_agri_ai_model">
+            <field name="name">Modèle Détection Stress</field>
+            <field name="type_modele">classification</field>
+            <field name="algorithme">SVM</field>
+            <field name="version">1.8</field>
+            <field name="precision_modele">92.3</field>
+            <field name="donnees_entrainement">2020-2024</field>
+            <field name="variables_entree">NDVI, Température, Humidité</field>
+            <field name="statut">actif</field>
+            <field name="notes">Détection automatique du stress</field>
+        </record>
+        
+        <!-- PRÉDICTIONS IA -->
+        <record id="prediction_ble_2025" model="smart_agri_ia_predictions">
+            <field name="name">Prédiction Blé 2025</field>
+            <field name="exploitation_id" ref="exploitation_ferme_ble"/>
+            <field name="parcelle_id" ref="parcelle_ble_1"/>
+            <field name="culture_id" ref="culture_ble_2024"/>
             <field name="type_prediction">rendement</field>
-            <field name="description">Prédiction de rendement basée sur les conditions actuelles</field>
-            <field name="temperature_moyenne">13.4</field>
-            <field name="precipitation_totale">25.0</field>
-            <field name="ph_sol">6.8</field>
-            <field name="azote_sol">45.0</field>
-            <field name="phosphore_sol">28.0</field>
-            <field name="potassium_sol">180.0</field>
-            <field name="rendement_predit">6.8</field>
-            <field name="rendement_optimal">7.2</field>
-            <field name="confiance">78.5</field>
-            <field name="precision">82.3</field>
-            <field name="resultat_principal">Rendement prédit : 6.8 t/ha (94% de l'optimal)</field>
-            <field name="recommandations">Maintenir l'irrigation actuelle, surveiller les apports azotés</field>
-            <field name="active">True</field>
+            <field name="valeur_predite">8.8</field>
+            <field name="confiance_prediction">87</field>
+            <field name="facteurs_cles">Conditions météo favorables</field>
+            <field name="date_prediction" eval="time.strftime('%Y-12-01')"/>
+            <field name="statut">validee</field>
+            <field name="notes">Prédiction basée sur l'historique</field>
+        </record>
+        
+        <!-- SIMULATIONS IA -->
+        <record id="simulation_irrigation" model="smart_agri_ia_simulateur">
+            <field name="name">Simulation Irrigation 2025</field>
+            <field name="exploitation_id" ref="exploitation_ferme_ble"/>
+            <field name="parcelle_id" ref="parcelle_ble_1"/>
+            <field name="scenario_simule">irrigation_optimisee</field>
+            <field name="parametres_simulation">Débit: 2L/h, Fréquence: 2x/semaine</field>
+            <field name="resultats_simulation">Rendement +15%, Consommation eau -20%</field>
+            <field name="cout_estime">150</field>
+            <field name="roi_estime">2.8</field>
+            <field name="statut">terminee</field>
+            <field name="notes">Simulation validée par les experts</field>
+        </record>
+        
+        <!-- DÉTECTION DE STRESS -->
+        <record id="detection_stress" model="smart_agri_ia_detection_stress">
+            <field name="name">Détection Stress Hydrique Juin 2024</field>
+            <field name="exploitation_id" ref="exploitation_ferme_ble"/>
+            <field name="parcelle_id" ref="parcelle_ble_1"/>
+            <field name="type_stress">hydrique</field>
+            <field name="niveau_stress">eleve</field>
+            <field name="indicateurs_stress">NDVI: 0.45, Température sol: 28°C</field>
+            <field name="seuil_alerte">NDVI &lt; 0.5</field>
+            <field name="actions_recommandees">Irrigation d'urgence</field>
+            <field name="date_detection" eval="time.strftime('%Y-06-20')"/>
+            <field name="statut">resolue</field>
+            <field name="notes">Stress détecté et résolu</field>
+        </record>
+        
+        <!-- OPTIMISATION DES RESSOURCES -->
+        <record id="optimisation_engrais" model="smart_agri_ia_optimisation_ressources">
+            <field name="name">Optimisation Engrais 2024</field>
+            <field name="exploitation_id" ref="exploitation_ferme_ble"/>
+            <field name="parcelle_id" ref="parcelle_ble_1"/>
+            <field name="type_ressource">engrais</field>
+            <field name="consommation_avant">120</field>
+            <field name="consommation_apres">95</field>
+            <field name="economie_realisee">25</field>
+            <field name="impact_rendement">5</field>
+            <field name="methode_optimisation">Fertilisation de précision</field>
+            <field name="date_optimisation" eval="time.strftime('%Y-03-15')"/>
+            <field name="statut">terminee</field>
+            <field name="notes">Réduction de 21% de la consommation</field>
+        </record>
+        
+        <!-- DASHBOARDS -->
+        <record id="dashboard_principal" model="smart_agri_dashboard">
+            <field name="name">Dashboard Principal 2024</field>
+            <field name="exploitation_id" ref="exploitation_ferme_ble"/>
+            <field name="periode">2024</field>
+            <field name="rendement_total">15.0</field>
+            <field name="surface_cultivee">55.0</field>
+            <field name="efficacite_globale">87.5</field>
+            <field name="alertes_actives">2</field>
+            <field name="predictions_ia">5</field>
+            <field name="notes">Vue d'ensemble des performances</field>
+        </record>
+        
+        <record id="dashboard_ia" model="smart_agri_ia_dashboard">
+            <field name="name">Dashboard IA 2024</field>
+            <field name="exploitation_id" ref="exploitation_ferme_ble"/>
+            <field name="periode">2024</field>
+            <field name="nombre_modeles">3</field>
+            <field name="precision_moyenne">90.2</field>
+            <field name="predictions_realisees">12</field>
+            <field name="economies_realisees">4500</field>
+            <field name="roi_ia">3.2</field>
+            <field name="notes">Performance des modèles d'IA</field>
+        </record>
+        
+        <!-- ROTATIONS CULTURELLES -->
+        <record id="rotation_ble_orge" model="smart_agri_rotation_culturelle">
+            <field name="name">Rotation Blé-Orge</field>
+            <field name="exploitation_id" ref="exploitation_ferme_ble"/>
+            <field name="description">Rotation classique blé d'hiver / orge de printemps</field>
+            <field name="duree_cycle">2</field>
+            <field name="statut">active</field>
+        </record>
+        
+        <record id="objectif_rotation" model="smart_agri_objectif_rotation">
+            <field name="name">Objectif Rotation 2025</field>
+            <field name="rotation_id" ref="rotation_ble_orge"/>
+            <field name="annee">2025</field>
+            <field name="objectif_rendement">9.0</field>
+            <field name="statut">en_cours</field>
+        </record>
+        
+        <!-- INTERVENTIONS AGRICOLES -->
+        <record id="intervention_semis_ble" model="smart_agri_intervention">
+            <field name="name">Semis Blé 2024</field>
+            <field name="exploitation_id" ref="exploitation_ferme_ble"/>
+            <field name="parcelle_id" ref="parcelle_ble_1"/>
+            <field name="type_intervention">semis</field>
+            <field name="date_intervention" eval="time.strftime('%Y-10-15')"/>
+            <field name="description">Semis du blé d'hiver</field>
+            <field name="statut">terminee</field>
+        </record>
+        
+        <!-- INTRANTS -->
+        <record id="intrant_semences_ble" model="smart_agri_intrants">
+            <field name="name">Semences Blé</field>
+            <field name="type_intrant">semences</field>
+            <field name="description">Semences de blé tendre d'hiver</field>
+            <field name="unite">kg</field>
+            <field name="statut">actif</field>
+        </record>
+        
+        <!-- UTILISATION DES INTRANTS -->
+        <record id="utilisation_semences_ble" model="smart_agri_utilisation_intrants">
+            <field name="name">Utilisation Semences Blé 2024</field>
+            <field name="exploitation_id" ref="exploitation_ferme_ble"/>
+            <field name="parcelle_id" ref="parcelle_ble_1"/>
+            <field name="intrant_id" ref="intrant_semences_ble"/>
+            <field name="quantite_utilisee">200</field>
+            <field name="date_utilisation" eval="time.strftime('%Y-10-15')"/>
+            <field name="statut">terminee</field>
+        </record>
+        
+        <!-- TENDANCES CLIMATIQUES -->
+        <record id="tendance_rechauffement" model="smart_agri_tendance_climatique">
+            <field name="name">Tendance Réchauffement 2024</field>
+            <field name="exploitation_id" ref="exploitation_ferme_ble"/>
+            <field name="type_tendance">rechauffement</field>
+            <field name="periode_analyse">2020-2024</field>
+            <field name="description">Augmentation progressive des températures</field>
+            <field name="impact_agricole">Saison culturale plus longue</field>
+            <field name="statut">active</field>
+        </record>
+        
+        <!-- SCÉNARIOS CLIMATIQUES -->
+        <record id="scenario_rcp45" model="smart_agri_scenario_climatique">
+            <field name="name">Scénario RCP 4.5</field>
+            <field name="exploitation_id" ref="exploitation_ferme_ble"/>
+            <field name="type_scenario">modere</field>
+            <field name="description">Scénario de réduction modérée des émissions</field>
+            <field name="impact_rendement">+5%</field>
+            <field name="statut">actif</field>
+        </record>
+        
+        <!-- SCÉNARIOS RCP -->
+        <record id="rcp_scenario_45" model="smart_agri_rcp_scenario">
+            <field name="name">RCP 4.5 - Modéré</field>
+            <field name="exploitation_id" ref="exploitation_ferme_ble"/>
+            <field name="code_rcp">RCP4.5</field>
+            <field name="description">Scénario de stabilisation des émissions</field>
+            <field name="temperature_2050">+2.0</field>
+            <field name="temperature_2100">+2.4</field>
+            <field name="statut">actif</field>
+        </record>
+        
+        <!-- TABLEAU DE BORD -->
+        <record id="tableau_bord_2024" model="smart_agri_tableau_bord">
+            <field name="name">Tableau de Bord 2024</field>
+            <field name="exploitation_id" ref="exploitation_ferme_ble"/>
+            <field name="periode">2024</field>
+            <field name="rendement_total">15.0</field>
+            <field name="surface_cultivee">55.0</field>
+            <field name="efficacite_globale">87.5</field>
+            <field name="notes">Vue d'ensemble des performances</field>
+        </record>
+        
+        <!-- WIZARD GEOJSON -->
+        <record id="wizard_geojson" model="smart_agri_geojson_wizard">
+            <field name="name">Export GeoJSON</field>
+            <field name="exploitation_id" ref="exploitation_ferme_ble"/>
+            <field name="format_export">geojson</field>
+            <field name="statut">disponible</field>
         </record>
         
     </data>

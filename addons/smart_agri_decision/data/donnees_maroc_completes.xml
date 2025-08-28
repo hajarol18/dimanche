@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- ======================================== -->
+        <!-- DONNÉES MAROCAINES COMPLÈTES ET UNIFIÉES -->
+        <!-- ======================================== -->
+        
+        <!-- TYPES DE SOL MAROCAINS -->
+        <record id="soil_argileux_maroc" model="smart_agri_soil_type">
+            <field name="name">Sol Argileux Premium - Maroc</field>
+            <field name="description">Sol riche en argile avec excellente rétention d'eau - Typique des régions céréalières marocaines</field>
+            <field name="ph_min">6.0</field>
+            <field name="ph_max">7.5</field>
+            <field name="capacite_retention">85</field>
+            <field name="drainage">Faible</field>
+            <field name="richesse_nutriments">Très Élevée</field>
+            <field name="statut">actif</field>
+        </record>
+        
+        <record id="soil_limoneux_maroc" model="smart_agri_soil_type">
+            <field name="name">Sol Limoneux Équilibré - Maroc</field>
+            <field name="description">Sol parfaitement équilibré pour toutes cultures - Régions agricoles marocaines</field>
+            <field name="ph_min">6.5</field>
+            <field name="ph_max">7.0</field>
+            <field name="capacite_retention">75</field>
+            <field name="drainage">Moyen</field>
+            <field name="richesse_nutriments">Élevée</field>
+            <field name="statut">actif</field>
+        </record>
+        
+        <!-- EXPLOITATIONS MAROCAINES -->
+        <record id="exploitation_ferme_ble_maroc" model="smart_agri_exploitation">
+            <field name="name">Ferme du Blé d'Or - Maroc</field>
+            <field name="code">FB001</field>
+            <field name="proprietaire">Ahmed Benali</field>
+            <field name="surface_totale">150.0</field>
+            <field name="latitude">33.9716</field>
+            <field name="longitude">-6.8498</field>
+            <field name="altitude">35</field>
+            <field name="type_exploitation">cereales</field>
+            <field name="statut">active</field>
+            <field name="date_creation" eval="time.strftime('%Y-01-01')"/>
+            <field name="description">Exploitation céréalière moderne avec rotation intelligente - Région de Rabat, Maroc</field>
+        </record>
+        
+        <!-- MODÈLES IA MAROCAINS DÉPLOYÉS -->
+        <record id="modele_ia_maroc_rendement" model="smart_agri_ai_model">
+            <field name="name">Modèle IA Rendement Maroc - XGBoost Premium</field>
+            <field name="code">MAROC-XGB-001</field>
+            <field name="description">Modèle XGBoost spécialement entraîné sur les données agricoles marocaines</field>
+            <field name="type_modele">prediction_rendement</field>
+            <field name="algorithme">xgboost</field>
+            <field name="state">deployed</field>
+            <field name="actif">True</field>
+            <field name="production">True</field>
+            <field name="auteur">Équipe IA SmartAgri Maroc</field>
+        </record>
+        
+        <!-- PRÉDICTIONS IA MAROCAINES VALIDÉES -->
+        <record id="prediction_ble_maroc_2025" model="smart_agri_ia_predictions">
+            <field name="name">Prédiction Rendement Blé d'Hiver - Parcelle A - Maroc</field>
+            <field name="code">PRED-MAROC-2025-001</field>
+            <field name="modele_id" ref="modele_ia_maroc_rendement"/>
+            <field name="parcelle_id" ref="parcelle_ble_1_maroc"/>
+            <field name="type_prediction">rendement</field>
+            <field name="prediction_brute">8.7</field>
+            <field name="prediction_formatee">8.7 t/ha</field>
+            <field name="probabilite">87.0</field>
+            <field name="score_confiance">0.87</field>
+            <field name="recommandation_principale">Rendement excellent prévu grâce aux conditions météo favorables et à la qualité du sol limoneux. Recommandation : maintenir l'irrigation actuelle et surveiller les besoins en azote.</field>
+            <field name="actions_immediates">1. Vérifier l'humidité du sol (objectif : 70-80%) 2. Contrôler la teneur en azote 3. Préparer la récolte pour mi-juin</field>
+            <field name="date_creation" eval="time.strftime('%Y-12-27 01:00:00')"/>
+            <field name="date_prediction" eval="time.strftime('%Y-12-27')"/>
+            <field name="validee">True</field>
+            <field name="date_validation" eval="time.strftime('%Y-12-27')"/>
+            <field name="state">validated</field>
+            <field name="qualite_donnees">excellente</field>
+        </record>
+        
+    </data>
+</odoo>

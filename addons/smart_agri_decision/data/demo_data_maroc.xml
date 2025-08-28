@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- ======================================== -->
+        <!-- DONNÉES DÉMONSTRATION MAROC SMARTAGRI -->
+        <!-- ======================================== -->
+        
+        <!-- TYPES DE SOL MAROCAINS -->
+        <record id="soil_tirs" model="smart_agri_soil_type">
+            <field name="name">Sol Tirs</field>
+            <field name="description">Sol argileux noir typique des plaines marocaines, excellente rétention d'eau</field>
+            <field name="ph_min">7.0</field>
+            <field name="ph_max">8.5</field>
+            <field name="capacite_retention">85</field>
+            <field name="drainage">Faible</field>
+            <field name="richesse_nutriments">Très élevée</field>
+        </record>
+        
+        <record id="soil_hamri" model="smart_agri_soil_type">
+            <field name="name">Sol Hamri</field>
+            <field name="description">Sol rouge méditerranéen, idéal pour l'arboriculture</field>
+            <field name="ph_min">6.5</field>
+            <field name="ph_max">7.5</field>
+            <field name="capacite_retention">70</field>
+            <field name="drainage">Bon</field>
+            <field name="richesse_nutriments">Élevée</field>
+        </record>
+        
+        <record id="soil_rmel" model="smart_agri_soil_type">
+            <field name="name">Sol Rmel</field>
+            <field name="description">Sol sableux des zones côtières, drainage excellent</field>
+            <field name="ph_min">7.5</field>
+            <field name="ph_max">8.0</field>
+            <field name="capacite_retention">40</field>
+            <field name="drainage">Excellent</field>
+            <field name="richesse_nutriments">Moyenne</field>
+        </record>
+        
+        <!-- EXPLOITATIONS AGRICOLES MAROCAINES -->
+        <record id="exploitation_doukkala" model="smart_agri_exploitation">
+            <field name="name">Exploitation Doukkala</field>
+            <field name="code">DK001</field>
+            <field name="proprietaire">Ahmed Benali</field>
+            <field name="surface_totale">150.0</field>
+            <field name="latitude">32.2540</field>
+            <field name="longitude">-8.5102</field>
+            <field name="altitude">200</field>
+            <field name="type_exploitation">cereales</field>
+            <field name="statut">active</field>
+            <field name="date_creation" eval="time.strftime('%Y-01-01')"/>
+            <field name="description">Exploitation céréalière moderne dans la région de Doukkala</field>
+        </record>
+        
+        <record id="exploitation_souss" model="smart_agri_exploitation">
+            <field name="name">Domaine Souss Massa</field>
+            <field name="code">SM002</field>
+            <field name="proprietaire">Fatima Alaoui</field>
+            <field name="surface_totale">80.0</field>
+            <field name="latitude">30.4278</field>
+            <field name="longitude">-9.5981</field>
+            <field name="altitude">50</field>
+            <field name="type_exploitation">arboriculture</field>
+            <field name="statut">active</field>
+            <field name="date_creation" eval="time.strftime('%Y-01-01')"/>
+            <field name="description">Domaine d'agrumes et d'arganiers dans la vallée du Souss</field>
+        </record>
+        
+        <record id="exploitation_meknes" model="smart_agri_exploitation">
+            <field name="name">Coopérative Meknès</field>
+            <field name="code">MK003</field>
+            <field name="proprietaire">Coopérative Al Baraka</field>
+            <field name="surface_totale">200.0</field>
+            <field name="latitude">33.8935</field>
+            <field name="longitude">-5.5473</field>
+            <field name="altitude">550</field>
+            <field name="type_exploitation">oliveraie</field>
+            <field name="statut">active</field>
+            <field name="date_creation" eval="time.strftime('%Y-01-01')"/>
+            <field name="description">Coopérative oléicole dans la région de Meknès</field>
+        </record>
+        
+        <!-- PARCELLES MAROCAINES -->
+        <record id="parcelle_ble_doukkala" model="smart_agri_parcelle">
+            <field name="name">Parcelle Blé Doukkala</field>
+            <field name="code">PBD001</field>
+            <field name="exploitation_id" ref="exploitation_doukkala"/>
+            <field name="soil_type_id" ref="soil_tirs"/>
+            <field name="surface">50.0</field>
+            <field name="latitude">32.2550</field>
+            <field name="longitude">-8.5110</field>
+            <field name="altitude">200</field>
+            <field name="forme">rectangulaire</field>
+            <field name="pente">1</field>
+            <field name="exposition">sud</field>
+            <field name="statut">active</field>
+        </record>
+        
+        <record id="parcelle_agrumes_souss" model="smart_agri_parcelle">
+            <field name="name">Parcelle Agrumes Souss</field>
+            <field name="code">PAS001</field>
+            <field name="exploitation_id" ref="exploitation_souss"/>
+            <field name="soil_type_id" ref="soil_hamri"/>
+            <field name="surface">30.0</field>
+            <field name="latitude">30.4285</field>
+            <field name="longitude">-9.5990</field>
+            <field name="altitude">50</field>
+            <field name="forme">rectangulaire</field>
+            <field name="pente">2</field>
+            <field name="exposition">sud-est</field>
+            <field name="statut">active</field>
+        </record>
+        
+        <record id="parcelle_olivier_meknes" model="smart_agri_parcelle">
+            <field name="name">Parcelle Oliviers Meknès</field>
+            <field name="code">POM001</field>
+            <field name="exploitation_id" ref="exploitation_meknes"/>
+            <field name="soil_type_id" ref="soil_hamri"/>
+            <field name="surface">40.0</field>
+            <field name="latitude">33.8945</field>
+            <field name="longitude">-5.5480</field>
+            <field name="altitude">550</field>
+            <field name="forme">irreguliere</field>
+            <field name="pente">5</field>
+            <field name="exposition">sud-ouest</field>
+            <field name="statut">active</field>
+        </record>
+        
+        <!-- CULTURES MAROCAINES -->
+        <record id="culture_ble_dur_2024" model="smart_agri_culture">
+            <field name="name">Blé Dur 2024 Doukkala</field>
+            <field name="code">BLD2024</field>
+            <field name="exploitation_id" ref="exploitation_doukkala"/>
+            <field name="parcelle_id" ref="parcelle_ble_doukkala"/>
+            <field name="type_culture">cereale</field>
+            <field name="variete">Blé dur Karim</field>
+            <field name="date_semis" eval="time.strftime('%Y-11-15')"/>
+            <field name="date_recolte" eval="time.strftime('%Y-06-20')"/>
+            <field name="rendement_attendu">4.5</field>
+            <field name="rendement_reel">4.2</field>
+            <field name="statut">termine</field>
+            <field name="notes">Bonne adaptation aux conditions semi-arides</field>
+        </record>
+        
+        <record id="culture_orange_2024" model="smart_agri_culture">
+            <field name="name">Orangers Valencia 2024</field>
+            <field name="code">ORA2024</field>
+            <field name="exploitation_id" ref="exploitation_souss"/>
+            <field name="parcelle_id" ref="parcelle_agrumes_souss"/>
+            <field name="type_culture">arboriculture</field>
+            <field name="variete">Orange Valencia Late</field>
+            <field name="date_semis" eval="time.strftime('%Y-03-01')"/>
+            <field name="date_recolte" eval="time.strftime('%Y-04-30')"/>
+            <field name="rendement_attendu">35.0</field>
+            <field name="rendement_reel">38.5</field>
+            <field name="statut">termine</field>
+            <field name="notes">Excellente qualité grâce à l'irrigation localisée</field>
+        </record>
+        
+        <!-- STATIONS MÉTÉO MAROCAINES -->
+        <record id="station_meteo_casablanca" model="smart_agri_station_meteo">
+            <field name="name">Station Météo Casablanca</field>
+            <field name="code">CASA001</field>
+            <field name="latitude">33.5731</field>
+            <field name="longitude">-7.5898</field>
+            <field name="altitude">50</field>
+            <field name="type_station">station_locale</field>
+            <field name="source_donnees">Direction Météorologie Nationale Maroc</field>
+            <field name="description">Station météorologique de Casablanca - Région du Grand Casablanca</field>
+        </record>
+        
+        <record id="station_meteo_agadir" model="smart_agri_station_meteo">
+            <field name="name">Station Météo Agadir</field>
+            <field name="code">AGAD001</field>
+            <field name="latitude">30.4278</field>
+            <field name="longitude">-9.5981</field>
+            <field name="altitude">70</field>
+            <field name="type_station">station_locale</field>
+            <field name="source_donnees">Direction Météorologie Nationale Maroc</field>
+            <field name="description">Station météorologique d'Agadir - Région Souss-Massa</field>
+        </record>
+        
+        <record id="station_meteo_meknes" model="smart_agri_station_meteo">
+            <field name="name">Station Météo Meknès</field>
+            <field name="code">MEKN001</field>
+            <field name="latitude">33.8935</field>
+            <field name="longitude">-5.5473</field>
+            <field name="altitude">552</field>
+            <field name="type_station">station_locale</field>
+            <field name="source_donnees">Direction Météorologie Nationale Maroc</field>
+            <field name="description">Station météorologique de Meknès - Région Fès-Meknès</field>
+        </record>
+        
+        <!-- DONNÉES MÉTÉO MAROCAINES -->
+        <record id="meteo_casa_2024_01" model="smart_agri_meteo">
+            <field name="name">Données météo Casablanca - Janvier 2024</field>
+            <field name="date_mesure" eval="time.strftime('%Y-01-15')"/>
+            <field name="exploitation_id" ref="exploitation_doukkala"/>
+            <field name="parcelle_id" ref="parcelle_ble_doukkala"/>
+            <field name="temperature">13.0</field>
+            <field name="temperature_min">8.0</field>
+            <field name="temperature_max">18.0</field>
+            <field name="humidite">65.0</field>
+            <field name="precipitation">25.0</field>
+            <field name="vitesse_vent">12.0</field>
+            <field name="direction_vent">270.0</field>
+            <field name="pression_atmospherique">1015.5</field>
+            <field name="source_donnees">Direction Météorologie Nationale Maroc</field>
+            <field name="qualite_donnees">bonne</field>
+        </record>
+        
+        <record id="meteo_agadir_2024_01" model="smart_agri_meteo">
+            <field name="name">Données météo Agadir - Janvier 2024</field>
+            <field name="date_mesure" eval="time.strftime('%Y-01-20')"/>
+            <field name="exploitation_id" ref="exploitation_souss_massa"/>
+            <field name="parcelle_id" ref="parcelle_orangers_souss"/>
+            <field name="temperature">18.0</field>
+            <field name="temperature_min">12.0</field>
+            <field name="temperature_max">24.0</field>
+            <field name="humidite">70.0</field>
+            <field name="precipitation">15.0</field>
+            <field name="vitesse_vent">8.0</field>
+            <field name="direction_vent">315.0</field>
+            <field name="pression_atmospherique">1018.2</field>
+            <field name="source_donnees">Direction Météorologie Nationale Maroc</field>
+            <field name="qualite_donnees">excellente</field>
+        </record>
+        
+        <record id="meteo_meknes_2024_01" model="smart_agri_meteo">
+            <field name="name">Données météo Meknès - Janvier 2024</field>
+            <field name="date_mesure" eval="time.strftime('%Y-01-25')"/>
+            <field name="exploitation_id" ref="exploitation_meknes"/>
+            <field name="temperature">10.0</field>
+            <field name="temperature_min">3.0</field>
+            <field name="temperature_max">17.0</field>
+            <field name="humidite">75.0</field>
+            <field name="precipitation">35.0</field>
+            <field name="vitesse_vent">15.0</field>
+            <field name="direction_vent">225.0</field>
+            <field name="pression_atmospherique">1012.8</field>
+            <field name="source_donnees">Direction Météorologie Nationale Maroc</field>
+            <field name="qualite_donnees">bonne</field>
+        </record>
+        
+        <record id="meteo_agadir_2024_01" model="smart_agri_meteo">
+            <field name="date" eval="time.strftime('%Y-01-15')"/>
+            <field name="parcelle_id" ref="parcelle_agrumes_souss"/>
+            <field name="station_meteo_id" ref="station_meteo_agadir"/>
+            <field name="temperature_min">12.0</field>
+            <field name="temperature_max">22.0</field>
+            <field name="temperature_moyenne">17.0</field>
+            <field name="humidite_min">45</field>
+            <field name="humidite_max">65</field>
+            <field name="humidite_moyenne">55</field>
+            <field name="precipitations">5.0</field>
+            <field name="ensoleillement">8.0</field>
+            <field name="vitesse_vent">8.0</field>
+            <field name="direction_vent">nord-ouest</field>
+            <field name="pression_atmospherique">1018.2</field>
+        </record>
+        
+        <!-- ALERTES CLIMATIQUES MAROCAINES -->
+        <record id="alerte_sirocco_2024" model="smart_agri_alerte_climatique">
+            <field name="name">Alerte Sirocco Juillet 2024</field>
+            <field name="type_alerte">canicule</field>
+            <field name="niveau_critique">elevee</field>
+            <field name="date_debut" eval="time.strftime('%Y-07-15')"/>
+            <field name="date_fin" eval="time.strftime('%Y-07-25')"/>
+            <field name="description">Vague de chaleur exceptionnelle avec vents de sirocco</field>
+            <field name="impact_cultures">Stress hydrique important sur les cultures d'été</field>
+            <field name="recommandations">Irrigation renforcée et protection des jeunes plants</field>
+            <field name="statut">terminee</field>
+        </record>
+        
+        <!-- INTRANTS MAROCAINS -->
+        <record id="intrant_engrais_phosphate" model="smart_agri_intrants">
+            <field name="name">Engrais Phosphaté OCP</field>
+            <field name="code">PHOS001</field>
+            <field name="exploitation_id" ref="exploitation_doukkala"/>
+            <field name="categorie_principale">fertilisants</field>
+            <field name="type_intrant">engrais_phosphore</field>
+            <field name="unite">kg</field>
+            <field name="prix_unitaire">8.50</field>
+            <field name="stock_disponible">1000.0</field>
+            <field name="stock_minimum">200.0</field>
+            <field name="fournisseur">OCP Group</field>
+            <field name="qualite">conventionnel</field>
+            <field name="composition">P2O5: 46%, Calcium: 20%</field>
+            <field name="dosage_recommande">150.0</field>
+        </record>
+        
+        <!-- MODÈLES IA ADAPTÉS AU MAROC -->
+        <record id="modele_prediction_maroc" model="smart_agri_ai_model">
+            <field name="name">Modèle Prédiction Maroc</field>
+            <field name="type_modele">prediction_rendement</field>
+            <field name="algorithme">random_forest</field>
+            <field name="version">3.0</field>
+            <field name="precision_modele">87.2</field>
+            <field name="donnees_entrainement">2020-2024</field>
+            <field name="variables_entree">Météo, Sol, Irrigation, Variétés locales</field>
+            <field name="statut">actif</field>
+            <field name="notes">Modèle adapté aux conditions climatiques marocaines</field>
+        </record>
+        
+    </data>
+</odoo>

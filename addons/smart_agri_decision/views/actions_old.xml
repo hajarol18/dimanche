@@ -336,21 +336,6 @@
             </field>
         </record>
         
-        <!-- Action pour les objectifs de rotation -->
-        <record id="action_smart_agri_objectif_rotation" model="ir.actions.act_window">
-            <field name="name">Objectifs de Rotation</field>
-            <field name="res_model">smart_agri_objectif_rotation</field>
-            <field name="view_mode">list,form</field>
-            <field name="help" type="html">
-                <p class="o_view_nocontent_smiling_face">
-                    Créez votre premier objectif de rotation
-                </p>
-                <p>
-                    Définissez les objectifs pour vos rotations culturales.
-                </p>
-            </field>
-        </record>
-        
         <!-- Action pour la géolocalisation (réutilise l'action des parcelles) -->
         <record id="action_smart_agri_geolocalisation" model="ir.actions.act_window">
             <field name="name">Géolocalisation</field>

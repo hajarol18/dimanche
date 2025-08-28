@@ -203,7 +203,7 @@
                                     </div>
                                     <div class="row mt-2">
                                         <div class="col-12">
-                                            <strong>Coût Estimé:</strong> <field name="cout_estime"/>€
+                                            <strong>Coût Estimé:</strong> <field name="cout_estime"/> MAD
                                         </div>
                                     </div>
                                 </div>

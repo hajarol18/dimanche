@@ -128,7 +128,7 @@
                 <filter string="Cette Semaine" name="cette_semaine" domain="[('date_planifiee', '>=', (context_today() - datetime.timedelta(days=7)).strftime('%Y-%m-%d'))]"/>
                 <filter string="Ce Mois" name="ce_mois" domain="[('date_planifiee', '>=', (context_today() - datetime.timedelta(days=30)).strftime('%Y-%m-%d'))]"/>
                 
-                <filter string="Coût > 500€" name="cout_eleve" domain="[('cout_estime', '>', 500)]"/>
+                <filter string="Coût > 500 MAD" name="cout_eleve" domain="[('cout_estime', '>', 500)]"/>
                 <filter string="Durée > 4h" name="duree_longue" domain="[('duree_estimee', '>', 4)]"/>
                 
                 <group expand="0" string="Regrouper par">
@@ -184,7 +184,7 @@
                                     </div>
                                     <div class="row mt-2">
                                         <div class="col-6">
-                                            <strong>Coût:</strong> <field name="cout_estime"/>€
+                                            <strong>Coût:</strong> <field name="cout_estime"/> MAD
                                         </div>
                                         <div class="col-6">
                                             <strong>Exploitation:</strong> <field name="exploitation_id"/>

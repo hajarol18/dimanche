@@ -78,14 +78,14 @@ class SmartAgriIntrants(models.Model):
     
     # Caractéristiques techniques avancées
     unite = fields.Char('Unité de mesure', required=True)
-    prix_unitaire = fields.Float('Prix unitaire (€)', required=True, digits=(10, 2))
+    prix_unitaire = fields.Float('Prix unitaire (MAD)', required=True, digits=(10, 2))
     stock_disponible = fields.Float('Stock disponible', default=0.0, digits=(10, 2))
     stock_minimum = fields.Float('Stock minimum d\'alerte', default=0.0, digits=(10, 2))
     stock_maximum = fields.Float('Stock maximum recommandé', digits=(10, 2))
     
     # Champs calculés avancés
-    cout_total = fields.Float('Coût total (€)', compute='_compute_cout_total', store=True, digits=(12, 2))
-    valeur_stock = fields.Float('Valeur du stock (€)', compute='_compute_valeur_stock', store=True, digits=(12, 2))
+    cout_total = fields.Float('Coût total (MAD)', compute='_compute_cout_total', store=True, digits=(12, 2))
+    valeur_stock = fields.Float('Valeur du stock (MAD)', compute='_compute_valeur_stock', store=True, digits=(12, 2))
     niveau_stock = fields.Selection([
         ('critique', 'Critique'),
         ('faible', 'Faible'),

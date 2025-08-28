@@ -26,9 +26,12 @@ from . import smart_agri_dashboard
 from . import smart_agri_tableau_bord
 
 # 5. MODÈLES CLIMATIQUES
+from . import smart_agri_station_meteo
 from . import smart_agri_meteostat_import
 from . import smart_agri_alerte_climatique
 from . import smart_agri_tendance_climatique
+# TEMPORAIREMENT COMMENTÉ POUR RÉSOLUDRE L'ERREUR DE CHARGEMENT
+# from . import smart_agri_alerte_exploitation
 
 # 6. MODÈLES IA
 from . import ia_dashboard

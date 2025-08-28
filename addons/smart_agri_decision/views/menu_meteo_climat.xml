@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <!-- ======================================== -->
+        <!-- FICHIER TEMPORAIRE - MENU INTÉGRÉ DANS MAIN_MENU.XML -->
+        <!-- ======================================== -->
+        <!-- 
+        Ce fichier est temporaire et vide car le menu météo a été intégré 
+        dans le menu principal unifié (main_menu.xml) pour éviter les doublons.
         
-        <!-- MENU MÉTÉO SIMPLIFIÉ POUR TEST -->
-        <menuitem id="menu_smart_agri_meteo_simple"
-                  name="🌤️ Météo (Test)"
-                  parent="menu_smart_agri_root"
-                  sequence="20"/>
+        Toutes les fonctionnalités météo sont maintenant accessibles via :
+        🌾 SmartAgriDecision → 🌤️ Météo & Climat
         
+        La simulation interactive est préservée et accessible en premier.
+        -->
     </data>
 </odoo>

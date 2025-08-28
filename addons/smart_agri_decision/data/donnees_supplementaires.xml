@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- ======================================== -->
+        <!-- DONNÉES SUPPLÉMENTAIRES POUR SOUTENANCE -->
+        <!-- ======================================== -->
+        
+        <!-- NOUVELLES EXPLOITATIONS -->
+        <record id="exploitation_mais" model="smart_agri_exploitation">
+            <field name="name">Ferme du Maïs</field>
+            <field name="code">FM003</field>
+            <field name="proprietaire">Pierre Durand</field>
+            <field name="surface_totale">80.0</field>
+            <field name="latitude">48.8580</field>
+            <field name="longitude">2.3580</field>
+            <field name="altitude">38</field>
+            <field name="type_exploitation">cereales</field>
+            <field name="statut">active</field>
+            <field name="date_creation" eval="time.strftime('%Y-01-01')"/>
+            <field name="description">Spécialisée dans la culture du maïs</field>
+        </record>
+        
+        <record id="exploitation_legumes" model="smart_agri_exploitation">
+            <field name="name">Maraîchage Bio</field>
+            <field name="code">MB004</field>
+            <field name="proprietaire">Sophie Moreau</field>
+            <field name="surface_totale">25.0</field>
+            <field name="latitude">48.8590</field>
+            <field name="longitude">2.3590</field>
+            <field name="altitude">42</field>
+            <field name="type_exploitation">maraichage</field>
+            <field name="statut">active</field>
+            <field name="date_creation" eval="time.strftime('%Y-01-01')"/>
+            <field name="description">Production de légumes bio</field>
+        </record>
+        
+        <!-- NOUVELLES PARCELLES -->
+        <record id="parcelle_mais_1" model="smart_agri_parcelle">
+            <field name="name">Parcelle Maïs Principal</field>
+            <field name="code">PM001</field>
+            <field name="exploitation_id" ref="exploitation_mais"/>
+            <field name="soil_type_id" ref="soil_limoneux"/>
+            <field name="surface">40.0</field>
+            <field name="latitude">48.8585</field>
+            <field name="longitude">2.3585</field>
+            <field name="altitude">38</field>
+            <field name="forme">rectangulaire</field>
+            <field name="pente">1</field>
+            <field name="exposition">sud</field>
+            <field name="statut">active</field>
+        </record>
+        
+        <record id="parcelle_tomates" model="smart_agri_parcelle">
+            <field name="name">Serre Tomates</field>
+            <field name="code">ST001</field>
+            <field name="exploitation_id" ref="exploitation_legumes"/>
+            <field name="soil_type_id" ref="soil_argileux"/>
+            <field name="surface">5.0</field>
+            <field name="latitude">48.8595</field>
+            <field name="longitude">2.3595</field>
+            <field name="altitude">42</field>
+            <field name="forme">serre</field>
+            <field name="pente">0</field>
+            <field name="exposition">sud-est</field>
+            <field name="statut">active</field>
+        </record>
+        
+        <!-- NOUVELLES CULTURES -->
+        <record id="culture_mais_2024" model="smart_agri_culture">
+            <field name="name">Maïs Grain 2024</field>
+            <field name="code">MAIS2024</field>
+            <field name="exploitation_id" ref="exploitation_mais"/>
+            <field name="parcelle_id" ref="parcelle_mais_1"/>
+            <field name="type_culture">cereale</field>
+            <field name="variete">Maïs hybride précoce</field>
+            <field name="date_semis" eval="time.strftime('%Y-04-15')"/>
+            <field name="date_recolte" eval="time.strftime('%Y-09-20')"/>
+            <field name="rendement_attendu">12.0</field>
+            <field name="rendement_reel">11.8</field>
+            <field name="statut">termine</field>
+            <field name="notes">Excellente année pour le maïs</field>
+        </record>
+        
+        <record id="culture_tomates_2024" model="smart_agri_culture">
+            <field name="name">Tomates 2024</field>
+            <field name="code">TOM2024</field>
+            <field name="exploitation_id" ref="exploitation_legumes"/>
+            <field name="parcelle_id" ref="parcelle_tomates"/>
+            <field name="type_culture">legume</field>
+            <field name="variete">Tomates cerises bio</field>
+            <field name="date_semis" eval="time.strftime('%Y-02-20')"/>
+            <field name="date_recolte" eval="time.strftime('%Y-08-15')"/>
+            <field name="rendement_attendu">8.5</field>
+            <field name="rendement_reel">8.7</field>
+            <field name="statut">termine</field>
+            <field name="notes">Production bio de qualité</field>
+        </record>
+        
+        <!-- NOUVELLES STATIONS MÉTÉO -->
+        <record id="station_meteo_mais" model="smart_agri_station_meteo">
+            <field name="name">Station Météo Maïs</field>
+            <field name="code_station">MAIS001</field>
+            <field name="latitude">48.8580</field>
+            <field name="longitude">2.3580</field>
+            <field name="altitude">38</field>
+            <field name="type_station">professionnelle</field>
+            <field name="precision_donnees">haute</field>
+            <field name="statut">active</field>
+        </record>
+        
+        <!-- NOUVELLES DONNÉES MÉTÉO -->
+        <record id="meteo_mais_2024" model="smart_agri_meteo">
+            <field name="date" eval="time.strftime('%Y-07-15')"/>
+            <field name="parcelle_id" ref="parcelle_mais_1"/>
+            <field name="station_meteo_id" ref="station_meteo_mais"/>
+            <field name="temperature_min">18.5</field>
+            <field name="temperature_max">28.0</field>
+            <field name="temperature_moyenne">23.25</field>
+            <field name="humidite_min">55</field>
+            <field name="humidite_max">75</field>
+            <field name="humidite_moyenne">65</field>
+            <field name="precipitations">8.5</field>
+            <field name="ensoleillement">12.5</field>
+            <field name="vitesse_vent">8.0</field>
+            <field name="direction_vent">nord-ouest</field>
+            <field name="pression_atmospherique">1015.8</field>
+        </record>
+        
+        <!-- NOUVELLES ALERTES -->
+        <record id="alerte_canicule_2024" model="smart_agri_alerte_climatique">
+            <field name="name">Alerte Canicule Juillet 2024</field>
+            <field name="type_alerte">canicule</field>
+            <field name="niveau_critique">elevee</field>
+            <field name="date_debut" eval="time.strftime('%Y-07-10')"/>
+            <field name="date_fin" eval="time.strftime('%Y-07-25')"/>
+            <field name="description">Vague de chaleur exceptionnelle</field>
+            <field name="impact_cultures">Stress thermique sur maïs et légumes</field>
+            <field name="recommandations">Irrigation nocturne et ombrage</field>
+            <field name="statut">terminee</field>
+        </record>
+        
+        <!-- NOUVEAUX MODÈLES IA -->
+        <record id="modele_irrigation" model="smart_agri_ai_model">
+            <field name="name">Modèle Optimisation Irrigation</field>
+            <field name="type_modele">optimisation</field>
+            <field name="algorithme">Gradient Boosting</field>
+            <field name="version">1.5</field>
+            <field name="precision_modele">94.2</field>
+            <field name="donnees_entrainement">2021-2024</field>
+            <field name="variables_entree">Évapotranspiration, Sol, Météo</field>
+            <field name="statut">actif</field>
+            <field name="notes">Optimisation automatique de l'irrigation</field>
+        </record>
+        
+        <!-- NOUVELLES PRÉDICTIONS -->
+        <record id="prediction_mais_2025" model="smart_agri_ia_predictions">
+            <field name="name">Prédiction Maïs 2025</field>
+            <field name="exploitation_id" ref="exploitation_mais"/>
+            <field name="parcelle_id" ref="parcelle_mais_1"/>
+            <field name="culture_id" ref="culture_mais_2024"/>
+            <field name="type_prediction">rendement</field>
+            <field name="valeur_predite">12.5</field>
+            <field name="confiance_prediction">91</field>
+            <field name="facteurs_cles">Conditions climatiques optimales</field>
+            <field name="date_prediction" eval="time.strftime('%Y-12-01')"/>
+            <field name="statut">validee</field>
+            <field name="notes">Prédiction optimiste pour 2025</field>
+        </record>
+        
+        <!-- NOUVELLES SIMULATIONS -->
+        <record id="simulation_serre" model="smart_agri_ia_simulateur">
+            <field name="name">Simulation Serre 2025</field>
+            <field name="exploitation_id" ref="exploitation_legumes"/>
+            <field name="parcelle_id" ref="parcelle_tomates"/>
+            <field name="scenario_simule">serre_optimisee</field>
+            <field name="parametres_simulation">Température: 22°C, Humidité: 70%</field>
+            <field name="resultats_simulation">Rendement +25%, Qualité +30%</field>
+            <field name="cout_estime">800</field>
+            <field name="roi_estime">3.5</field>
+            <field name="statut">terminee</field>
+            <field name="notes">Simulation serre moderne</field>
+        </record>
+        
+        <!-- NOUVELLES DÉTECTIONS -->
+        <record id="detection_maladie_tomates" model="smart_agri_ia_detection_stress">
+            <field name="name">Détection Maladie Tomates</field>
+            <field name="exploitation_id" ref="exploitation_legumes"/>
+            <field name="parcelle_id" ref="parcelle_tomates"/>
+            <field name="type_stress">maladie</field>
+            <field name="niveau_stress">moyen</field>
+            <field name="indicateurs_stress">Taches foliaires, Humidité élevée</field>
+            <field name="seuil_alerte">Humidité > 80%</field>
+            <field name="actions_recommandees">Aération et traitement bio</field>
+            <field name="date_detection" eval="time.strftime('%Y-06-15')"/>
+            <field name="statut">resolue</field>
+            <field name="notes">Maladie détectée et traitée</field>
+        </record>
+        
+        <!-- NOUVELLES OPTIMISATIONS -->
+        <record id="optimisation_eau" model="smart_agri_ia_optimisation_ressources">
+            <field name="name">Optimisation Eau 2024</field>
+            <field name="exploitation_id" ref="exploitation_mais"/>
+            <field name="parcelle_id" ref="parcelle_mais_1"/>
+            <field name="type_ressource">eau</field>
+            <field name="consommation_avant">500</field>
+            <field name="consommation_apres">380</field>
+            <field name="economie_realisee">120</field>
+            <field name="impact_rendement">8</field>
+            <field name="methode_optimisation">Irrigation de précision</field>
+            <field name="date_optimisation" eval="time.strftime('%Y-05-20')"/>
+            <field name="statut">terminee</field>
+            <field name="notes">Économie de 24% d'eau</field>
+        </record>
+        
+        <!-- NOUVEAUX DASHBOARDS -->
+        <record id="dashboard_mais" model="smart_agri_dashboard">
+            <field name="name">Dashboard Maïs 2024</field>
+            <field name="exploitation_id" ref="exploitation_mais"/>
+            <field name="periode">2024</field>
+            <field name="rendement_total">11.8</field>
+            <field name="surface_cultivee">40.0</field>
+            <field name="efficacite_globale">92.1</field>
+            <field name="alertes_actives">1</field>
+            <field name="predictions_ia">3</field>
+            <field name="notes">Performance maïs excellente</field>
+        </record>
+        
+        <record id="dashboard_legumes" model="smart_agri_dashboard">
+            <field name="name">Dashboard Légumes 2024</field>
+            <field name="exploitation_id" ref="exploitation_legumes"/>
+            <field name="periode">2024</field>
+            <field name="rendement_total">8.7</field>
+            <field name="surface_cultivee">5.0</field>
+            <field name="efficacite_globale">95.3</field>
+            <field name="alertes_actives">1</field>
+            <field name="predictions_ia">2</field>
+            <field name="notes">Production bio de qualité</field>
+        </record>
+        
+    </data>
+</odoo>

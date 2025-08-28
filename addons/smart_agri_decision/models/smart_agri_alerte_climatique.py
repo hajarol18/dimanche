@@ -3,6 +3,9 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 from datetime import datetime, timedelta
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class SmartAgriAlerteClimatique(models.Model):
@@ -12,6 +15,7 @@ class SmartAgriAlerteClimatique(models.Model):
     _description = 'Alerte Climatique Agricole'
     _order = 'date_detection desc, niveau desc'
     _rec_name = 'name'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     # RELATION PRINCIPALE
     exploitation_id = fields.Many2one('smart_agri_exploitation', string='Exploitation', required=True, ondelete='cascade')
@@ -134,13 +138,19 @@ class SmartAgriAlerteClimatique(models.Model):
                 record.notifiee = True
                 record.date_notification = fields.Datetime.now()
                 
-                # Ici on pourrait implémenter la logique de notification
-                # Email, SMS, push notification, etc.
+                # Création d'un message dans le système de messagerie Odoo
+                try:
+                    record.message_post(
+                        body=f"Alerte climatique {record.type_alerte} - Niveau {record.niveau} détectée pour l'exploitation {record.exploitation_id.name}",
+                        subject=f"🚨 Alerte Climatique: {record.name}",
+                        message_type='notification'
+                    )
+                except Exception as e:
+                    # Fallback si message_post échoue
+                    _logger.warning(f"Impossible de poster le message: {e}")
                 
-                record.message_post(
-                    body=f"Alerte climatique {record.type_alerte} - Niveau {record.niveau} détectée pour l'exploitation {record.exploitation_id.name}",
-                    subject=f"🚨 Alerte Climatique: {record.name}"
-                )
+                # Log de la notification
+                _logger.info(f"Alerte climatique notifiée: {record.name} pour {record.exploitation_id.name}")
 
     # Méthode pour résoudre l'alerte
     def resoudre_alerte(self):

@@ -13,8 +13,11 @@ class SmartAgriMeteostatImport(models.Model):
     _description = 'Import Meteostat Automatique - Données Climatiques'
     _order = 'date_import desc'
 
-    # RELATION PRINCIPALE - LOGIQUE MÉTIER
+    # RELATIONS PRINCIPALES - LOGIQUE MÉTIER CORRIGÉE
     exploitation_id = fields.Many2one('smart_agri_exploitation', string='Exploitation', required=True, ondelete='cascade')
+    parcelle_ids = fields.Many2many('smart_agri_parcelle', string='Parcelles couvertes', 
+                                   help='Parcelles couvertes par cette station météo')
+    station_meteo_id = fields.Many2one('smart_agri_station_meteo', string='Station météo de référence')
 
     # Champs de base
     name = fields.Char('Nom de l\'import', required=True)

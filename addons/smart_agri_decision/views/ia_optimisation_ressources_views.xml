@@ -199,7 +199,7 @@
                                             <field name="economie_heures" widget="float"/>
                                         </div>
                                         <div class="col-md-3">
-                                            <div class="o_form_label">👷 Coût Main-d'Œuvre (€/ha)</div>
+                                            <div class="o_form_label">👷 Coût Main-d'Œuvre (MAD/ha)</div>
                                             <field name="cout_main_oeuvre" widget="float"/>
                                         </div>
                                     </div>
@@ -248,7 +248,7 @@
                                         <div class="col-md-3">
                                             <div class="text-center">
                                                 <h4 class="text-success">
-                                                    <field name="economies_totales" widget="float"/> €/ha
+                                                    <field name="economies_totales" widget="float"/> MAD/ha
                                                 </h4>
                                                 <small>Économies Totales</small>
                                             </div>
@@ -264,7 +264,7 @@
                                         <div class="col-md-3">
                                             <div class="text-center">
                                                 <h4 class="text-warning">
-                                                    <field name="cout_implementation" widget="float"/> €/ha
+                                                    <field name="cout_implementation" widget="float"/> MAD/ha
                                                 </h4>
                                                 <small>Coût Implémentation</small>
                                             </div>
