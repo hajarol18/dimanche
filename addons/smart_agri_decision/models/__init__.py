@@ -10,6 +10,7 @@ from . import smart_agri_exploitation
 from . import smart_agri_parcelle
 from . import smart_agri_parcelle_map
 from . import smart_agri_culture
+from . import smart_agri_parcelle_culture
 from . import smart_agri_meteo
 from . import smart_agri_intervention
 from . import smart_agri_intrants
@@ -40,6 +41,8 @@ from . import ia_detection_stress
 from . import ia_optimisation_ressources
 # ÉTAPE 1 : RÉACTIVATION DU MODÈLE IA DE BASE
 from . import smart_agri_ai_model
+# NOUVEAU : MODÈLE IA SIMPLE ET FONCTIONNEL
+# from . import ia_simple  # TEMPORAIREMENT DÉSACTIVÉ
 # from . import smart_agri_ai_prediction
 
 # 7. MODÈLES CLIMATIQUES AVANCÉS

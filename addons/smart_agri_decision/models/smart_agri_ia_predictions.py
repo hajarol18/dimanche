@@ -497,29 +497,25 @@ class SmartAgriIAPredictions(models.Model):
     def _generer_resultat_detaille_ia(self, rendement_predit, facteurs_climatiques, 
                                       facteurs_pedologiques, facteurs_culturaux, facteurs_gestion):
         """Génère un résultat détaillé de l'analyse IA"""
-        return f"""
-        Analyse IA avancée du rendement:
-        
-        RENDEMENT PRÉDIT: {rendement_predit:.1f} t/ha
-        
-        FACTEURS CLIMATIQUES:
-        - Température: {facteurs_climatiques['temperature']:.2f}
-        - Précipitations: {facteurs_climatiques['precipitation']:.2f}
-        - Stress climatique: {facteurs_climatiques['stress_climatique']:.2f}
-        
-        FACTEURS PÉDOLOGIQUES:
-        - pH du sol: {facteurs_pedologiques['ph']:.2f}
-        - Azote: {facteurs_pedologiques['azote']:.2f}
-        - Phosphore: {facteurs_pedologiques['phosphore']:.2f}
-        
-        FACTEURS CULTURAUX:
-        - Stade de développement: {facteurs_culturaux['stade']:.2f}
-        - Rotation: {facteurs_culturaux['rotation']:.2f}
-        
-        FACTEURS DE GESTION:
-        - Irrigation: {facteurs_gestion['irrigation']:.2f}
-        - Fertilisation: {facteurs_gestion['fertilisation']:.2f}
-        """
+        return f"""ANALYSE IA COMPLÈTE - RENDEMENT PRÉDIT: {rendement_predit:.1f} t/ha
+
+🌡️ FACTEURS CLIMATIQUES:
+- Température: {facteurs_climatiques.get('temperature', 'N/A')}
+- Précipitations: {facteurs_climatiques.get('precipitation', 'N/A')}
+- Stress climatique: {facteurs_climatiques.get('stress_climatique', 'N/A')}
+
+🌱 FACTEURS PÉDOLOGIQUES:
+- pH du sol: {facteurs_pedologiques.get('ph', 'N/A')}
+- Azote: {facteurs_pedologiques.get('azote', 'N/A')}
+- Phosphore: {facteurs_pedologiques.get('phosphore', 'N/A')}
+
+🌾 FACTEURS CULTURAUX:
+- Stade de développement: {facteurs_culturaux.get('stade', 'N/A')}
+- Rotation: {facteurs_culturaux.get('rotation', 'N/A')}
+
+⚡ FACTEURS DE GESTION:
+- Irrigation: {facteurs_gestion.get('irrigation', 'N/A')}
+- Fertilisation: {facteurs_gestion.get('fertilisation', 'N/A')}"""
     
     def _generer_recommandations_ia_avancees(self, rendement_predit, facteurs_climatiques, facteurs_pedologiques):
         """Génère des recommandations IA avancées"""

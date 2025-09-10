@@ -60,7 +60,7 @@
                             <field name="exploitation_id" required="1"/>
                             <field name="parcelle_id"/>
                             <field name="date_mesure" required="1"/>
-                            <field name="heure_mesure" widget="float_time" help="Format 24h (ex: 14.5 = 14h30)"/>
+                            <field name="heure_mesure" widget="float_time" help="Format 24h (ex: 1-5.5473 = 14h30)"/>
                         </group>
                         <group>
                             <field name="source" required="1"/>
@@ -147,7 +147,7 @@
                 <!-- Filtres par source -->
                 <filter string="Station Locale" name="station_locale" domain="[('source', '=', 'station_locale')]"/>
                 <filter string="Meteostat" name="meteostat" domain="[('source', '=', 'meteostat')]"/>
-                <filter string="Météo France" name="meteo_france" domain="[('source', '=', 'meteo_france')]"/>
+                <filter string="Météo Maroc" name="meteo_maroc" domain="[('source', '=', 'meteo_maroc')]"/>
                 
                 <!-- Filtres par qualité -->
                 <filter string="Qualité Excellente" name="qualite_excellente" domain="[('qualite_donnees', '=', 'excellente')]"/>

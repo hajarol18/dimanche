@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- ======================================== -->
+        <!-- PARCELLES ET CULTURES MAROCAINES POUR SOUTENANCE -->
+        <!-- ======================================== -->
+        
+        <!-- PARCELLES DE L'EXPLOITATION DOUKKALA CÉRÉALES -->
+        <record id="parcelle_ble_dur_doukkala" model="smart_agri_parcelle">
+            <field name="name">Parcelle Blé Dur Principal - Doukkala</field>
+            <field name="code">PBD001</field>
+            <field name="exploitation_id" ref="exploitation_doukkala_cereales"/>
+            <field name="type_sol_id" ref="soil_tirs_premium"/>
+            <field name="surface">80.0</field>
+            <field name="latitude">36.8498</field>
+            <field name="longitude">-8.5110</field>
+            <field name="altitude">200</field>
+            <field name="forme">rectangulaire</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="parcelle_orge_doukkala" model="smart_agri_parcelle">
+            <field name="name">Parcelle Orge de Printemps - Doukkala</field>
+            <field name="code">POD001</field>
+            <field name="exploitation_id" ref="exploitation_doukkala_cereales"/>
+            <field name="type_sol_id" ref="soil_gharb_fertile"/>
+            <field name="surface">70.0</field>
+            <field name="latitude">36.8490</field>
+            <field name="longitude">-8.5105</field>
+            <field name="altitude">201</field>
+            <field name="forme">rectangulaire</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="parcelle_mais_doukkala" model="smart_agri_parcelle">
+            <field name="name">Parcelle Maïs Grain - Doukkala</field>
+            <field name="code">PMD001</field>
+            <field name="exploitation_id" ref="exploitation_doukkala_cereales"/>
+            <field name="type_sol_id" ref="soil_tirs_premium"/>
+            <field name="surface">60.0</field>
+            <field name="latitude">36.8505</field>
+            <field name="longitude">-8.5115</field>
+            <field name="altitude">199</field>
+            <field name="forme">rectangulaire</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="parcelle_pois_doukkala" model="smart_agri_parcelle">
+            <field name="name">Parcelle Pois Chiches - Doukkala</field>
+            <field name="code">PPD001</field>
+            <field name="exploitation_id" ref="exploitation_doukkala_cereales"/>
+            <field name="type_sol_id" ref="soil_gharb_fertile"/>
+            <field name="surface">40.0</field>
+            <field name="latitude">36.8495</field>
+            <field name="longitude">-8.5108</field>
+            <field name="altitude">200</field>
+            <field name="forme">rectangulaire</field>
+            <field name="active">True</field>
+        </record>
+        
+        <!-- PARCELLES DU DOMAINE SOUSS MASSA ARBORICOLE -->
+        <record id="parcelle_orangers_souss" model="smart_agri_parcelle">
+            <field name="name">Parcelle Orangers Valencia - Souss</field>
+            <field name="code">POS001</field>
+            <field name="exploitation_id" ref="exploitation_souss_arboriculture"/>
+            <field name="type_sol_id" ref="soil_hamri_mediterranean"/>
+            <field name="surface">40.0</field>
+            <field name="latitude">30.4278</field>
+            <field name="longitude">-9.5990</field>
+            <field name="altitude">50</field>
+            <field name="forme">rectangulaire</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="parcelle_citronniers_souss" model="smart_agri_parcelle">
+            <field name="name">Parcelle Citronniers - Souss</field>
+            <field name="code">PCS001</field>
+            <field name="exploitation_id" ref="exploitation_souss_arboriculture"/>
+            <field name="type_sol_id" ref="soil_hamri_mediterranean"/>
+            <field name="surface">35.0</field>
+            <field name="latitude">30.4285</field>
+            <field name="longitude">-9.5985</field>
+            <field name="altitude">51</field>
+            <field name="forme">rectangulaire</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="parcelle_arganiers_souss" model="smart_agri_parcelle">
+            <field name="name">Parcelle Arganiers - Souss</field>
+            <field name="code">PAS001</field>
+            <field name="exploitation_id" ref="exploitation_souss_arboriculture"/>
+            <field name="type_sol_id" ref="soil_rmel_coastal"/>
+            <field name="surface">45.0</field>
+            <field name="latitude">30.4270</field>
+            <field name="longitude">-9.5975</field>
+            <field name="altitude">49</field>
+            <field name="forme">irreguliere</field>
+            <field name="active">True</field>
+        </record>
+        
+        <!-- PARCELLES DE LA COOPÉRATIVE OLIVICOLES MEKNÈS -->
+        <record id="parcelle_oliviers_picholine" model="smart_agri_parcelle">
+            <field name="name">Parcelle Oliviers Picholine - Meknès</field>
+            <field name="code">POM001</field>
+            <field name="exploitation_id" ref="exploitation_meknes_oliviers"/>
+            <field name="type_sol_id" ref="soil_hamri_mediterranean"/>
+            <field name="surface">100.0</field>
+            <field name="latitude">33.8935</field>
+            <field name="longitude">-5.5480</field>
+            <field name="altitude">550</field>
+            <field name="forme">rectangulaire</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="parcelle_oliviers_arbequina" model="smart_agri_parcelle">
+            <field name="name">Parcelle Oliviers Arbequina - Meknès</field>
+            <field name="code">POA001</field>
+            <field name="exploitation_id" ref="exploitation_meknes_oliviers"/>
+            <field name="type_sol_id" ref="soil_hamri_mediterranean"/>
+            <field name="surface">80.0</field>
+            <field name="latitude">33.8945</field>
+            <field name="longitude">-5.5475</field>
+            <field name="altitude">551</field>
+            <field name="forme">rectangulaire</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="parcelle_oliviers_manzanilla" model="smart_agri_parcelle">
+            <field name="name">Parcelle Oliviers Manzanilla - Meknès</field>
+            <field name="code">POM002</field>
+            <field name="exploitation_id" ref="exploitation_meknes_oliviers"/>
+            <field name="type_sol_id" ref="soil_hamri_mediterranean"/>
+            <field name="surface">70.0</field>
+            <field name="latitude">33.8930</field>
+            <field name="longitude">-5.5485</field>
+            <field name="altitude">549</field>
+            <field name="forme">rectangulaire</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="parcelle_oliviers_anciens" model="smart_agri_parcelle">
+            <field name="name">Parcelle Oliviers Anciens - Meknès</field>
+            <field name="code">POA002</field>
+            <field name="exploitation_id" ref="exploitation_meknes_oliviers"/>
+            <field name="type_sol_id" ref="soil_hamri_mediterranean"/>
+            <field name="surface">50.0</field>
+            <field name="latitude">33.8940</field>
+            <field name="longitude">-5.5470</field>
+            <field name="altitude">552</field>
+            <field name="forme">irreguliere</field>
+            <field name="active">True</field>
+        </record>
+        
+        <!-- PARCELLES DU MARAÎCHAGE BIO RABAT -->
+        <record id="parcelle_tomates_rabat" model="smart_agri_parcelle">
+            <field name="name">Parcelle Tomates Bio - Rabat</field>
+            <field name="code">PTR001</field>
+            <field name="exploitation_id" ref="exploitation_rabat_legumes"/>
+            <field name="type_sol_id" ref="soil_tirs_premium"/>
+            <field name="surface">25.0</field>
+            <field name="latitude">34.0209</field>
+            <field name="longitude">-6.8420</field>
+            <field name="altitude">38</field>
+            <field name="forme">rectangulaire</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="parcelle_poivrons_rabat" model="smart_agri_parcelle">
+            <field name="name">Parcelle Poivrons Bio - Rabat</field>
+            <field name="code">PPR001</field>
+            <field name="exploitation_id" ref="exploitation_rabat_legumes"/>
+            <field name="type_sol_id" ref="soil_tirs_premium"/>
+            <field name="surface">20.0</field>
+            <field name="latitude">34.0215</field>
+            <field name="longitude">-6.8410</field>
+            <field name="altitude">39</field>
+            <field name="forme">rectangulaire</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="parcelle_salades_rabat" model="smart_agri_parcelle">
+            <field name="name">Parcelle Salades Bio - Rabat</field>
+            <field name="code">PSR001</field>
+            <field name="exploitation_id" ref="exploitation_rabat_legumes"/>
+            <field name="type_sol_id" ref="soil_tirs_premium"/>
+            <field name="surface">15.0</field>
+            <field name="latitude">34.0205</field>
+            <field name="longitude">-6.8425</field>
+            <field name="altitude">37</field>
+            <field name="forme">rectangulaire</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="parcelle_carottes_rabat" model="smart_agri_parcelle">
+            <field name="name">Parcelle Carottes Bio - Rabat</field>
+            <field name="code">PCR001</field>
+            <field name="exploitation_id" ref="exploitation_rabat_legumes"/>
+            <field name="type_sol_id" ref="soil_tirs_premium"/>
+            <field name="surface">25.0</field>
+            <field name="latitude">34.0210</field>
+            <field name="longitude">-6.8415</field>
+            <field name="altitude">38</field>
+            <field name="forme">rectangulaire</field>
+            <field name="active">True</field>
+        </record>
+        
+        <!-- PARCELLES DU DOMAINE VITICOLE CASABLANCA -->
+        <record id="parcelle_vigne_rouge_casablanca" model="smart_agri_parcelle">
+            <field name="name">Parcelle Vigne Rouge - Casablanca</field>
+            <field name="code">PVRC001</field>
+            <field name="exploitation_id" ref="exploitation_casablanca_viticulture"/>
+            <field name="type_sol_id" ref="soil_hamri_mediterranean"/>
+            <field name="surface">60.0</field>
+            <field name="latitude">33.5731</field>
+            <field name="longitude">-7.5900</field>
+            <field name="altitude">45</field>
+            <field name="forme">rectangulaire</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="parcelle_vigne_blanche_casablanca" model="smart_agri_parcelle">
+            <field name="name">Parcelle Vigne Blanche - Casablanca</field>
+            <field name="code">PVBC001</field>
+            <field name="exploitation_id" ref="exploitation_casablanca_viticulture"/>
+            <field name="type_sol_id" ref="soil_hamri_mediterranean"/>
+            <field name="surface">50.0</field>
+            <field name="latitude">33.5735</field>
+            <field name="longitude">-7.5895</field>
+            <field name="altitude">46</field>
+            <field name="forme">rectangulaire</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="parcelle_vigne_rose_casablanca" model="smart_agri_parcelle">
+            <field name="name">Parcelle Vigne Rosé - Casablanca</field>
+            <field name="code">PVRC002</field>
+            <field name="exploitation_id" ref="exploitation_casablanca_viticulture"/>
+            <field name="type_sol_id" ref="soil_hamri_mediterranean"/>
+            <field name="surface">40.0</field>
+            <field name="latitude">33.5725</field>
+            <field name="longitude">-7.5905</field>
+            <field name="altitude">44</field>
+            <field name="forme">rectangulaire</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="parcelle_vigne_merlot_casablanca" model="smart_agri_parcelle">
+            <field name="name">Parcelle Vigne Merlot - Casablanca</field>
+            <field name="code">PVMC001</field>
+            <field name="exploitation_id" ref="exploitation_casablanca_viticulture"/>
+            <field name="type_sol_id" ref="soil_hamri_mediterranean"/>
+            <field name="surface">30.0</field>
+            <field name="latitude">33.5740</field>
+            <field name="longitude">-7.5890</field>
+            <field name="altitude">47</field>
+            <field name="forme">rectangulaire</field>
+            <field name="active">True</field>
+        </record>
+        
+        <!-- PARCELLES DE L'EXPLOITATION MIXTE FÈS -->
+        <record id="parcelle_ble_fez" model="smart_agri_parcelle">
+            <field name="name">Parcelle Blé Tendre - Fès</field>
+            <field name="code">PBF001</field>
+            <field name="exploitation_id" ref="exploitation_fez_cultures"/>
+            <field name="type_sol_id" ref="soil_atlas_mountain"/>
+            <field name="surface">50.0</field>
+            <field name="latitude">34.0181</field>
+            <field name="longitude">-5.0080</field>
+            <field name="altitude">400</field>
+            <field name="forme">rectangulaire</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="parcelle_legumes_fez" model="smart_agri_parcelle">
+            <field name="name">Parcelle Légumes - Fès</field>
+            <field name="code">PLF001</field>
+            <field name="exploitation_id" ref="exploitation_fez_cultures"/>
+            <field name="type_sol_id" ref="soil_atlas_mountain"/>
+            <field name="surface">30.0</field>
+            <field name="latitude">34.0185</field>
+            <field name="longitude">-5.0075</field>
+            <field name="altitude">401</field>
+            <field name="forme">rectangulaire</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="parcelle_pommiers_fez" model="smart_agri_parcelle">
+            <field name="name">Parcelle Pommiers - Fès</field>
+            <field name="code">PPF001</field>
+            <field name="exploitation_id" ref="exploitation_fez_cultures"/>
+            <field name="type_sol_id" ref="soil_atlas_mountain"/>
+            <field name="surface">40.0</field>
+            <field name="latitude">34.0175</field>
+            <field name="longitude">-5.0085</field>
+            <field name="altitude">399</field>
+            <field name="forme">rectangulaire</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="parcelle_cerisiers_fez" model="smart_agri_parcelle">
+            <field name="name">Parcelle Cerisiers - Fès</field>
+            <field name="code">PCF001</field>
+            <field name="exploitation_id" ref="exploitation_fez_cultures"/>
+            <field name="type_sol_id" ref="soil_atlas_mountain"/>
+            <field name="surface">35.0</field>
+            <field name="latitude">34.0188</field>
+            <field name="longitude">-5.0070</field>
+            <field name="altitude">402</field>
+            <field name="forme">rectangulaire</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="parcelle_poiriers_fez" model="smart_agri_parcelle">
+            <field name="name">Parcelle Poiriers - Fès</field>
+            <field name="code">PPF002</field>
+            <field name="exploitation_id" ref="exploitation_fez_cultures"/>
+            <field name="type_sol_id" ref="soil_atlas_mountain"/>
+            <field name="surface">45.0</field>
+            <field name="latitude">34.0170</field>
+            <field name="longitude">-5.0090</field>
+            <field name="altitude">398</field>
+            <field name="forme">rectangulaire</field>
+            <field name="active">True</field>
+        </record>
+        
+        <!-- PARCELLES DU COMPLEXE SERRES TANGER -->
+        <record id="parcelle_serre_tomates_tanger" model="smart_agri_parcelle">
+            <field name="name">Serre Tomates - Tanger</field>
+            <field name="code">PST001</field>
+            <field name="exploitation_id" ref="exploitation_tanger_serres"/>
+            <field name="type_sol_id" ref="soil_rmel_coastal"/>
+            <field name="surface">35.0</field>
+            <field name="latitude">35.7595</field>
+            <field name="longitude">-5.8340</field>
+            <field name="altitude">80</field>
+            <field name="forme">rectangulaire</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="parcelle_serre_poivrons_tanger" model="smart_agri_parcelle">
+            <field name="name">Serre Poivrons - Tanger</field>
+            <field name="code">PSP001</field>
+            <field name="exploitation_id" ref="exploitation_tanger_serres"/>
+            <field name="type_sol_id" ref="soil_rmel_coastal"/>
+            <field name="surface">30.0</field>
+            <field name="latitude">35.7600</field>
+            <field name="longitude">-5.8335</field>
+            <field name="altitude">81</field>
+            <field name="forme">rectangulaire</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="parcelle_serre_concombres_tanger" model="smart_agri_parcelle">
+            <field name="name">Serre Concombres - Tanger</field>
+            <field name="code">PSC001</field>
+            <field name="exploitation_id" ref="exploitation_tanger_serres"/>
+            <field name="type_sol_id" ref="soil_rmel_coastal"/>
+            <field name="surface">30.0</field>
+            <field name="latitude">35.7590</field>
+            <field name="longitude">-5.8345</field>
+            <field name="altitude">79</field>
+            <field name="forme">rectangulaire</field>
+            <field name="active">True</field>
+        </record>
+        
+        <!-- PARCELLES DU DOMAINE ARGANIERS AGADIR -->
+        <record id="parcelle_arganiers_agadir" model="smart_agri_parcelle">
+            <field name="name">Parcelle Arganiers - Agadir</field>
+            <field name="code">PAA001</field>
+            <field name="exploitation_id" ref="exploitation_agadir_arganiers"/>
+            <field name="type_sol_id" ref="soil_rmel_coastal"/>
+            <field name="surface">75.0</field>
+            <field name="latitude">30.4278</field>
+            <field name="longitude">-9.5981</field>
+            <field name="altitude">120</field>
+            <field name="forme">irreguliere</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="parcelle_arganiers_agadir_2" model="smart_agri_parcelle">
+            <field name="name">Parcelle Arganiers Secondaire - Agadir</field>
+            <field name="code">PAA002</field>
+            <field name="exploitation_id" ref="exploitation_agadir_arganiers"/>
+            <field name="type_sol_id" ref="soil_rmel_coastal"/>
+            <field name="surface">75.0</field>
+            <field name="latitude">30.4285</field>
+            <field name="longitude">-9.5975</field>
+            <field name="altitude">121</field>
+            <field name="forme">irreguliere</field>
+            <field name="active">True</field>
+        </record>
+        
+        <!-- PARCELLES DE LA PALMERAIE OUJDA -->
+        <record id="parcelle_dattes_oujda" model="smart_agri_parcelle">
+            <field name="name">Parcelle Dattes Majhoul - Oujda</field>
+            <field name="code">PDO001</field>
+            <field name="exploitation_id" ref="exploitation_oujda_dates"/>
+            <field name="type_sol_id" ref="soil_atlas_mountain"/>
+            <field name="surface">110.0</field>
+            <field name="latitude">34.6814</field>
+            <field name="longitude">-1.9086</field>
+            <field name="altitude">450</field>
+            <field name="forme">irreguliere</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="parcelle_dattes_oujda_2" model="smart_agri_parcelle">
+            <field name="name">Parcelle Dattes Deglet Nour - Oujda</field>
+            <field name="code">PDO002</field>
+            <field name="exploitation_id" ref="exploitation_oujda_dates"/>
+            <field name="type_sol_id" ref="soil_atlas_mountain"/>
+            <field name="surface">110.0</field>
+            <field name="latitude">34.6820</field>
+            <field name="longitude">-1.9080</field>
+            <field name="altitude">451</field>
+            <field name="forme">irreguliere</field>
+            <field name="active">True</field>
+        </record>
+        
+        <!-- PARCELLES DU DOMAINE SAFRAN MARRAKECH -->
+        <record id="parcelle_safran_marrakech" model="smart_agri_parcelle">
+            <field name="name">Parcelle Safran - Marrakech</field>
+            <field name="code">PSM001</field>
+            <field name="exploitation_id" ref="exploitation_marrakech_safran"/>
+            <field name="type_sol_id" ref="soil_atlas_mountain"/>
+            <field name="surface">75.0</field>
+            <field name="latitude">31.6295</field>
+            <field name="longitude">-7.9811</field>
+            <field name="altitude">800</field>
+            <field name="forme">irreguliere</field>
+            <field name="active">True</field>
+        </record>
+        
+    </data>
+</odoo>

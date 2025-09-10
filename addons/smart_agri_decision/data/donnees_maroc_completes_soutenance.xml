@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- ======================================== -->
+        <!-- DONNÉES MAROCAINES COMPLÈTES POUR SOUTENANCE -->
+        <!-- ======================================== -->
+        
+        <!-- TYPES DE SOL MAROCAINS COMPLETS -->
+        <record id="soil_tirs_premium" model="smart_agri_soil_type">
+            <field name="name">Sol Tirs Premium - Maroc</field>
+            <field name="code">TIRS001</field>
+            <field name="description">Sol argileux noir typique des plaines marocaines, excellente rétention d'eau et fertilité naturelle</field>
+            <field name="water_retention">85.0</field>
+            <field name="drainage">25.0</field>
+            <field name="fertility">90.0</field>
+            <field name="ph_min">7.0</field>
+            <field name="ph_max">8.5</field>
+            <field name="organic_matter">3.5</field>
+            <field name="color">#2F4F2F</field>
+        </record>
+        
+        <record id="soil_hamri_mediterranean" model="smart_agri_soil_type">
+            <field name="name">Sol Hamri Méditerranéen - Maroc</field>
+            <field name="code">HAMRI001</field>
+            <field name="description">Sol rouge méditerranéen, idéal pour l'arboriculture et la viticulture marocaines</field>
+            <field name="water_retention">70.0</field>
+            <field name="drainage">65.0</field>
+            <field name="fertility">80.0</field>
+            <field name="ph_min">6.5</field>
+            <field name="ph_max">7.5</field>
+            <field name="organic_matter">2.8</field>
+            <field name="color">#8B4513</field>
+        </record>
+        
+        <record id="soil_rmel_coastal" model="smart_agri_soil_type">
+            <field name="name">Sol Rmel Côtier - Maroc</field>
+            <field name="code">RMEL001</field>
+            <field name="description">Sol sableux des zones côtières marocaines, excellent drainage et aération</field>
+            <field name="water_retention">45.0</field>
+            <field name="drainage">90.0</field>
+            <field name="fertility">65.0</field>
+            <field name="ph_min">7.5</field>
+            <field name="ph_max">8.0</field>
+            <field name="organic_matter">1.8</field>
+            <field name="color">#F4A460</field>
+        </record>
+        
+        <record id="soil_gharb_fertile" model="smart_agri_soil_type">
+            <field name="name">Sol Gharb Fertile - Maroc</field>
+            <field name="code">GHAR001</field>
+            <field name="description">Sol limoneux fertile de la plaine du Gharb, idéal pour les céréales</field>
+            <field name="water_retention">75.0</field>
+            <field name="drainage">60.0</field>
+            <field name="fertility">85.0</field>
+            <field name="ph_min">6.8</field>
+            <field name="ph_max">7.2</field>
+            <field name="organic_matter">3.2</field>
+            <field name="color">#8FBC8F</field>
+        </record>
+        
+        <record id="soil_atlas_mountain" model="smart_agri_soil_type">
+            <field name="name">Sol Atlas Montagneux - Maroc</field>
+            <field name="code">ATLA001</field>
+            <field name="description">Sol de montagne avec bonne structure, adapté aux cultures d'altitude</field>
+            <field name="water_retention">60.0</field>
+            <field name="drainage">80.0</field>
+            <field name="fertility">70.0</field>
+            <field name="ph_min">6.0</field>
+            <field name="ph_max">7.0</field>
+            <field name="organic_matter">2.5</field>
+            <field name="color">#696969</field>
+        </record>
+        
+        <!-- EXPLOITATIONS AGRICOLES MAROCAINES COMPLÈTES -->
+        <record id="exploitation_doukkala_cereales" model="smart_agri_exploitation">
+            <field name="name">Exploitation Céréalière Doukkala - Maroc</field>
+            <field name="code">DK001</field>
+            <field name="proprietaire">Ahmed Benali</field>
+            <field name="surface_totale">250.0</field>
+            <field name="latitude">36.8498</field>
+            <field name="longitude">-8.5102</field>
+            <field name="altitude">200</field>
+            <field name="type_exploitation">cereales</field>
+            <field name="state">active</field>
+            <field name="date_creation" eval="time.strftime('%Y-01-01')"/>
+            <field name="description">Exploitation céréalière moderne spécialisée dans le blé dur et l'orge - Région de Doukkala</field>
+            <field name="region">Casablanca-Settat</field>
+            <field name="commune">Sidi Bennour</field>
+            <field name="departement">El Jadida</field>
+        </record>
+        
+        <record id="exploitation_souss_arboriculture" model="smart_agri_exploitation">
+            <field name="name">Domaine Souss Massa Arboricole - Maroc</field>
+            <field name="code">SM002</field>
+            <field name="proprietaire">Fatima Alaoui</field>
+            <field name="surface_totale">120.0</field>
+            <field name="latitude">30.4278</field>
+            <field name="longitude">-9.5981</field>
+            <field name="altitude">50</field>
+            <field name="type_exploitation">arboriculture</field>
+            <field name="state">active</field>
+            <field name="date_creation" eval="time.strftime('%Y-01-01')"/>
+            <field name="description">Domaine d'agrumes et d'arganiers bio - Vallée du Souss, Agadir</field>
+            <field name="region">Souss-Massa</field>
+            <field name="commune">Agadir</field>
+            <field name="departement">Agadir Ida-Outanane</field>
+        </record>
+        
+        <record id="exploitation_meknes_oliviers" model="smart_agri_exploitation">
+            <field name="name">Coopérative Olivicole Meknès - Maroc</field>
+            <field name="code">MK003</field>
+            <field name="proprietaire">Coopérative Al Baraka</field>
+            <field name="surface_totale">300.0</field>
+            <field name="latitude">33.8935</field>
+            <field name="longitude">-5.5473</field>
+            <field name="altitude">550</field>
+            <field name="type_exploitation">arboriculture</field>
+            <field name="state">active</field>
+            <field name="date_creation" eval="time.strftime('%Y-01-01')"/>
+            <field name="description">Coopérative oléicole moderne avec huile d'olive AOP - Région de Meknès</field>
+            <field name="region">Fès-Meknès</field>
+            <field name="commune">Meknès</field>
+            <field name="departement">Meknès</field>
+        </record>
+        
+        <record id="exploitation_rabat_legumes" model="smart_agri_exploitation">
+            <field name="name">Maraîchage Bio Excellence Rabat - Maroc</field>
+            <field name="code">RB004</field>
+            <field name="proprietaire">Amina Tazi</field>
+            <field name="surface_totale">85.0</field>
+            <field name="latitude">34.0209</field>
+            <field name="longitude">-6.8416</field>
+            <field name="altitude">38</field>
+            <field name="type_exploitation">maraichage</field>
+            <field name="state">active</field>
+            <field name="date_creation" eval="time.strftime('%Y-01-01')"/>
+            <field name="description">Production de légumes bio de haute qualité - Région de Rabat-Salé</field>
+            <field name="region">Rabat-Salé-Kénitra</field>
+            <field name="commune">Salé</field>
+            <field name="departement">Salé</field>
+        </record>
+        
+        <record id="exploitation_casablanca_viticulture" model="smart_agri_exploitation">
+            <field name="name">Domaine Viticole Casablanca - Maroc</field>
+            <field name="code">CB005</field>
+            <field name="proprietaire">Mohammed Alami</field>
+            <field name="surface_totale">180.0</field>
+            <field name="latitude">33.5731</field>
+            <field name="longitude">-7.5898</field>
+            <field name="altitude">45</field>
+            <field name="type_exploitation">arboriculture</field>
+            <field name="state">active</field>
+            <field name="date_creation" eval="time.strftime('%Y-01-01')"/>
+            <field name="description">Domaine viticole produisant des vins de qualité - Région de Casablanca</field>
+            <field name="region">Casablanca-Settat</field>
+            <field name="commune">Casablanca</field>
+            <field name="departement">Casablanca</field>
+        </record>
+        
+        <record id="exploitation_fez_cultures" model="smart_agri_exploitation">
+            <field name="name">Exploitation Mixte Fès - Maroc</field>
+            <field name="code">FZ006</field>
+            <field name="proprietaire">Hassan Benjelloun</field>
+            <field name="surface_totale">200.0</field>
+            <field name="latitude">34.0181</field>
+            <field name="longitude">-5.0078</field>
+            <field name="altitude">400</field>
+            <field name="type_exploitation">mixte</field>
+            <field name="state">active</field>
+            <field name="date_creation" eval="time.strftime('%Y-01-01')"/>
+            <field name="description">Exploitation mixte céréales, légumes et arbres fruitiers - Région de Fès</field>
+            <field name="region">Fès-Meknès</field>
+            <field name="commune">Fès</field>
+            <field name="departement">Fès</field>
+        </record>
+        
+        <record id="exploitation_tanger_serres" model="smart_agri_exploitation">
+            <field name="name">Complexe Serres Tanger - Maroc</field>
+            <field name="code">TG007</field>
+            <field name="proprietaire">Karim Tazi</field>
+            <field name="surface_totale">95.0</field>
+            <field name="latitude">35.7595</field>
+            <field name="longitude">-5.8340</field>
+            <field name="altitude">80</field>
+            <field name="type_exploitation">maraichage</field>
+            <field name="state">active</field>
+            <field name="date_creation" eval="time.strftime('%Y-01-01')"/>
+            <field name="description">Complexe de serres modernes pour tomates et poivrons - Région de Tanger</field>
+            <field name="region">Tanger-Tétouan-Al Hoceïma</field>
+            <field name="commune">Tanger</field>
+            <field name="departement">Tanger-Assilah</field>
+        </record>
+        
+        <record id="exploitation_agadir_arganiers" model="smart_agri_exploitation">
+            <field name="name">Domaine Arganiers Agadir - Maroc</field>
+            <field name="code">AG008</field>
+            <field name="proprietaire">Zineb Ait Benali</field>
+            <field name="surface_totale">150.0</field>
+            <field name="latitude">30.4278</field>
+            <field name="longitude">-9.5981</field>
+            <field name="altitude">120</field>
+            <field name="type_exploitation">arboriculture</field>
+            <field name="state">active</field>
+            <field name="date_creation" eval="time.strftime('%Y-01-01')"/>
+            <field name="description">Domaine d'arganiers bio pour huile d'argan - Région d'Agadir</field>
+            <field name="region">Souss-Massa</field>
+            <field name="commune">Agadir</field>
+            <field name="departement">Agadir Ida-Outanane</field>
+        </record>
+        
+        <record id="exploitation_oujda_dates" model="smart_agri_exploitation">
+            <field name="name">Palmeraie Oujda - Maroc</field>
+            <field name="code">OJ009</field>
+            <field name="proprietaire">Rachid Benjelloun</field>
+            <field name="surface_totale">220.0</field>
+            <field name="latitude">34.6814</field>
+            <field name="longitude">-1.9086</field>
+            <field name="altitude">450</field>
+            <field name="type_exploitation">arboriculture</field>
+            <field name="state">active</field>
+            <field name="date_creation" eval="time.strftime('%Y-01-01')"/>
+            <field name="description">Palmeraie de dattes de qualité supérieure - Région de l'Oriental</field>
+            <field name="region">Oriental</field>
+            <field name="commune">Oujda</field>
+            <field name="departement">Oujda-Angad</field>
+        </record>
+        
+        <record id="exploitation_marrakech_safran" model="smart_agri_exploitation">
+            <field name="name">Domaine Safran Marrakech - Maroc</field>
+            <field name="code">MK010</field>
+            <field name="proprietaire">Fatima Zahra Alaoui</field>
+            <field name="surface_totale">75.0</field>
+            <field name="latitude">31.6295</field>
+            <field name="longitude">-7.9811</field>
+            <field name="altitude">800</field>
+            <field name="type_exploitation">maraichage</field>
+            <field name="state">active</field>
+            <field name="date_creation" eval="time.strftime('%Y-01-01')"/>
+            <field name="description">Production de safran de qualité AOP - Région de Marrakech</field>
+            <field name="region">Marrakech-Safi</field>
+            <field name="commune">Marrakech</field>
+            <field name="departement">Marrakech</field>
+        </record>
+        
+    </data>
+</odoo>

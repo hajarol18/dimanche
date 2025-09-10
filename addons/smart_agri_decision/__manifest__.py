@@ -68,6 +68,7 @@
         'views/ia_optimisation_ressources_views.xml',
         'views/ia_dashboard_views.xml',
         'views/ia_detection_stress_views.xml',
+        # 'views/ia_simple_views.xml',  # TEMPORAIREMENT DÉSACTIVÉ
         'views/ai_model_views.xml',
         
         # Vues pour les stations météo (TEMPORAIREMENT COMMENTÉ)
@@ -83,24 +84,13 @@
         'security/ir.model.access.csv',
         
         # Données de démonstration marocaines (après la création des modèles et de la sécurité)
-        'data/demo_data_maroc.xml',                # DONNÉES MAROCAINES PRINCIPALES
-        'data/donnees_supplementaires.xml',
-        'data/donnees_intenses.xml',
-        'data/remplacement_odoo18_maroc.xml',      # REMPLACEMENT COMPLET ODOO 18 - MAROC
-        'data/donnees_maroc_completes.xml',        # DONNÉES MAROCAINES COMPLÈTES
-        'data/donnees_maroc_etendues.xml',         # DONNÉES MAROCAINES ÉTENDUES
-        'data/donnees_ia_maroc_avancees.xml',      # DONNÉES IA MAROCAINES AVANCÉES
-        'data/demo_data_complet.xml',              # FICHIER FANTÔME pour éviter l'erreur
-        'data/demo_data_massive.xml',              # FICHIER FANTÔME pour éviter l'erreur
-        'data/demo_data_complete.xml',             # FICHIER FANTÔME pour éviter l'erreur
-        'data/demo_data_final.xml',                # FICHIER FANTÔME pour éviter l'erreur
+        'data/donnees_maroc_completes_soutenance.xml',  # DONNÉES MAROCAINES COMPLÈTES
+        'data/parcelles_cultures_maroc_soutenance.xml', # PARCELLES ET CULTURES MAROCAINES
+        'data/cultures_maroc_soutenance.xml',           # CULTURES MAROCAINES
+        'data/demo_data_maroc.xml',                     # RELATIONS PARCELLES-CULTURES
     ],
     'demo': [
         'data/demo_data_maroc.xml',                # DONNÉES MAROCAINES PRINCIPALES
-        'data/donnees_intenses.xml',
-        'data/donnees_maroc_completes.xml',        # DONNÉES MAROCAINES COMPLÈTES
-        'data/donnees_maroc_etendues.xml',         # DONNÉES MAROCAINES ÉTENDUES
-        'data/donnees_ia_maroc_avancees.xml',      # DONNÉES IA MAROCAINES AVANCÉES
     ],
     'installable': True,
     'application': True,

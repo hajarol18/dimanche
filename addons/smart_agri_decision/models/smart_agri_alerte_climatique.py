@@ -32,6 +32,7 @@ class SmartAgriAlerteClimatique(models.Model):
         ('inondation', '🌊 Inondation'),
         ('vent_fort', '💨 Vent fort'),
         ('grele', '🧊 Grêle'),
+        ('humidite_faible', '💧 Humidité Faible'),
         ('autre', '⚠️ Autre')
     ], string='Type d\'alerte', required=True)
     
@@ -56,8 +57,20 @@ class SmartAgriAlerteClimatique(models.Model):
         ('capteur_local', '📡 Capteur Local'),
         ('utilisateur', '👤 Saisie Utilisateur'),
         ('ia_prediction', '🧠 Prédiction IA'),
+        ('analyse_donnees_reelles', '📊 Analyse Données Météo Réelles'),
+        ('scenario_rcp', '🌡️ Scénario RCP Climatique'),
         ('autre', '📊 Autre')
     ], string='Source de l\'alerte', required=True, default='import_meteo')
+    
+    # NOUVEAUX CHAMPS POUR LA LOGIQUE INTELLIGENTE
+    valeur_detectee = fields.Float('Valeur détectée', help='Valeur qui a déclenché l\'alerte')
+    seuil_alerte = fields.Float('Seuil d\'alerte', help='Seuil à partir duquel l\'alerte se déclenche')
+    type_source = fields.Selection([
+        ('donnees_reelles', 'Données Météo Réelles'),
+        ('scenario_rcp', 'Scénario RCP'),
+        ('prediction_ia', 'Prédiction IA'),
+        ('autre', 'Autre')
+    ], string='Type de source', default='donnees_reelles')
     
     # Paramètres météorologiques déclencheurs
     temperature_min = fields.Float('Température minimale (°C)')

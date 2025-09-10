@@ -98,6 +98,14 @@
                             </group>
                         </group>
                         
+                        <!-- NOUVEAUX CHAMPS : Analyse Intelligente -->
+                        <group string="🧠 Analyse Intelligente">
+                            <group string="Qualité">
+                                <field name="source"/>
+                                <field name="date_detection"/>
+                            </group>
+                        </group>
+                        
                         <!-- Actions et recommandations -->
                         <group string="💡 Actions et Recommandations">
                             <group string="Actions recommandées">
@@ -120,6 +128,29 @@
                         </group>
                     </sheet>
                 </form>
+            </field>
+        </record>
+        
+        <!-- Vue recherche des alertes climatiques -->
+        <record id="view_alerte_climatique_search" model="ir.ui.view">
+            <field name="name">smart.agri.alerte.climatique.search</field>
+            <field name="model">smart_agri_alerte_climatique</field>
+            <field name="arch" type="xml">
+                <search string="Recherche Alertes Climatiques">
+                    <field name="name"/>
+                    <field name="exploitation_id"/>
+                    <field name="type_alerte"/>
+                    <field name="niveau"/>
+                    <field name="source"/>
+                    
+                    <filter string="Alertes Actives" name="actives" domain="[('state', '=', 'active')]"/>
+                    <filter string="Alertes Rouges" name="rouges" domain="[('niveau', '=', 'rouge')]"/>
+                    <group expand="0" string="Regrouper par">
+                        <filter string="Type d'alerte" name="group_type" context="{'group_by': 'type_alerte'}"/>
+                        <filter string="Niveau" name="group_niveau" context="{'group_by': 'niveau'}"/>
+                        <filter string="Exploitation" name="group_exploitation" context="{'group_by': 'exploitation_id'}"/>
+                    </group>
+                </search>
             </field>
         </record>
         
@@ -160,12 +191,15 @@
                     Aucune alerte climatique active !
                 </p>
                 <p>
-                    Les alertes climatiques vous informent des risques météorologiques :
+                    Les alertes climatiques INTELLIGENTES vous informent des risques météorologiques :
                     <br/>• 🌵 Sécheresse et stress hydrique
                     <br/>• ❄️ Gel et dommages aux cultures
                     <br/>• 🔥 Canicule et stress thermique
                     <br/>• 🌊 Inondations et excès d'eau
                     <br/>• 💨 Vents forts et dommages mécaniques
+                    <br/>• 💧 Humidité faible
+                    <br/><br/>
+                    <strong>🧠 NOUVEAU :</strong> Alertes basées sur les VRAIES données météo importées !
                 </p>
             </field>
         </record>

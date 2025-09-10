@@ -29,6 +29,31 @@
                         </h3>
                     </div>
 
+                    <!-- LIENS AVEC LES DONNÉES RÉELLES -->
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <div class="card border-info">
+                                <div class="card-header bg-info text-white">
+                                    <h5>🏭 Contexte Agricole - Exploitation et Parcelle</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="o_form_label">🏭 Exploitation *</div>
+                                            <field name="exploitation_id" required="1"/>
+                                            <small class="text-muted">Sélectionnez l'exploitation pour cette simulation</small>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="o_form_label">🌾 Parcelle (Optionnel)</div>
+                                            <field name="parcelle_id"/>
+                                            <small class="text-muted">Parcelle spécifique (optionnel)</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- PARAMÈTRES CLIMATIQUES -->
                     <div class="row mt-3">
                         <div class="col-md-12">
@@ -183,8 +208,8 @@
                     <!-- BOUTON LANCER SIMULATION -->
                     <div class="row mt-4">
                         <div class="col-md-12 text-center">
-                            <button name="action_lancer_simulation_complete" type="object" 
-                                    string="🚀 LANCER SIMULATION IA COMPLÈTE" 
+                            <button name="action_lancer_simulation" type="object" 
+                                    string="🚀 LANCER SIMULATION IA" 
                                     class="btn btn-primary btn-lg" 
                                     style="font-size: 18px; padding: 15px 30px;"/>
                             <p class="mt-2 text-muted">
@@ -193,13 +218,13 @@
                         </div>
                     </div>
 
-                    <!-- RÉSULTATS DE LA SIMULATION -->
-                    <div class="row mt-4" invisible="state == 'brouillon'">
-                        <div class="col-md-12">
-                            <div class="card border-info">
-                                <div class="card-header bg-info text-white">
-                                    <h5>📊 Résultats de la Simulation IA - Prédictions et Recommandations</h5>
-                                </div>
+                                         <!-- RÉSULTATS DE LA SIMULATION -->
+                     <div class="row mt-4" invisible="state == 'brouillon' or not rendement_predit">
+                         <div class="col-md-12">
+                             <div class="card border-info">
+                                 <div class="card-header bg-info text-white">
+                                     <h5>📊 Résultats de la Simulation IA - Prédictions et Recommandations</h5>
+                                 </div>
                                 <div class="card-body">
                                     <!-- MÉTRIQUES PRINCIPALES -->
                                     <div class="row">
@@ -244,13 +269,15 @@
                                     <div class="row mt-3">
                                         <div class="col-md-6">
                                             <h6>🎯 Résultats Principaux</h6>
-                                            <field name="resultat_principal" widget="text"/>
-                                            <field name="resultat_detaille" widget="text"/>
+                                            <p class="text-muted">
+                                                <em>Le rendement prédit et le score IA sont affichés ci-dessus</em>
+                                            </p>
                                         </div>
                                         <div class="col-md-6">
                                             <h6>💡 Recommandations IA</h6>
-                                            <field name="recommandations" widget="text"/>
-                                            <field name="actions_prioritaires" widget="text"/>
+                                            <p class="text-muted">
+                                                <em>Les recommandations seront générées lors de la simulation</em>
+                                            </p>
                                         </div>
                                     </div>
 
@@ -262,7 +289,9 @@
                                                     <h6>🌞 Scénario Optimiste</h6>
                                                 </div>
                                                 <div class="card-body">
-                                                    <field name="scenario_optimiste" widget="text"/>
+                                                    <p class="text-muted">
+                                                        <em>Scénario avec conditions optimales</em>
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -272,7 +301,9 @@
                                                     <h6>🌍 Scénario Réaliste</h6>
                                                 </div>
                                                 <div class="card-body">
-                                                    <field name="scenario_realiste" widget="text"/>
+                                                    <p class="text-muted">
+                                                        <em>Scénario avec conditions moyennes</em>
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -282,7 +313,9 @@
                                                     <h6>🌧️ Scénario Pessimiste</h6>
                                                 </div>
                                                 <div class="card-body">
-                                                    <field name="scenario_pessimiste" widget="text"/>
+                                                    <p class="text-muted">
+                                                        <em>Scénario avec conditions défavorables</em>
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -295,7 +328,6 @@
                                              <p class="text-muted">
                                                  <em>Les optimisations détaillées seront affichées ici après l'exécution de la simulation IA.</em>
                                              </p>
-                                             <!-- Note: Le champ optimisations_recommandees_ids sera activé une fois le modèle d'optimisation créé -->
                                          </div>
                                      </div>
                                 </div>
@@ -303,29 +335,33 @@
                         </div>
                     </div>
 
-                    <!-- GRAPHIQUES COMPARATIFS -->
-                    <div class="row mt-3" invisible="state == 'brouillon'">
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h6>📈 Comparaison Scénarios</h6>
-                                </div>
-                                <div class="card-body">
-                                    <field name="graphique_comparaison_scenarios" widget="chart"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h6>🌍 Impact Climatique</h6>
-                                </div>
-                                <div class="card-body">
-                                    <field name="graphique_impact_climatique" widget="chart"/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                                                                   <!-- GRAPHIQUES COMPARATIFS -->
+                      <div class="row mt-3" invisible="state == 'brouillon' or not rendement_predit">
+                          <div class="col-md-6">
+                              <div class="card">
+                                  <div class="card-header">
+                                      <h6>📈 Comparaison Scénarios</h6>
+                                  </div>
+                                  <div class="card-body">
+                                      <p class="text-muted">
+                                          <em>Les graphiques de comparaison seront générés lors de la simulation</em>
+                                      </p>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="card">
+                                  <div class="card-header">
+                                      <h6>🌍 Impact Climatique</h6>
+                                  </div>
+                                  <div class="card-body">
+                                      <p class="text-muted">
+                                          <em>L'analyse d'impact climatique sera affichée ici</em>
+                                      </p>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
                 </sheet>
 
                                  <!-- Note: Les fonctionnalités de chatter seront ajoutées dans une version future -->

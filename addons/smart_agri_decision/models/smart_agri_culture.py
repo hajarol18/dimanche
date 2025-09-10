@@ -12,8 +12,8 @@ class SmartAgriCulture(models.Model):
     _order = 'name'
 
     # RELATIONS PRINCIPALES - LOGIQUE MÉTIER
-    exploitation_id = fields.Many2one('smart_agri_exploitation', string='Exploitation', required=True, ondelete='cascade')
-    parcelle_id = fields.Many2one('smart_agri_parcelle', string='Parcelle', required=True, ondelete='cascade')
+    exploitation_id = fields.Many2one('smart_agri_exploitation', string='Exploitation', required=False, ondelete='cascade')
+    parcelle_id = fields.Many2one('smart_agri_parcelle', string='Parcelle', required=False, ondelete='cascade')
     
     # Champs de base
     name = fields.Char('Nom de la culture', required=True)

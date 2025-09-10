@@ -1,47 +1,42 @@
-# Docker
-docker-compose.yml
-docker-compose.override.yml
-.env
-*.env
+# Fichiers de base de données PostgreSQL
+postgresql/
+etc/filestore/
+etc/sessions/
 
-# Odoo logs
-*.log
-logs/
-
-# Database
-*.sql
-*.dump
-
-# Temporary files
-*.tmp
-*.temp
-*.swp
-*.swo
-
-# IDE
-.vscode/
-.idea/
-*.sublime-*
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Python
+# Fichiers de cache et temporaires
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 .Python
-env/
-venv/
-ENV/
+*.so
 
-# Node
-node_modules/
-npm-debug.log*
+# Fichiers de logs
+*.log
+logs/
 
-# Build
-dist/
-build/
-*.egg-info/
+# Fichiers de sauvegarde
+*.bak
+*.backup
+*.sql
+
+# Fichiers temporaires
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# Fichiers de configuration locale
+.env
+.env.local
+
+# Fichiers de test volumineux
+test_*.py
+*_test.py
+
+# Fichiers de documentation temporaires
+*.md
+!README.md
+
+# Fichiers de scripts de correction
+scripts/

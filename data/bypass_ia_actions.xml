@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- ======================================== -->
+        <!-- CONTOURNEMENT TEMPORAIRE DES ACTIONS IA -->
+        <!-- ======================================== -->
+        
+        <!-- Action de contournement pour le dashboard IA -->
+        <record id="action_smart_agri_ia_dashboard_bypass" model="ir.actions.act_window">
+            <field name="name">Dashboard IA (Contournement)</field>
+            <field name="res_model">smart_agri_tableau_bord</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="context">{'search_default_actif': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Consultez votre dashboard IA (Mode Contournement)
+                </p>
+                <p>
+                    Tableau de bord intelligent avec recommandations et alertes IA.
+                </p>
+                <p style="color: orange;">
+                    <strong>Note :</strong> Mode contournement temporaire - Les modèles IA sont en cours d'initialisation.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Action de contournement pour la détection de stress -->
+        <record id="action_smart_agri_ia_detection_stress_bypass" model="ir.actions.act_window">
+            <field name="name">Détection de Stress (Contournement)</field>
+            <field name="res_model">smart_agri_alerte_climatique</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="context">{'search_default_active': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Consultez vos détections de stress (Mode Contournement)
+                </p>
+                <p>
+                    Détection automatique des stress hydriques et climatiques par l'IA.
+                </p>
+                <p style="color: orange;">
+                    <strong>Note :</strong> Mode contournement temporaire - Les modèles IA sont en cours d'initialisation.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Action de contournement pour le simulateur IA -->
+        <record id="action_smart_agri_ia_simulateur_bypass" model="ir.actions.act_window">
+            <field name="name">Simulateur IA (Contournement)</field>
+            <field name="res_model">smart_agri_scenario_climatique</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Lancez votre première simulation IA (Mode Contournement)
+                </p>
+                <p>
+                    Simulez des scénarios agricoles avec l'intelligence artificielle.
+                </p>
+                <p style="color: orange;">
+                    <strong>Note :</strong> Mode contournement temporaire - Les modèles IA sont en cours d'initialisation.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Action de contournement pour l'optimisation des ressources -->
+        <record id="action_smart_agri_ia_optimisation_ressources_bypass" model="ir.actions.act_window">
+            <field name="name">Optimisation des Ressources (Contournement)</field>
+            <field name="res_model">smart_agri_utilisation_intrant</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Optimisez vos ressources avec l'IA (Mode Contournement)
+                </p>
+                <p>
+                    Optimisation intelligente de l'eau, des engrais et de la main-d'œuvre.
+                </p>
+                <p style="color: orange;">
+                    <strong>Note :</strong> Mode contournement temporaire - Les modèles IA sont en cours d'initialisation.
+                </p>
+            </field>
+        </record>
+        
+    </data>
+</odoo>

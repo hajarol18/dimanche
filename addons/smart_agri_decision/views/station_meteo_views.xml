@@ -229,7 +229,7 @@
                     <filter string="Critique" name="critique" domain="[('statut_operational', '=', 'critique')]"/>
                     <separator/>
                     <filter string="Meteostat" name="meteostat" domain="[('type_station', '=', 'meteostat')]"/>
-                    <filter string="Météo France" name="meteo_france" domain="[('type_station', '=', 'meteo_france')]"/>
+                    <filter string="Météo Maroc" name="meteo_maroc" domain="[('type_station', '=', 'meteo_maroc')]"/>
                     <filter string="Stations Locales" name="station_locale" domain="[('type_station', '=', 'station_locale')]"/>
                     <group expand="0" string="Regrouper par">
                         <filter string="Type de Station" name="group_type" context="{'group_by': 'type_station'}"/>

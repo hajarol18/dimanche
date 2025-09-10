@@ -1,0 +1,23 @@
+[33mcommit 1553944cfe8e5d5f032d4a2ac3f1f598c7e939e8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Hajar <hajaroulabasse2003@gmail.com>
+Date:   Tue Aug 12 10:51:29 2025 +0100
+
+    ajout fonctionnalités
+
+[1mdiff --git a/etc/requirements.txt b/etc/requirements.txt[m
+[1mindex 6853d72..32ffd89 100644[m
+[1m--- a/etc/requirements.txt[m
+[1m+++ b/etc/requirements.txt[m
+[36m@@ -6,3 +6,4 @@[m
+ # then down the docker container ($ docker-compose down) and up it again ($ docker-compose up -d).[m
+ # -----------------------[m
+ # paramiko==2.7.2 # for auto_backup module[m
+[32m+[m[32mmeteostat>=1.0.0[m
+[1mdiff --git a/models/__pycache__/__init__.cpython-313.pyc b/models/__pycache__/__init__.cpython-313.pyc[m
+[1mnew file mode 100644[m
+[1mindex 0000000..a4891dc[m
+Binary files /dev/null and b/models/__pycache__/__init__.cpython-313.pyc differ
+[1mdiff --git a/models/__pycache__/exploitation.cpython-313.pyc b/models/__pycache__/exploitation.cpython-313.pyc[m
+[1mnew file mode 100644[m
+[1mindex 0000000..8a730b2[m
+Binary files /dev/null and b/models/__pycache__/exploitation.cpython-313.pyc differ

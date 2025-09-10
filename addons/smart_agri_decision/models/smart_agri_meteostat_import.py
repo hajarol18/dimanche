@@ -95,6 +95,18 @@ class SmartAgriMeteostatImport(models.Model):
     # Types d'alertes selon cahier des charges
     alertes_detectees = fields.Many2many('smart_agri_alerte_climatique', string='Alertes détectées')
     
+    # SEUILS D'ALERTE AUTOMATIQUES - NOUVELLE LOGIQUE MÉTIER
+    seuil_temperature_max = fields.Float('Seuil température max (°C)', default=35.0, 
+                                        help='Température maximale avant alerte canicule')
+    seuil_temperature_min = fields.Float('Seuil température min (°C)', default=-5.0, 
+                                        help='Température minimale avant alerte gel')
+    seuil_precipitation_min = fields.Float('Seuil précipitations min (mm)', default=5.0, 
+                                          help='Précipitations minimales avant alerte sécheresse')
+    seuil_precipitation_max = fields.Float('Seuil précipitations max (mm)', default=100.0, 
+                                          help='Précipitations maximales avant alerte inondation')
+    seuil_vent_max = fields.Float('Seuil vent max (km/h)', default=50.0, 
+                                  help='Vitesse du vent maximale avant alerte vent fort')
+    
     # Statut
     active = fields.Boolean('Actif', default=True)
     
@@ -218,44 +230,146 @@ class SmartAgriMeteostatImport(models.Model):
                         'station_id': record.station_id
                     })
 
-    # NOUVELLE MÉTHODE : Créer des alertes climatiques automatiques
+    # NOUVELLE MÉTHODE : Créer des alertes climatiques automatiques INTELLIGENTES
     def _creer_alertes_climatiques_automatiques(self):
-        """Crée automatiquement des alertes climatiques selon les données"""
+        """Crée automatiquement des alertes climatiques selon les VRAIES données météo"""
         AlerteModel = self.env['smart_agri_alerte_climatique']
         
         for record in self:
             if record.state == 'termine':
                 alertes_crees = []
                 
-                # Alerte sécheresse si précipitations faibles
-                if record.scenario_climatique in ['rcp_60', 'rcp_85']:
-                    alerte_secheresse = AlerteModel.create({
-                        'name': f'Alerte Sécheresse - {record.exploitation_id.name}',
-                        'exploitation_id': record.exploitation_id.id,
-                        'type_alerte': 'secheresse',
-                        'niveau': 'orange' if record.scenario_climatique == 'rcp_60' else 'rouge',
-                        'description': f'Risque de sécheresse selon scénario {record.scenario_climatique}',
-                        'date_detection': fields.Date.today(),
-                        'source': 'Import Météo Automatique'
-                    })
-                    alertes_crees.append(alerte_secheresse.id)
+                # Récupérer les données météo importées pour cette exploitation
+                donnees_meteo = self.env['smart_agri_meteo'].search([
+                    ('exploitation_id', '=', record.exploitation_id.id),
+                    ('scenario_climatique', '=', record.scenario_climatique),
+                    ('date_mesure', '>=', record.date_debut),
+                    ('date_mesure', '<=', record.date_fin)
+                ], limit=10)
                 
-                # Alerte canicule si température élevée
-                if record.scenario_climatique in ['rcp_45', 'rcp_60', 'rcp_85']:
-                    alerte_canicule = AlerteModel.create({
-                        'name': f'Alerte Canicule - {record.exploitation_id.name}',
-                        'exploitation_id': record.exploitation_id.id,
-                        'type_alerte': 'canicule',
-                        'niveau': 'jaune' if record.scenario_climatique == 'rcp_45' else 'orange',
-                        'description': f'Risque de canicule selon scénario {record.scenario_climatique}',
-                        'date_detection': fields.Date.today(),
-                        'source': 'Import Météo Automatique'
-                    })
-                    alertes_crees.append(alerte_canicule.id)
+                if donnees_meteo:
+                    # Analyser les températures
+                    temperatures = donnees_meteo.mapped('temperature')
+                    if temperatures:
+                        temp_moyenne = sum(temperatures) / len(temperatures)
+                        temp_max = max(temperatures)
+                        
+                        # Alerte canicule basée sur vraies données
+                        if temp_max > 35.0:
+                            niveau = 'rouge' if temp_max > 40.0 else 'orange'
+                            alerte_canicule = AlerteModel.create({
+                                'name': f'🚨 ALERTE CANICULE - {record.exploitation_id.name}',
+                                'exploitation_id': record.exploitation_id.id,
+                                'type_alerte': 'canicule',
+                                'niveau': niveau,
+                                'description': f'🔥 CANICULE DÉTECTÉE ! Température maximale: {temp_max:.1f}°C (moyenne: {temp_moyenne:.1f}°C). Seuil d\'alerte dépassé: 35°C. Risque élevé pour les cultures sensibles.',
+                                'date_detection': fields.Date.today(),
+                                'source': 'Analyse Données Météo Réelles',
+                                'actions_recommandees': f"""
+🌱 ACTIONS RECOMMANDÉES EN CAS DE CANICULE:
+• Augmenter la fréquence d'irrigation (2-3 fois par jour)
+• Protéger les cultures du soleil intense (ombrage)
+• Surveiller le stress hydrique des plantes
+• Adapter les horaires de travail (tôt le matin, soir)
+• Vérifier les systèmes d'irrigation
+                                """,
+                                'actions_urgentes': f"""
+🚨 ACTIONS URGENTES:
+• Irrigation d'urgence des cultures sensibles
+• Protection immédiate des jeunes plants
+• Surveillance renforcée de l'état hydrique
+• Planification de l'irrigation nocturne
+                                """,
+                                'niveau_impact': 'eleve' if temp_max > 40.0 else 'modere'
+                            })
+                            alertes_crees.append(alerte_canicule.id)
+                    
+                    # Analyser les précipitations
+                    precipitations = donnees_meteo.mapped('precipitation')
+                    if precipitations:
+                        precip_moyenne = sum(precipitations) / len(precipitations)
+                        precip_min = min(precipitations)
+                        
+                        # Alerte sécheresse basée sur vraies données
+                        if precip_moyenne < 10.0:
+                            niveau = 'rouge' if precip_moyenne < 5.0 else 'orange'
+                            alerte_secheresse = AlerteModel.create({
+                                'name': f'🌵 ALERTE SÉCHERESSE - {record.exploitation_id.name}',
+                                'exploitation_id': record.exploitation_id.id,
+                                'type_alerte': 'secheresse',
+                                'niveau': niveau,
+                                'description': f'🌵 SÉCHERESSE DÉTECTÉE ! Précipitations moyennes: {precip_moyenne:.1f} mm (minimum: {precip_min:.1f} mm). Seuil d\'alerte: 10 mm. Risque de stress hydrique sévère.',
+                                'date_detection': fields.Date.today(),
+                                'source': 'analyse_donnees_reelles',
+                                'actions_recommandees': f"""
+🌱 ACTIONS RECOMMANDÉES EN CAS DE SÉCHERESSE:
+• Augmenter la fréquence d'irrigation (quotidienne)
+• Utiliser des techniques de paillage pour retenir l'humidité
+• Surveiller l'état hydrique des sols
+• Adapter les cultures à la sécheresse
+• Planifier l'irrigation d'urgence
+                                """,
+                                'actions_urgentes': f"""
+🚨 ACTIONS URGENTES:
+• Vérifier et réparer les systèmes d'irrigation
+• Réduire les pertes d'eau (fuites, évaporation)
+• Planifier l'irrigation d'urgence des cultures sensibles
+• Surveiller l'état des réserves d'eau
+                                """,
+                                'niveau_impact': 'critique' if precip_moyenne < 5.0 else 'eleve'
+                            })
+                            alertes_crees.append(alerte_secheresse.id)
+                    
+                    # Analyser l'humidité
+                    humidites = donnees_meteo.mapped('humidite')
+                    if humidites:
+                        humidite_moyenne = sum(humidites) / len(humidites)
+                        
+                        # Alerte humidité basée sur vraies données
+                        if humidite_moyenne < 30.0:
+                            alerte_humidite = AlerteModel.create({
+                                'name': f'💧 ALERTE HUMIDITÉ FAIBLE - {record.exploitation_id.name}',
+                                'exploitation_id': record.exploitation_id.id,
+                                'type_alerte': 'humidite_faible',
+                                'niveau': 'orange',
+                                'description': f'💧 HUMIDITÉ FAIBLE DÉTECTÉE ! Humidité moyenne: {humidite_moyenne:.1f}%. Seuil d\'alerte: 30%. Risque de stress hydrique modéré.',
+                                'date_detection': fields.Date.today(),
+                                'source': 'analyse_donnees_reelles',
+                                'actions_recommandees': f"""
+🌱 ACTIONS RECOMMANDÉES EN CAS D'HUMIDITÉ FAIBLE:
+• Surveiller l'état hydrique des cultures
+• Ajuster la fréquence d'irrigation
+• Utiliser des techniques de paillage
+• Surveiller les signes de stress hydrique
+                                """,
+                                'actions_urgentes': f"""
+🚨 ACTIONS URGENTES:
+• Vérifier l'efficacité des systèmes d'irrigation
+• Planifier l'irrigation préventive
+• Surveiller les cultures sensibles
+                                """,
+                                'niveau_impact': 'modere'
+                            })
+                            alertes_crees.append(alerte_humidite.id)
+                
+                # Si pas de données météo, créer des alertes basées sur le scénario RCP
+                else:
+                    if record.scenario_climatique in ['rcp_60', 'rcp_85']:
+                        alerte_secheresse = AlerteModel.create({
+                            'name': f'Alerte Sécheresse RCP - {record.exploitation_id.name}',
+                            'exploitation_id': record.exploitation_id.id,
+                            'type_alerte': 'secheresse',
+                            'niveau': 'orange' if record.scenario_climatique == 'rcp_60' else 'rouge',
+                            'description': f'Risque de sécheresse selon scénario {record.scenario_climatique}',
+                            'date_detection': fields.Date.today(),
+                            'source': 'Scénario RCP Climatique'
+                        })
+                        alertes_crees.append(alerte_secheresse.id)
                 
                 # Mettre à jour le champ des alertes
                 if alertes_crees:
                     record.alertes_detectees = [(6, 0, alertes_crees)]
+                    record.log_import += f'\n{alertes_crees} alertes climatiques créées automatiquement'
 
     # MÉTHODE PUBLIQUE : Créer des alertes climatiques manuellement
     def creer_alertes_climatiques(self):
