@@ -50,8 +50,7 @@
         'views/utilisation_intrants_views.xml',
         'views/meteostat_import_views.xml',
         'views/alerte_climatique_views.xml',
-        # TEMPORAIREMENT COMMENTÉ POUR RÉSOLUDRE L'ERREUR DE CHARGEMENT
-        # 'views/alerte_exploitation_views.xml',
+        'views/alerte_exploitation_views.xml',
         'views/tendance_climatique_views.xml',
         'views/scenario_climatique_views.xml',
         'views/rcp_scenario_views.xml',
@@ -81,7 +80,7 @@
         # SÉCURITÉ (APRÈS la création des modèles et vues)
         'security/ir.model.access.csv',
         
-        # Données de démonstration (après la création des modèles et de la sécurité)
+        # Données de base (après la création des modèles et de la sécurité)
         'data/donnees_supplementaires.xml',
         # 'data/demo_data_complet.xml',
         # 'data/demo_data_complete.xml',
@@ -91,6 +90,7 @@
         # 'data/parcelles_cultures_maroc_soutenance.xml',
     ],
     'demo': [
+        'data/demo_climat_complet.xml',
         'data/cultures_maroc_soutenance.xml',
         'data/parcelles_cultures_maroc_soutenance.xml',
     ],

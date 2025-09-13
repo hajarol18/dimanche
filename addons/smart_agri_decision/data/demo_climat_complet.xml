@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- ======================================== -->
+        <!-- DONNÉES DÉMONSTRATION CLIMAT COMPLÈTES -->
+        <!-- ======================================== -->
+        
+        <!-- 1. IMPORTS METEOSTAT AVEC SCÉNARIOS RCP -->
+        <record id="meteostat_import_rcp_45_maroc" model="smart_agri_meteostat_import">
+            <field name="name">Import RCP 4.5 - Exploitation Maïs Maroc</field>
+            <field name="exploitation_id" ref="exploitation_mais_maroc"/>
+            <field name="station_id">RABAT_001</field>
+            <field name="latitude">34.0209</field>
+            <field name="longitude">-6.8416</field>
+            <field name="date_debut" eval="time.strftime('%Y-01-01')"/>
+            <field name="date_fin" eval="time.strftime('%Y-12-31')"/>
+            <field name="parametres_import">tous</field>
+            <field name="scenario_climatique">rcp_45</field>
+            <field name="state">termine</field>
+            <field name="nombre_enregistrements">365</field>
+            <field name="duree_import">4.2</field>
+            <field name="log_import">Import RCP 4.5 terminé avec succès. 365 enregistrements générés. Niveau d'alerte: jaune</field>
+            <field name="import_automatique">True</field>
+            <field name="frequence_import">quotidien</field>
+            <field name="seuil_temperature_max">35.0</field>
+            <field name="seuil_temperature_min">-5.0</field>
+            <field name="seuil_precipitation_min">10.0</field>
+            <field name="seuil_precipitation_max">100.0</field>
+        </record>
+        
+        <record id="meteostat_import_rcp_85_maroc" model="smart_agri_meteostat_import">
+            <field name="name">Import RCP 8.5 - Exploitation Légumes Maroc</field>
+            <field name="exploitation_id" ref="exploitation_legumes_maroc"/>
+            <field name="station_id">CASA_002</field>
+            <field name="latitude">33.5951</field>
+            <field name="longitude">-7.6328</field>
+            <field name="date_debut" eval="time.strftime('%Y-01-01')"/>
+            <field name="date_fin" eval="time.strftime('%Y-12-31')"/>
+            <field name="parametres_import">tous</field>
+            <field name="scenario_climatique">rcp_85</field>
+            <field name="state">termine</field>
+            <field name="nombre_enregistrements">365</field>
+            <field name="duree_import">5.8</field>
+            <field name="log_import">Import RCP 8.5 terminé avec succès. 365 enregistrements générés. Niveau d'alerte: rouge</field>
+            <field name="import_automatique">True</field>
+            <field name="frequence_import">quotidien</field>
+            <field name="seuil_temperature_max">35.0</field>
+            <field name="seuil_temperature_min">-5.0</field>
+            <field name="seuil_precipitation_min">10.0</field>
+            <field name="seuil_precipitation_max">100.0</field>
+        </record>
+        
+        <!-- 2. DONNÉES MÉTÉO DÉTAILLÉES -->
+        <record id="meteo_maroc_janvier_2024" model="smart_agri_meteo">
+            <field name="name">Données météo janvier 2024 - Salé</field>
+            <field name="date_mesure" eval="time.strftime('%Y-01-15')"/>
+            <field name="exploitation_id" ref="exploitation_mais_maroc"/>
+            <field name="parcelle_id" ref="parcelle_mais_1_maroc"/>
+            <field name="temperature">18.5</field>
+            <field name="temperature_min">12.0</field>
+            <field name="temperature_max">25.0</field>
+            <field name="humidite">65.0</field>
+            <field name="precipitation">22.5</field>
+            <field name="vitesse_vent">15.2</field>
+            <field name="direction_vent">nord_ouest</field>
+            <field name="pression_atmospherique">1015.3</field>
+            <field name="source">meteostat</field>
+            <field name="scenario_climatique">rcp_45</field>
+            <field name="qualite_donnees">excellente</field>
+        </record>
+        
+        <record id="meteo_maroc_juillet_2024" model="smart_agri_meteo">
+            <field name="name">Données météo juillet 2024 - Mohammedia</field>
+            <field name="date_mesure" eval="time.strftime('%Y-07-15')"/>
+            <field name="exploitation_id" ref="exploitation_legumes_maroc"/>
+            <field name="parcelle_id" ref="parcelle_tomates_maroc"/>
+            <field name="temperature">32.8</field>
+            <field name="temperature_min">26.0</field>
+            <field name="temperature_max">38.5</field>
+            <field name="humidite">45.0</field>
+            <field name="precipitation">3.2</field>
+            <field name="vitesse_vent">8.5</field>
+            <field name="direction_vent">est</field>
+            <field name="pression_atmospherique">1008.7</field>
+            <field name="source">meteostat</field>
+            <field name="scenario_climatique">rcp_85</field>
+            <field name="qualite_donnees">excellente</field>
+        </record>
+        
+        <!-- 3. ALERTES CLIMATIQUES AUTOMATIQUES -->
+        <record id="alerte_canicule_maroc_2024" model="smart_agri_alerte_climatique">
+            <field name="name">🚨 ALERTE CANICULE - Exploitation Maïs Maroc</field>
+            <field name="exploitation_id" ref="exploitation_mais_maroc"/>
+            <field name="type_alerte">canicule</field>
+            <field name="niveau">orange</field>
+            <field name="description">🔥 CANICULE DÉTECTÉE ! Température maximale: 38.5°C (moyenne: 32.8°C). Seuil d'alerte dépassé: 35°C. Risque élevé pour les cultures sensibles.</field>
+            <field name="date_detection" eval="time.strftime('%Y-07-15')"/>
+            <field name="source">analyse_donnees_reelles</field>
+            <field name="actions_recommandees">🌱 ACTIONS RECOMMANDÉES EN CAS DE CANICULE:
+• Augmenter la fréquence d'irrigation (2-3 fois par jour)
+• Protéger les cultures du soleil intense (ombrage)
+• Surveiller le stress hydrique des plantes
+• Adapter les horaires de travail (tôt le matin, soir)
+• Vérifier les systèmes d'irrigation</field>
+            <field name="actions_urgentes">🚨 ACTIONS URGENTES:
+• Irrigation d'urgence des cultures sensibles
+• Protection immédiate des jeunes plants
+• Surveillance renforcée de l'état hydrique
+• Planification de l'irrigation nocturne</field>
+            <field name="niveau_impact">eleve</field>
+            <field name="state">active</field>
+        </record>
+        
+        <record id="alerte_secheresse_maroc_2024" model="smart_agri_alerte_climatique">
+            <field name="name">🌵 ALERTE SÉCHERESSE - Exploitation Légumes Maroc</field>
+            <field name="exploitation_id" ref="exploitation_legumes_maroc"/>
+            <field name="type_alerte">secheresse</field>
+            <field name="niveau">orange</field>
+            <field name="description">🌵 SÉCHERESSE DÉTECTÉE ! Précipitations moyennes: 8.5 mm (minimum: 3.2 mm). Seuil d'alerte: 10 mm. Risque de stress hydrique sévère.</field>
+            <field name="date_detection" eval="time.strftime('%Y-07-15')"/>
+            <field name="source">analyse_donnees_reelles</field>
+            <field name="actions_recommandees">🌱 ACTIONS RECOMMANDÉES EN CAS DE SÉCHERESSE:
+• Augmenter la fréquence d'irrigation (quotidienne)
+• Utiliser des techniques de paillage pour retenir l'humidité
+• Surveiller l'état hydrique des sols
+• Adapter les cultures à la sécheresse
+• Planifier l'irrigation d'urgence</field>
+            <field name="actions_urgentes">🚨 ACTIONS URGENTES:
+• Vérifier et réparer les systèmes d'irrigation
+• Réduire les pertes d'eau (fuites, évaporation)
+• Planifier l'irrigation d'urgence des cultures sensibles
+• Surveiller l'état des réserves d'eau</field>
+            <field name="niveau_impact">eleve</field>
+            <field name="state">active</field>
+        </record>
+        
+        <!-- 4. ALERTES PAR EXPLOITATION -->
+        <record id="alerte_exploitation_mais_maroc" model="smart_agri_alerte_exploitation">
+            <field name="exploitation_id" ref="exploitation_mais_maroc"/>
+            <field name="type_alerte">canicule</field>
+            <field name="niveau_critique">eleve</field>
+            <field name="titre">Alerte Canicule - Exploitation Maïs</field>
+            <field name="message">Température élevée détectée: 38.5°C. Risque pour les cultures de maïs.</field>
+            <field name="recommandations">Augmenter l'irrigation et protéger du soleil intense.</field>
+            <field name="temperature">38.5</field>
+            <field name="humidite">45.0</field>
+            <field name="precipitation">3.2</field>
+            <field name="vitesse_vent">8.5</field>
+            <field name="date_creation" eval="time.strftime('%Y-07-15 14:30:00')"/>
+            <field name="date_debut" eval="time.strftime('%Y-07-15 14:30:00')"/>
+            <field name="statut">active</field>
+            <field name="active">True</field>
+        </record>
+        
+        <!-- 5. TENDANCES CLIMATIQUES -->
+        <record id="tendance_climatique_maroc_2024" model="smart_agri_tendance_climatique">
+            <field name="name">Tendances Climatiques Maroc 2024</field>
+            <field name="exploitation_id" ref="exploitation_mais_maroc"/>
+            <field name="type_analyse">tendance_generale</field>
+            <field name="date_debut" eval="time.strftime('%Y-01-01')"/>
+            <field name="date_fin" eval="time.strftime('%Y-12-31')"/>
+            <field name="date_analyse" eval="time.strftime('%Y-12-31')"/>
+            <field name="temperature_moyenne">24.5</field>
+            <field name="temperature_min">18.2</field>
+            <field name="temperature_max">31.8</field>
+            <field name="precipitation_totale">485.5</field>
+            <field name="humidite_moyenne">58.5</field>
+            <field name="vitesse_vent_moyenne">12.8</field>
+            <field name="tendance_temperature">hausse</field>
+            <field name="tendance_precipitation">baisse</field>
+            <field name="evolution_stress_hydrique">15.5</field>
+            <field name="source_donnees">meteostat</field>
+            <field name="qualite_analyse">excellente</field>
+            <field name="state">termine</field>
+            <field name="recommandations">Tendances climatiques préoccupantes: hausse des températures et baisse des précipitations. Recommandations: adapter les cultures, améliorer l'irrigation, diversifier les espèces.</field>
+        </record>
+        
+        <!-- 6. SCÉNARIOS RCP -->
+        <record id="rcp_scenario_45_maroc" model="smart_agri_rcp_scenario">
+            <field name="name">RCP 4.5 - Scénario Modéré Maroc</field>
+            <field name="code_rcp">rcp_4_5</field>
+            <field name="description">Scénario RCP 4.5: émissions modérées, réchauffement limité à +2.4°C en 2100</field>
+            <field name="rechauffement_2030">1.2</field>
+            <field name="rechauffement_2050">1.8</field>
+            <field name="rechauffement_2100">2.4</field>
+            <field name="emissions_2030">45.0</field>
+            <field name="emissions_2050">35.0</field>
+            <field name="emissions_2100">25.0</field>
+            <field name="impact_secheresse">modere</field>
+            <field name="impact_precipitation">modere</field>
+            <field name="impact_temperature">modere</field>
+            <field name="probabilite_occurrence">65.0</field>
+            <field name="source_donnees">IPCC AR6 2021</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="rcp_scenario_85_maroc" model="smart_agri_rcp_scenario">
+            <field name="name">RCP 8.5 - Scénario Pessimiste Maroc</field>
+            <field name="code_rcp">rcp_8_5</field>
+            <field name="description">Scénario RCP 8.5: émissions élevées, réchauffement de +4.8°C en 2100</field>
+            <field name="rechauffement_2030">1.5</field>
+            <field name="rechauffement_2050">2.8</field>
+            <field name="rechauffement_2100">4.8</field>
+            <field name="emissions_2030">55.0</field>
+            <field name="emissions_2050">65.0</field>
+            <field name="emissions_2100">75.0</field>
+            <field name="impact_secheresse">critique</field>
+            <field name="impact_precipitation">eleve</field>
+            <field name="impact_temperature">critique</field>
+            <field name="probabilite_occurrence">25.0</field>
+            <field name="source_donnees">IPCC AR6 2021</field>
+            <field name="active">True</field>
+        </record>
+        
+        <!-- 7. SCÉNARIOS CLIMATIQUES -->
+        <record id="scenario_climatique_optimiste_maroc" model="smart_agri_scenario_climatique">
+            <field name="name">Scénario Optimiste - Adaptation Agricole Maroc</field>
+            <field name="exploitation_id" ref="exploitation_mais_maroc"/>
+            <field name="code">OPT_MAROC_2024</field>
+            <field name="type_scenario">rechauffement_global</field>
+            <field name="date_debut" eval="time.strftime('%Y-01-01')"/>
+            <field name="date_fin" eval="time.strftime('%Y-12-31')"/>
+            <field name="temperature_base">24.0</field>
+            <field name="variation_temperature">1.5</field>
+            <field name="precipitation_base">500.0</field>
+            <field name="variation_precipitation">-5.0</field>
+            <field name="humidite_base">60.0</field>
+            <field name="variation_humidite">-3.0</field>
+            <field name="vent_base">12.0</field>
+            <field name="variation_vent">2.0</field>
+            <field name="intensite">moderee</field>
+            <field name="probabilite_occurrence">elevee</field>
+            <field name="impact_rendement">-8.0</field>
+            <field name="impact_qualite">degradation_legere</field>
+            <field name="mesures_adaptation">Introduction de variétés résistantes, irrigation optimisée, rotation des cultures</field>
+            <field name="actions_preventives">Surveillance météo renforcée, stockage d'eau, diversification des cultures</field>
+            <field name="actions_curatives">Irrigation d'urgence, protection des cultures sensibles</field>
+            <field name="state">valide</field>
+            <field name="notes">Scénario recommandé: investissement modéré avec bon retour sur investissement</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="scenario_climatique_pessimiste_maroc" model="smart_agri_scenario_climatique">
+            <field name="name">Scénario Pessimiste - Stress Hydrique Maroc</field>
+            <field name="exploitation_id" ref="exploitation_legumes_maroc"/>
+            <field name="code">PES_MAROC_2024</field>
+            <field name="type_scenario">secheresse</field>
+            <field name="date_debut" eval="time.strftime('%Y-01-01')"/>
+            <field name="date_fin" eval="time.strftime('%Y-12-31')"/>
+            <field name="temperature_base">26.0</field>
+            <field name="variation_temperature">3.2</field>
+            <field name="precipitation_base">400.0</field>
+            <field name="variation_precipitation">-18.0</field>
+            <field name="humidite_base">45.0</field>
+            <field name="variation_humidite">-15.0</field>
+            <field name="vent_base">15.0</field>
+            <field name="variation_vent">5.0</field>
+            <field name="intensite">forte</field>
+            <field name="probabilite_occurrence">moyenne</field>
+            <field name="impact_rendement">-25.0</field>
+            <field name="impact_qualite">degradation_moderee</field>
+            <field name="mesures_adaptation">Système d'irrigation goutte-à-goutte, serres climatiques, cultures hydroponiques</field>
+            <field name="actions_preventives">Installation de systèmes d'irrigation avancés, construction de serres, formation du personnel</field>
+            <field name="actions_curatives">Irrigation intensive, protection contre le stress hydrique, cultures de substitution</field>
+            <field name="state">valide</field>
+            <field name="notes">Scénario à éviter: investissement élevé avec risque de perte</field>
+            <field name="active">True</field>
+        </record>
+        
+    </data>
+</odoo>

@@ -181,7 +181,7 @@
         </record>
         
         <!-- Action pour les alertes climatiques -->
-        <record id="action_alerte_climatique" model="ir.actions.act_window">
+        <record id="action_smart_agri_alerte_climatique" model="ir.actions.act_window">
             <field name="name">🚨 Alertes Climatiques</field>
             <field name="res_model">smart_agri_alerte_climatique</field>
             <field name="view_mode">list,form,graph,pivot</field>

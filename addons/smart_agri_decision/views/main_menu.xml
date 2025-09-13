@@ -71,7 +71,7 @@
                   sequence="70"/>
         
         <!-- ======================================== -->
-        <!-- SECTION 2: MÉTÉO & CLIMAT (UNIFIÉ) -->
+        <!-- SECTION 2: MÉTÉO & CLIMAT (LOGIQUE MÉTIER OPTIMISÉE) -->
         <!-- ======================================== -->
         
         <!-- Sous-menu Météo et Climat -->
@@ -80,49 +80,46 @@
                   parent="menu_smart_agri_root" 
                   sequence="20"/>
         
-        <!-- Simulation Interactive (PRÉSERVÉE) -->
-        <menuitem id="menu_simulation_interactive" 
-                  name="🎮 Simulation Interactive" 
-                  parent="menu_climat" 
-                  action="action_smart_agri_ia_simulateur" 
-                  sequence="10"/>
-        
-                       <!-- Données Météo -->
-               <menuitem id="menu_meteo" 
-                         name="🌡️ Données Météo" 
-                         parent="menu_climat" 
-                         action="action_smart_agri_meteo" 
-                         sequence="20"/>
-               
-                               <!-- Alertes par Exploitation - TEMPORAIREMENT COMMENTÉ -->
-                <!-- <menuitem id="menu_alerte_exploitation" 
-                          name="⚠️ Alertes par Exploitation" 
-                          parent="menu_climat" 
-                          action="action_smart_agri_alerte_exploitation" 
-                          sequence="25"/> -->
-        
+        <!-- 1. ACQUISITION DES DONNÉES (Première étape logique) -->
         <!-- Import Meteostat -->
         <menuitem id="menu_meteostat_import" 
                   name="📡 Import Meteostat" 
                   parent="menu_climat" 
                   action="action_smart_agri_meteostat_import" 
-                  sequence="30"/>
+                  sequence="10"/>
         
+        <!-- Données Météo -->
+        <menuitem id="menu_meteo" 
+                  name="🌡️ Données Météo" 
+                  parent="menu_climat" 
+                  action="action_smart_agri_meteo" 
+                  sequence="20"/>
+        
+        <!-- 2. ANALYSE ET TENDANCES (Deuxième étape logique) -->
         <!-- Tendances Climatiques -->
         <menuitem id="menu_tendance_climatique" 
                   name="📈 Tendances Climatiques" 
                   parent="menu_climat" 
                   action="action_smart_agri_tendance_climatique" 
-                  sequence="40"/>
+                  sequence="30"/>
         
+        <!-- 3. ALERTES ET SURVEILLANCE (Troisième étape logique) -->
         <!-- Alertes Climatiques -->
         <menuitem id="menu_alerte_climatique" 
                   name="⚠️ Alertes Climatiques" 
                   parent="menu_climat" 
                   action="action_smart_agri_alerte_climatique" 
+                  sequence="40"/>
+        
+        <!-- Alertes par Exploitation -->
+        <menuitem id="menu_alerte_exploitation" 
+                  name="⚠️ Alertes par Exploitation" 
+                  parent="menu_climat" 
+                  action="action_smart_agri_alerte_exploitation" 
                   sequence="50"/>
         
-        <!-- Scénarios RCP -->
+        <!-- 4. PROSPECTIVE CLIMATIQUE (Quatrième étape logique) -->
+        <!-- Scénarios IPCC RCP -->
         <menuitem id="menu_rcp_scenario" 
                   name="🔥 Scénarios IPCC RCP" 
                   parent="menu_climat" 
@@ -135,6 +132,14 @@
                   parent="menu_climat" 
                   action="action_smart_agri_scenario_climatique" 
                   sequence="70"/>
+        
+        <!-- 5. SIMULATION ET DÉCISION (Cinquième étape logique) -->
+        <!-- Simulation Interactive -->
+        <menuitem id="menu_simulation_interactive" 
+                  name="🎮 Simulation Interactive" 
+                  parent="menu_climat" 
+                  action="action_smart_agri_ia_simulateur" 
+                  sequence="80"/>
         
         <!-- ======================================== -->
         <!-- SECTION 3: INTELLIGENCE ARTIFICIELLE -->

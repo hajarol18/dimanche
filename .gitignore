@@ -1,42 +1,54 @@
-# Fichiers de base de données PostgreSQL
-postgresql/
-etc/filestore/
-etc/sessions/
+# Docker
+docker-compose.override.yml
+.docker/
 
-# Fichiers de cache et temporaires
-__pycache__/
+# Odoo
 *.pyc
+__pycache__/
 *.pyo
 *.pyd
 .Python
-*.so
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
 
-# Fichiers de logs
-*.log
-logs/
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 
-# Fichiers de sauvegarde
-*.bak
-*.backup
-*.sql
-
-# Fichiers temporaires
-*.tmp
-*.temp
+# OS
 .DS_Store
 Thumbs.db
 
-# Fichiers de configuration locale
-.env
-.env.local
+# Logs
+*.log
+logs/
 
-# Fichiers de test volumineux
-test_*.py
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
+
+# Embedded git repositories
+smartagri/
+
+# Scripts temporaires
+*_temp.py
 *_test.py
+verify_*.py
+test_*.py
+create_*.py
+add_*.py
+fill_*.py
+migration_*.py
+install_*.py
+creer_*.py
 
-# Fichiers de documentation temporaires
-*.md
-!README.md
-
-# Fichiers de scripts de correction
-scripts/
+# Guides temporaires
+guide_*.md

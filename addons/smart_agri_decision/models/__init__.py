@@ -14,6 +14,7 @@ from . import smart_agri_meteo
 from . import smart_agri_meteostat_import
 from . import smart_agri_tendance_climatique
 from . import smart_agri_alerte_climatique
+from . import smart_agri_alerte_exploitation
 from . import smart_agri_rcp_scenario
 from . import smart_agri_scenario_climatique
 
