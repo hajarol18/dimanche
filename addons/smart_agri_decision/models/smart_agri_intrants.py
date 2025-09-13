@@ -21,71 +21,74 @@ class SmartAgriIntrants(models.Model):
 
     # Champs de base
     name = fields.Char('Nom de l\'intrant', required=True)
-    code = fields.Char('Code produit', required=True, size=20, copy=False)
+    code = fields.Char('Code produit', size=20, copy=False, readonly=True)
     description = fields.Text('Description détaillée')
     
-    # Type d'intrant détaillé et hiérarchisé
+    # Type d'intrant simplifié pour une meilleure UX
     categorie_principale = fields.Selection([
-        ('semences_plants', 'Semences et Plants'),
-        ('fertilisants', 'Fertilisants'),
-        ('protection_plantes', 'Protection des Plantes'),
-        ('irrigation', 'Irrigation et Eau'),
-        ('amendements', 'Amendements et Substrats'),
-        ('equipements', 'Équipements et Matériel'),
-        ('autre', 'Autre')
-    ], string='Catégorie principale', required=True)
+        ('semences_plants', '🌱 Semences et Plants'),
+        ('fertilisants', '🌿 Fertilisants'),
+        ('protection_plantes', '🛡️ Protection des Plantes'),
+        ('irrigation', '💧 Irrigation'),
+        ('amendements', '🌾 Amendements'),
+        ('equipements', '🔧 Équipements'),
+        ('autre', '📦 Autre')
+    ], string='Catégorie principale', required=True, default='fertilisants')
     
     type_intrant = fields.Selection([
         # Semences et Plants
-        ('semences', 'Semences'),
-        ('plants', 'Plants'),
-        ('bulbes', 'Bulbes'),
-        ('greffons', 'Greffons'),
+        ('semences', '🌱 Semences'),
+        ('plants', '🌿 Plants'),
+        ('bulbes', '🌷 Bulbes'),
+        ('greffons', '🌳 Greffons'),
         
-        # Fertilisants
-        ('engrais_azote', 'Engrais azoté'),
-        ('engrais_phosphore', 'Engrais phosphaté'),
-        ('engrais_potassium', 'Engrais potassique'),
-        ('engrais_complexe', 'Engrais complexe'),
-        ('engrais_organique', 'Engrais organique'),
-        ('amendement_calcaire', 'Amendement calcaire'),
+        # Fertilisants - Simplifié
+        ('engrais_azote', '🌿 Engrais azoté'),
+        ('engrais_phosphore', '🌿 Engrais phosphaté'),
+        ('engrais_potassium', '🌿 Engrais potassique'),
+        ('engrais_complexe', '🌿 Engrais complexe'),
+        ('engrais_organique', '🌿 Engrais organique'),
         
-        # Protection des Plantes
-        ('herbicide', 'Herbicide'),
-        ('fongicide', 'Fongicide'),
-        ('insecticide', 'Insecticide'),
-        ('acaricide', 'Acaricide'),
-        ('nematicide', 'Nématicide'),
-        ('biocontrole', 'Produit de biocontrôle'),
+        # Protection des Plantes - Simplifié
+        ('herbicide', '🛡️ Herbicide'),
+        ('fongicide', '🛡️ Fongicide'),
+        ('insecticide', '🛡️ Insecticide'),
+        ('biocontrole', '🛡️ Biocontrôle'),
         
         # Irrigation
-        ('eau_irrigation', 'Eau d\'irrigation'),
-        ('systeme_irrigation', 'Système d\'irrigation'),
+        ('eau_irrigation', '💧 Eau d\'irrigation'),
+        ('systeme_irrigation', '💧 Système d\'irrigation'),
         
-        # Amendements
-        ('compost', 'Compost'),
-        ('fumier', 'Fumier'),
-        ('substrat', 'Substrat de culture'),
-        ('terreau', 'Terreau'),
+        # Amendements - Simplifié
+        ('compost', '🌾 Compost'),
+        ('fumier', '🌾 Fumier'),
+        ('substrat', '🌾 Substrat'),
         
-        # Équipements
-        ('outil_manuel', 'Outil manuel'),
-        ('machine', 'Machine agricole'),
-        ('protection_personnelle', 'Équipement de protection'),
+        # Équipements - Simplifié
+        ('outil_manuel', '🔧 Outil manuel'),
+        ('machine', '🔧 Machine'),
+        ('protection_personnelle', '🔧 Protection'),
         
-        ('autre', 'Autre')
-    ], string='Type d\'intrant', required=True)
+        ('autre', '📦 Autre')
+    ], string='Type d\'intrant', required=True, default='engrais_complexe')
     
-    # Caractéristiques techniques avancées
-    unite = fields.Char('Unité de mesure', required=True)
-    prix_unitaire = fields.Float('Prix unitaire (MAD)', required=True, digits=(10, 2))
+    # Caractéristiques techniques simplifiées
+    unite = fields.Selection([
+        ('kg', 'Kilogrammes (kg)'),
+        ('l', 'Litres (l)'),
+        ('m3', 'Mètres cubes (m³)'),
+        ('ha', 'Hectares (ha)'),
+        ('unite', 'Unités'),
+        ('tonne', 'Tonnes (t)')
+    ], string='Unité de mesure', required=True, default='kg')
+    prix_unitaire = fields.Float('Prix unitaire (€)', digits=(10, 2))
     stock_disponible = fields.Float('Stock disponible', default=0.0, digits=(10, 2))
     stock_minimum = fields.Float('Stock minimum d\'alerte', default=0.0, digits=(10, 2))
     stock_maximum = fields.Float('Stock maximum recommandé', digits=(10, 2))
     
     # Champs calculés avancés
-    cout_total = fields.Float('Coût total (MAD)', compute='_compute_cout_total', store=True, digits=(12, 2))
-    valeur_stock = fields.Float('Valeur du stock (MAD)', compute='_compute_valeur_stock', store=True, digits=(12, 2))
+    cout_total = fields.Float('Coût total (€)', compute='_compute_cout_total', store=True, digits=(12, 2))
+    valeur_stock = fields.Float('Valeur du stock (€)', compute='_compute_valeur_stock', store=True, digits=(12, 2))
     niveau_stock = fields.Selection([
         ('critique', 'Critique'),
         ('faible', 'Faible'),
@@ -160,6 +163,29 @@ class SmartAgriIntrants(models.Model):
         ('perime', 'Périmé'),
         ('retire', 'Retiré du marché')
     ], string='État', default='disponible', compute='_compute_state', store=True)
+
+    # ========================================
+    # MÉTHODES DE CRÉATION AUTOMATIQUE
+    # ========================================
+    
+    @api.model
+    def create(self, vals):
+        """Génère automatiquement le code si non fourni"""
+        if not vals.get('code'):
+            # Génère un code basé sur la catégorie et un numéro séquentiel
+            categorie = vals.get('categorie_principale', 'autre')
+            prefix = categorie[:3].upper()
+            last_record = self.search([('code', 'like', prefix)], limit=1, order='code desc')
+            if last_record and last_record.code:
+                try:
+                    last_num = int(last_record.code.split('-')[-1])
+                    new_num = last_num + 1
+                except:
+                    new_num = 1
+            else:
+                new_num = 1
+            vals['code'] = f"{prefix}-{new_num:04d}"
+        return super().create(vals)
 
     # ========================================
     # CHAMPS CALCULÉS

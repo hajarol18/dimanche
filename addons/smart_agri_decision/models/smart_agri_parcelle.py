@@ -93,29 +93,20 @@ class SmartAgriParcelle(models.Model):
         for record in self:
             record.surface_utilisee = record.surface
     
-    @api.depends('exploitation_id.culture_ids')
+    @api.depends('culture_ids')
     def _compute_culture_active(self):
         """Trouve la culture active sur cette parcelle"""
         for record in self:
-            if record.exploitation_id:
-                culture_active = record.exploitation_id.culture_ids.filtered(
-                    lambda c: c.parcelle_id.id == record.id and c.state == 'active'
-                )
-                record.culture_active_id = culture_active[0] if culture_active else False
-            else:
-                record.culture_active_id = False
+            culture_active = record.culture_ids.filtered(
+                lambda c: c.state == 'active'
+            )
+            record.culture_active_id = culture_active[0] if culture_active else False
     
-    @api.depends('exploitation_id.intervention_ids')
+    @api.depends('intervention_ids')
     def _compute_nombre_interventions(self):
         """Calcule le nombre d'interventions sur cette parcelle"""
         for record in self:
-            if record.exploitation_id:
-                interventions = record.exploitation_id.intervention_ids.filtered(
-                    lambda i: i.parcelle_id.id == record.id
-                )
-                record.nombre_interventions = len(interventions)
-            else:
-                record.nombre_interventions = 0
+            record.nombre_interventions = len(record.intervention_ids)
     
     # @api.depends('geo_polygon')
     # def _compute_geo_area(self):
@@ -237,18 +228,19 @@ class SmartAgriParcelle(models.Model):
     def _check_surface_exploitation_coherence(self):
         """Vérifie que la surface de la parcelle ne dépasse pas la surface disponible de l'exploitation"""
         for record in self:
-            if record.exploitation_id:
+            if record.exploitation_id and record.exploitation_id.superficie_totale:
                 # Calculer la surface déjà utilisée par les autres parcelles
                 autres_parcelles = record.exploitation_id.parcelle_ids.filtered(lambda p: p.id != record.id)
                 surface_utilisee = sum(autres_parcelles.mapped('surface'))
-                surface_disponible = record.exploitation_id.surface_totale - surface_utilisee
+                surface_disponible = record.exploitation_id.superficie_totale - surface_utilisee
                 
                 if record.surface > surface_disponible:
                     raise ValidationError(
-                        f"La surface de la parcelle ({record.surface:.2f} ha) dépasse la surface disponible "
-                        f"de l'exploitation ({surface_disponible:.2f} ha). "
-                        f"Surface totale exploitation: {record.exploitation_id.surface_totale:.2f} ha, "
-                        f"Surface déjà utilisée: {surface_utilisee:.2f} ha."
+                        f"❌ ERREUR MÉTIER : La surface de la parcelle ({record.surface:.2f} ha) dépasse la surface disponible "
+                        f"de l'exploitation ({surface_disponible:.2f} ha).\n\n"
+                        f"📊 Surface totale exploitation: {record.exploitation_id.superficie_totale:.2f} ha\n"
+                        f"📊 Surface déjà utilisée: {surface_utilisee:.2f} ha\n"
+                        f"📊 Surface disponible restante: {surface_disponible:.2f} ha"
                     )
     
     @api.constrains('latitude', 'longitude')
@@ -259,6 +251,20 @@ class SmartAgriParcelle(models.Model):
                 raise ValidationError('La latitude doit être comprise entre -90 et 90.')
             if record.longitude and (record.longitude < -180 or record.longitude > 180):
                 raise ValidationError('La longitude doit être comprise entre -180 et 180.')
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        """Génération automatique du code parcelle"""
+        for vals in vals_list:
+            if not vals.get('code'):
+                name = vals.get('name', 'PARC')
+                code = name.upper().replace(' ', '_')[:15]
+                counter = 1
+                while self.search_count([('code', '=', code)]) > 0:
+                    code = f"{name.upper().replace(' ', '_')[:12]}_{counter:03d}"
+                    counter += 1
+                vals['code'] = code
+        return super().create(vals_list)
 
     # MÉTHODES MÉTIER
     def action_voir_cultures(self):

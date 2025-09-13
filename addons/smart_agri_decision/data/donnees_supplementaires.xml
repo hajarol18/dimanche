@@ -8,37 +8,25 @@
         
         <!-- NOUVELLES EXPLOITATIONS MAROCAINES -->
         <record id="exploitation_mais_maroc" model="smart_agri_exploitation">
-            <field name="name">maroc - Maroc</field>
+            <field name="name">Exploitation Maïs - Maroc</field>
             <field name="code">FM003</field>
             <field name="proprietaire">Mohammed Alami</field>
-            <field name="surface_totale">120.0</field>
+            <field name="superficie_totale">120.0</field>
             <field name="latitude">34.0209</field>
             <field name="longitude">-6.8416</field>
-            <field name="altitude">38</field>
-            <field name="type_exploitation">cereales</field>
-            <field name="state">active</field>
-            <field name="date_creation" eval="time.strftime('%Y-01-01')"/>
+            <field name="state">actif</field>
             <field name="description">Spécialisée dans la culture intensive du maïs - Région de Salé, Maroc</field>
-            <field name="region">Rabat-Salé-Kénitra</field>
-            <field name="commune">Salé</field>
-            <field name="departement">Salé</field>
         </record>
         
         <record id="exploitation_legumes_maroc" model="smart_agri_exploitation">
             <field name="name">Maraîchage Bio Excellence - Maroc</field>
             <field name="code">MB004</field>
             <field name="proprietaire">Amina Tazi</field>
-            <field name="surface_totale">45.0</field>
+            <field name="superficie_totale">45.0</field>
             <field name="latitude">33.5951</field>
             <field name="longitude">-7.6328</field>
-            <field name="altitude">42</field>
-            <field name="type_exploitation">maraichage</field>
-            <field name="state">active</field>
-            <field name="date_creation" eval="time.strftime('%Y-01-01')"/>
+            <field name="state">actif</field>
             <field name="description">Production de légumes bio de haute qualité - Région de Mohammedia, Maroc</field>
-            <field name="region">Casablanca-Settat</field>
-            <field name="commune">Mohammedia</field>
-            <field name="departement">Mohammedia</field>
         </record>
         
         <!-- NOUVELLES PARCELLES MAROCAINES -->
@@ -46,7 +34,7 @@
             <field name="name">Parcelle Maïs Principal - Maroc</field>
             <field name="code">PM001</field>
             <field name="exploitation_id" ref="exploitation_mais_maroc"/>
-            <field name="type_sol_id" ref="soil_tirs"/>
+            <!-- <field name="type_sol_id" ref="soil_tirs"/> -->
             <field name="surface">60.0</field>
             <field name="latitude">34.0210</field>
             <field name="longitude">-6.8420</field>
@@ -59,7 +47,7 @@
             <field name="name">Parcelle Maïs Secondaire - Maroc</field>
             <field name="code">PM002</field>
             <field name="exploitation_id" ref="exploitation_mais_maroc"/>
-            <field name="type_sol_id" ref="soil_hamri"/>
+            <!-- <field name="type_sol_id" ref="soil_hamri"/> -->
             <field name="surface">60.0</field>
             <field name="latitude">34.0208</field>
             <field name="longitude">-6.8412</field>
@@ -72,7 +60,7 @@
             <field name="name">Parcelle Tomates Bio - Maroc</field>
             <field name="code">PT001</field>
             <field name="exploitation_id" ref="exploitation_legumes_maroc"/>
-            <field name="type_sol_id" ref="soil_hamri"/>
+            <!-- <field name="type_sol_id" ref="soil_hamri"/> -->
             <field name="surface">15.0</field>
             <field name="latitude">33.5955</field>
             <field name="longitude">-7.6330</field>
@@ -85,7 +73,7 @@
             <field name="name">Parcelle Salades Bio - Maroc</field>
             <field name="code">PS001</field>
             <field name="exploitation_id" ref="exploitation_legumes_maroc"/>
-            <field name="type_sol_id" ref="soil_tirs"/>
+            <!-- <field name="type_sol_id" ref="soil_tirs"/> -->
             <field name="surface">10.0</field>
             <field name="latitude">33.5947</field>
             <field name="longitude">-7.6326</field>
@@ -98,7 +86,7 @@
             <field name="name">Parcelle Carottes Bio - Maroc</field>
             <field name="code">PC001</field>
             <field name="exploitation_id" ref="exploitation_legumes_maroc"/>
-            <field name="type_sol_id" ref="soil_hamri"/>
+            <!-- <field name="type_sol_id" ref="soil_hamri"/> -->
             <field name="surface">20.0</field>
             <field name="latitude">33.5953</field>
             <field name="longitude">-7.6332</field>
@@ -115,6 +103,7 @@
             <field name="exploitation_id" ref="exploitation_mais_maroc"/>
             <field name="parcelle_id" ref="parcelle_mais_1_maroc"/>
             <field name="famille">cereales</field>
+            <field name="type_culture">cereales</field>
             <field name="date_plantation" eval="time.strftime('%Y-04-15')"/>
             <field name="date_recolte_reelle" eval="time.strftime('%Y-09-20')"/>
             <field name="rendement_moyen">8.5</field>
@@ -130,6 +119,7 @@
             <field name="exploitation_id" ref="exploitation_legumes_maroc"/>
             <field name="parcelle_id" ref="parcelle_tomates_maroc"/>
             <field name="famille">legumes</field>
+            <field name="type_culture">maraichage</field>
             <field name="date_plantation" eval="time.strftime('%Y-03-01')"/>
             <field name="date_recolte_reelle" eval="time.strftime('%Y-07-30')"/>
             <field name="rendement_moyen">45.0</field>
@@ -196,7 +186,7 @@
             <field name="exploitation_id" ref="exploitation_legumes_maroc"/>
             <field name="categorie_principale">protection_plantes</field>
             <field name="type_intrant">biocontrole</field>
-            <field name="unite">L</field>
+            <field name="unite">l</field>
             <field name="prix_unitaire">45.0</field>
             <field name="stock_disponible">50.0</field>
             <field name="stock_minimum">10.0</field>

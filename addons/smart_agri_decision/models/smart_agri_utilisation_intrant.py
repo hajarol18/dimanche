@@ -12,7 +12,7 @@ class SmartAgriUtilisationIntrant(models.Model):
     _order = 'date_utilisation desc'
 
     # RELATIONS PRINCIPALES - LOGIQUE MÉTIER
-    exploitation_id = fields.Many2one('smart_agri_exploitation', string='Exploitation', required=True, ondelete='cascade')
+    exploitation_id = fields.Many2one('smart_agri_exploitation', string='Exploitation', required=True, ondelete='restrict')
     parcelle_id = fields.Many2one('smart_agri_parcelle', string='Parcelle', ondelete='cascade')
     intervention_id = fields.Many2one('smart_agri_intervention', string='Intervention', ondelete='cascade')
     intrant_id = fields.Many2one('smart_agri_intrants', string='Intrant', required=True, ondelete='cascade')

@@ -13,9 +13,9 @@
         <field name="arch" type="xml">
             <kanban string="Tableau de Bord SmartAgriDecision" class="o_kanban_dashboard">
                 <field name="name"/>
-                <field name="surface_totale"/>
-                <field name="region"/>
-                <field name="type_exploitation"/>
+                <field name="superficie_totale"/>
+                <field name="proprietaire"/>
+                <field name="state"/>
                 <templates>
                     <t t-name="kanban-box">
                         <div class="oe_kanban_card oe_kanban_global_click">
@@ -30,15 +30,15 @@
                                 <div class="o_kanban_record_body">
                                     <div class="row">
                                         <div class="col-6">
-                                            <strong>Surface:</strong> <field name="surface_totale"/> ha
+                                            <strong>Surface:</strong> <field name="superficie_totale"/> ha
                                         </div>
                                         <div class="col-6">
-                                            <strong>Région:</strong> <field name="region"/>
+                                            <strong>Propriétaire:</strong> <field name="proprietaire"/>
                                         </div>
                                     </div>
                                     <div class="row mt-2">
                                         <div class="col-12">
-                                            <strong>Type:</strong> <field name="type_exploitation"/>
+                                            <strong>État:</strong> <field name="state"/>
                                         </div>
                                     </div>
                                 </div>

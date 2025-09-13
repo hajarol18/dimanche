@@ -6,11 +6,13 @@
             <field name="name">smart.agri.parcelle.list</field>
             <field name="model">smart_agri_parcelle</field>
             <field name="arch" type="xml">
-                <list string="Parcelles">
+                <list string="Parcelles" decoration-success="surface > 0" decoration-warning="surface == 0">
                     <field name="name"/>
                     <field name="code"/>
                     <field name="exploitation_id"/>
                     <field name="surface"/>
+                    <field name="culture_active_id" string="Culture Active"/>
+                    <field name="nombre_interventions" string="Nb Interventions"/>
                     <field name="latitude" optional="hide"/>
                     <field name="longitude" optional="hide"/>
                 </list>

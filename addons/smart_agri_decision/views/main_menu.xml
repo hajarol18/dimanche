@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
         <!-- ======================================== -->
@@ -21,18 +21,18 @@
                   parent="menu_smart_agri_root" 
                   sequence="10"/>
         
-        <!-- Types de Sol -->
-        <menuitem id="menu_soil_type" 
-                  name="🌱 Types de Sol" 
-                  parent="menu_gestion_donnees" 
-                  action="action_smart_agri_soil_type" 
-                  sequence="10"/>
-        
         <!-- Exploitations -->
         <menuitem id="menu_exploitation" 
                   name="🏡 Exploitations" 
                   parent="menu_gestion_donnees" 
                   action="action_smart_agri_exploitation" 
+                  sequence="10"/>
+        
+        <!-- Types de Sol -->
+        <menuitem id="menu_soil_type" 
+                  name="🌱 Types de Sol" 
+                  parent="menu_gestion_donnees" 
+                  action="action_smart_agri_soil_type" 
                   sequence="20"/>
         
         <!-- Parcelles -->
@@ -65,7 +65,7 @@
         
         <!-- Utilisation des Intrants -->
         <menuitem id="menu_utilisation_intrants" 
-                  name="📈 Utilisation Intrants" 
+                  name="📈 Utilisations d'Intrants" 
                   parent="menu_gestion_donnees" 
                   action="action_smart_agri_utilisation_intrant" 
                   sequence="70"/>
@@ -180,6 +180,20 @@
                   parent="menu_ia" 
                   action="action_smart_agri_ai_model" 
                   sequence="50"/>
+        
+        <!-- IA Avancée (NOUVEAU) - TEMPORAIREMENT COMMENTÉ POUR ÉVITER L'ERREUR -->
+        <!-- <menuitem id="menu_ia_enhanced" 
+                  name="🚀 IA Avancée" 
+                  parent="menu_ia" 
+                  action="smart_agri_decision.action_smart_agri_ia_enhanced" 
+                  sequence="60"/> -->
+        
+        <!-- Meteostat Réel (NOUVEAU) - TEMPORAIREMENT COMMENTÉ POUR ÉVITER L'ERREUR -->
+        <!-- <menuitem id="menu_meteostat_real" 
+                  name="📡 Meteostat Réel" 
+                  parent="menu_climat" 
+                  action="smart_agri_decision.action_smart_agri_meteostat_enhanced" 
+                  sequence="80"/> -->
         
         <!-- ======================================== -->
         <!-- SECTION 4: ANALYSE ET PLANIFICATION -->

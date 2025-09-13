@@ -31,7 +31,6 @@
         'base',
         'web',
         'mail',
-        'base_geolocalize',
     ],
     'data': [
         # Données de base
@@ -59,7 +58,6 @@
         'views/tableau_bord_views.xml',
         'views/rotation_culturelle_views.xml',
         'views/dashboard_views.xml',
-        'views/geojson_wizard_views.xml',
         'views/assets.xml',
         
         # Vues IA (sans références de menus)
@@ -68,7 +66,6 @@
         'views/ia_optimisation_ressources_views.xml',
         'views/ia_dashboard_views.xml',
         'views/ia_detection_stress_views.xml',
-        # 'views/ia_simple_views.xml',  # TEMPORAIREMENT DÉSACTIVÉ
         'views/ai_model_views.xml',
         
         # Vues pour les stations météo (TEMPORAIREMENT COMMENTÉ)
@@ -78,19 +75,24 @@
         'views/main_menu.xml',
         
         # Menu principal unifié (plus de doublons)
-        'views/menu_meteo_climat.xml',  # FICHIER TEMPORAIRE - Menu intégré dans main_menu.xml
+        # TEMPORAIREMENT DÉSACTIVÉ POUR IDENTIFIER LE PROBLÈME XML
+        # 'views/menu_meteo_climat.xml',  # FICHIER TEMPORAIRE - Menu intégré dans main_menu.xml
         
         # SÉCURITÉ (APRÈS la création des modèles et vues)
         'security/ir.model.access.csv',
         
-        # Données de démonstration marocaines (après la création des modèles et de la sécurité)
-        'data/donnees_maroc_completes_soutenance.xml',  # DONNÉES MAROCAINES COMPLÈTES
-        'data/parcelles_cultures_maroc_soutenance.xml', # PARCELLES ET CULTURES MAROCAINES
-        'data/cultures_maroc_soutenance.xml',           # CULTURES MAROCAINES
-        'data/demo_data_maroc.xml',                     # RELATIONS PARCELLES-CULTURES
+        # Données de démonstration (après la création des modèles et de la sécurité)
+        'data/donnees_supplementaires.xml',
+        # 'data/demo_data_complet.xml',
+        # 'data/demo_data_complete.xml',
+        # 'data/demo_data_final.xml',
+        # 'data/demo_data_massive.xml',
+        # 'data/cultures_maroc_soutenance.xml',
+        # 'data/parcelles_cultures_maroc_soutenance.xml',
     ],
     'demo': [
-        'data/demo_data_maroc.xml',                # DONNÉES MAROCAINES PRINCIPALES
+        'data/cultures_maroc_soutenance.xml',
+        'data/parcelles_cultures_maroc_soutenance.xml',
     ],
     'installable': True,
     'application': True,

@@ -1,263 +1,304 @@
-<?xml version='1.0' encoding='utf-8'?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
-
-        
-        
-        
-
-        
         <record id="culture_ble_dur_maroc" model="smart_agri_culture">
             <field name="name">Blé Dur - Maroc</field>
             <field name="code">BLE001</field>
-            <field name="surface_utilisee">1.0</field><field name="famille">cereales</field>
+            <field name="surface_utilisee">1.0</field>
+            <field name="famille">cereales</field>
+            <field name="type_culture">cereales</field>
             <field name="description">Blé dur de qualité supérieure, variété Karim adaptée au climat marocain</field>
             <field name="duree_cycle">240</field>
             <field name="rendement_moyen">4.5</field>
             <field name="active">True</field>
-            <field name="state">planifiee</field></record>
+            <field name="state">planifiee</field>
+        </record>
 
         <record id="culture_ble_tendre_maroc" model="smart_agri_culture">
             <field name="name">Blé Tendre - Maroc</field>
             <field name="code">BLE002</field>
-            <field name="surface_utilisee">1.0</field><field name="famille">cereales</field>
+            <field name="surface_utilisee">1.0</field>
+            <field name="famille">cereales</field>
+            <field name="type_culture">cereales</field>
             <field name="description">Blé tendre de qualité boulangère, variété Marchouch</field>
             <field name="duree_cycle">230</field>
             <field name="rendement_moyen">5.0</field>
             <field name="active">True</field>
-            <field name="state">planifiee</field></record>
+            <field name="state">planifiee</field>
+        </record>
 
         <record id="culture_orge_maroc" model="smart_agri_culture">
             <field name="name">Orge - Maroc</field>
             <field name="code">ORG001</field>
-            <field name="surface_utilisee">1.0</field><field name="famille">cereales</field>
+            <field name="surface_utilisee">1.0</field>
+            <field name="famille">cereales</field>
+            <field name="type_culture">cereales</field>
             <field name="description">Orge de printemps, variété Laanaceur résistante à la sécheresse</field>
             <field name="duree_cycle">180</field>
             <field name="rendement_moyen">3.8</field>
             <field name="active">True</field>
-            <field name="state">planifiee</field></record>
+            <field name="state">planifiee</field>
+        </record>
 
         <record id="culture_mais_maroc" model="smart_agri_culture">
             <field name="name">Maïs Grain - Maroc</field>
             <field name="code">MAI001</field>
-            <field name="surface_utilisee">1.0</field><field name="famille">cereales</field>
+            <field name="surface_utilisee">1.0</field>
+            <field name="famille">cereales</field>
+            <field name="type_culture">cereales</field>
             <field name="description">Maïs grain hybride, variété Dekalb à haut rendement</field>
             <field name="duree_cycle">120</field>
             <field name="rendement_moyen">8.5</field>
             <field name="active">True</field>
-            <field name="state">planifiee</field></record>
+            <field name="state">planifiee</field>
+        </record>
 
         <record id="culture_pois_chiches_maroc" model="smart_agri_culture">
             <field name="name">Pois Chiches - Maroc</field>
             <field name="code">POI001</field>
-            <field name="surface_utilisee">1.0</field><field name="famille">legumineuses</field>
+            <field name="surface_utilisee">1.0</field>
+            <field name="famille">legumineuses</field>
+            <field name="type_culture">legumineuses</field>
             <field name="description">Pois chiches de qualité, variété ILC 482 résistante</field>
             <field name="duree_cycle">150</field>
             <field name="rendement_moyen">2.2</field>
-
             <field name="active">True</field>
-            <field name="state">planifiee</field></record>
+            <field name="state">planifiee</field>
+        </record>
 
-        
         <record id="culture_orangers_maroc" model="smart_agri_culture">
             <field name="name">Orangers - Maroc</field>
             <field name="code">ORA001</field>
-            <field name="surface_utilisee">1.0</field><field name="famille">fruits</field>
+            <field name="surface_utilisee">1.0</field>
+            <field name="famille">fruits</field>
+            <field name="type_culture">arboriculture</field>
             <field name="description">Orangers Valencia, variété d'excellence marocaine</field>
             <field name="duree_cycle">365</field>
             <field name="rendement_moyen">25.0</field>
-
             <field name="active">True</field>
-            <field name="state">planifiee</field></record>
+            <field name="state">planifiee</field>
+        </record>
 
         <record id="culture_citronniers_maroc" model="smart_agri_culture">
             <field name="name">Citronniers - Maroc</field>
             <field name="code">CIT001</field>
-            <field name="surface_utilisee">1.0</field><field name="famille">fruits</field>
+            <field name="surface_utilisee">1.0</field>
+            <field name="famille">fruits</field>
+            <field name="type_culture">arboriculture</field>
             <field name="description">Citronniers Eureka, production continue toute l'année</field>
             <field name="duree_cycle">365</field>
             <field name="rendement_moyen">20.0</field>
-
             <field name="active">True</field>
-            <field name="state">planifiee</field></record>
+            <field name="state">planifiee</field>
+        </record>
 
         <record id="culture_arganiers_maroc" model="smart_agri_culture">
             <field name="name">Arganiers - Maroc</field>
             <field name="code">ARG001</field>
-            <field name="surface_utilisee">1.0</field><field name="famille">fruits</field>
+            <field name="surface_utilisee">1.0</field>
+            <field name="famille">fruits</field>
+            <field name="type_culture">arboriculture</field>
             <field name="description">Arganiers sauvages, arbre endémique du Maroc</field>
             <field name="duree_cycle">365</field>
             <field name="rendement_moyen">8.0</field>
-
             <field name="active">True</field>
-            <field name="state">planifiee</field></record>
+            <field name="state">planifiee</field>
+        </record>
 
         <record id="culture_oliviers_picholine" model="smart_agri_culture">
             <field name="name">Oliviers Picholine - Maroc</field>
             <field name="code">OLI001</field>
-            <field name="surface_utilisee">1.0</field><field name="famille">fruits</field>
+            <field name="surface_utilisee">1.0</field>
+            <field name="famille">fruits</field>
+            <field name="type_culture">arboriculture</field>
             <field name="description">Oliviers Picholine, variété traditionnelle marocaine</field>
             <field name="duree_cycle">365</field>
             <field name="rendement_moyen">6.0</field>
-
             <field name="active">True</field>
-            <field name="state">planifiee</field></record>
+            <field name="state">planifiee</field>
+        </record>
 
         <record id="culture_oliviers_arbequina" model="smart_agri_culture">
             <field name="name">Oliviers Arbequina - Maroc</field>
             <field name="code">OLI002</field>
-            <field name="surface_utilisee">1.0</field><field name="famille">fruits</field>
+            <field name="surface_utilisee">1.0</field>
+            <field name="famille">fruits</field>
+            <field name="type_culture">arboriculture</field>
             <field name="description">Oliviers Arbequina, variété espagnole adaptée au Maroc</field>
             <field name="duree_cycle">365</field>
             <field name="rendement_moyen">8.0</field>
-
             <field name="active">True</field>
-            <field name="state">planifiee</field></record>
+            <field name="state">planifiee</field>
+        </record>
 
         <record id="culture_vigne_rouge_maroc" model="smart_agri_culture">
             <field name="name">Vigne Rouge - Maroc</field>
             <field name="code">VIG001</field>
-            <field name="surface_utilisee">1.0</field><field name="famille">fruits</field>
+            <field name="surface_utilisee">1.0</field>
+            <field name="famille">fruits</field>
+            <field name="type_culture">viticulture</field>
             <field name="description">Vigne Syrah, cépage rouge de qualité</field>
             <field name="duree_cycle">365</field>
             <field name="rendement_moyen">12.0</field>
-
             <field name="active">True</field>
-            <field name="state">planifiee</field></record>
+            <field name="state">planifiee</field>
+        </record>
 
         <record id="culture_vigne_blanche_maroc" model="smart_agri_culture">
             <field name="name">Vigne Blanche - Maroc</field>
             <field name="code">VIG002</field>
-            <field name="surface_utilisee">1.0</field><field name="famille">fruits</field>
+            <field name="surface_utilisee">1.0</field>
+            <field name="famille">fruits</field>
+            <field name="type_culture">viticulture</field>
             <field name="description">Vigne Chardonnay, cépage blanc international</field>
             <field name="duree_cycle">365</field>
             <field name="rendement_moyen">10.0</field>
-
             <field name="active">True</field>
-            <field name="state">planifiee</field></record>
+            <field name="state">planifiee</field>
+        </record>
 
         <record id="culture_pommiers_maroc" model="smart_agri_culture">
             <field name="name">Pommiers - Maroc</field>
             <field name="code">POM001</field>
-            <field name="surface_utilisee">1.0</field><field name="famille">fruits</field>
+            <field name="surface_utilisee">1.0</field>
+            <field name="famille">fruits</field>
+            <field name="type_culture">arboriculture</field>
             <field name="description">Pommiers Golden Delicious, variété adaptée au climat marocain</field>
             <field name="duree_cycle">365</field>
             <field name="rendement_moyen">18.0</field>
-
             <field name="active">True</field>
-            <field name="state">planifiee</field></record>
+            <field name="state">planifiee</field>
+        </record>
 
         <record id="culture_cerisiers_maroc" model="smart_agri_culture">
             <field name="name">Cerisiers - Maroc</field>
             <field name="code">CER001</field>
-            <field name="surface_utilisee">1.0</field><field name="famille">fruits</field>
+            <field name="surface_utilisee">1.0</field>
+            <field name="famille">fruits</field>
+            <field name="type_culture">arboriculture</field>
             <field name="description">Cerisiers Burlat, variété précoce et productive</field>
             <field name="duree_cycle">365</field>
-            <field name="rendement_moyen">8.0</field>
-
+            <field name="rendement_moyen">15.0</field>
             <field name="active">True</field>
-            <field name="state">planifiee</field></record>
+            <field name="state">planifiee</field>
+        </record>
 
         <record id="culture_poiriers_maroc" model="smart_agri_culture">
             <field name="name">Poiriers - Maroc</field>
             <field name="code">POI002</field>
-            <field name="surface_utilisee">1.0</field><field name="famille">fruits</field>
+            <field name="surface_utilisee">1.0</field>
+            <field name="famille">fruits</field>
+            <field name="type_culture">arboriculture</field>
             <field name="description">Poiriers Williams, variété traditionnelle et savoureuse</field>
             <field name="duree_cycle">365</field>
-            <field name="rendement_moyen">15.0</field>
-
+            <field name="rendement_moyen">16.0</field>
             <field name="active">True</field>
-            <field name="state">planifiee</field></record>
+            <field name="state">planifiee</field>
+        </record>
 
         <record id="culture_dattes_majhoul" model="smart_agri_culture">
             <field name="name">Dattes Majhoul - Maroc</field>
             <field name="code">DAT001</field>
-            <field name="surface_utilisee">1.0</field><field name="famille">fruits</field>
+            <field name="surface_utilisee">1.0</field>
+            <field name="famille">fruits</field>
+            <field name="type_culture">arboriculture</field>
             <field name="description">Dattes Majhoul, variété royale marocaine</field>
             <field name="duree_cycle">365</field>
             <field name="rendement_moyen">12.0</field>
-
             <field name="active">True</field>
-            <field name="state">planifiee</field></record>
+            <field name="state">planifiee</field>
+        </record>
 
-        <record id="culture_dattes_deglet" model="smart_agri_culture">
+        <record id="culture_dattes_deglet_nour" model="smart_agri_culture">
             <field name="name">Dattes Deglet Nour - Maroc</field>
             <field name="code">DAT002</field>
-            <field name="surface_utilisee">1.0</field><field name="famille">fruits</field>
+            <field name="surface_utilisee">1.0</field>
+            <field name="famille">fruits</field>
+            <field name="type_culture">arboriculture</field>
             <field name="description">Dattes Deglet Nour, variété traditionnelle</field>
             <field name="duree_cycle">365</field>
             <field name="rendement_moyen">10.0</field>
-
             <field name="active">True</field>
-            <field name="state">planifiee</field></record>
+            <field name="state">planifiee</field>
+        </record>
 
-        
         <record id="culture_tomates_maroc" model="smart_agri_culture">
             <field name="name">Tomates - Maroc</field>
             <field name="code">TOM001</field>
-            <field name="surface_utilisee">1.0</field><field name="famille">legumes</field>
+            <field name="surface_utilisee">1.0</field>
+            <field name="famille">legumes</field>
+            <field name="type_culture">maraichage</field>
             <field name="description">Tomates Marmande, variété traditionnelle française</field>
             <field name="duree_cycle">90</field>
-            <field name="rendement_moyen">35.0</field>
-
+            <field name="rendement_moyen">45.0</field>
             <field name="active">True</field>
-            <field name="state">planifiee</field></record>
+            <field name="state">planifiee</field>
+        </record>
 
         <record id="culture_poivrons_maroc" model="smart_agri_culture">
             <field name="name">Poivrons - Maroc</field>
             <field name="code">POI003</field>
-            <field name="surface_utilisee">1.0</field><field name="famille">legumes</field>
+            <field name="surface_utilisee">1.0</field>
+            <field name="famille">legumes</field>
+            <field name="type_culture">maraichage</field>
             <field name="description">Poivrons California Wonder, variété productive</field>
             <field name="duree_cycle">85</field>
-            <field name="rendement_moyen">25.0</field>
-
+            <field name="rendement_moyen">35.0</field>
             <field name="active">True</field>
-            <field name="state">planifiee</field></record>
+            <field name="state">planifiee</field>
+        </record>
 
         <record id="culture_salades_maroc" model="smart_agri_culture">
             <field name="name">Salades - Maroc</field>
             <field name="code">SAL001</field>
-            <field name="surface_utilisee">1.0</field><field name="famille">legumes</field>
+            <field name="surface_utilisee">1.0</field>
+            <field name="famille">legumes</field>
+            <field name="type_culture">maraichage</field>
             <field name="description">Salades Batavia, variété résistante et productive</field>
             <field name="duree_cycle">60</field>
-            <field name="rendement_moyen">20.0</field>
-
+            <field name="rendement_moyen">25.0</field>
             <field name="active">True</field>
-            <field name="state">planifiee</field></record>
+            <field name="state">planifiee</field>
+        </record>
 
         <record id="culture_carottes_maroc" model="smart_agri_culture">
             <field name="name">Carottes - Maroc</field>
             <field name="code">CAR001</field>
-            <field name="surface_utilisee">1.0</field><field name="famille">legumes</field>
+            <field name="surface_utilisee">1.0</field>
+            <field name="famille">legumes</field>
+            <field name="type_culture">maraichage</field>
             <field name="description">Carottes Nantaise, variété traditionnelle française</field>
             <field name="duree_cycle">120</field>
-            <field name="rendement_moyen">30.0</field>
-
+            <field name="rendement_moyen">40.0</field>
             <field name="active">True</field>
-            <field name="state">planifiee</field></record>
+            <field name="state">planifiee</field>
+        </record>
 
         <record id="culture_concombres_maroc" model="smart_agri_culture">
             <field name="name">Concombres - Maroc</field>
             <field name="code">CON001</field>
-            <field name="surface_utilisee">1.0</field><field name="famille">legumes</field>
+            <field name="surface_utilisee">1.0</field>
+            <field name="famille">legumes</field>
+            <field name="type_culture">maraichage</field>
             <field name="description">Concombres Marketmore, variété productive et résistante</field>
             <field name="duree_cycle">70</field>
-            <field name="rendement_moyen">28.0</field>
-
+            <field name="rendement_moyen">50.0</field>
             <field name="active">True</field>
-            <field name="state">planifiee</field></record>
+            <field name="state">planifiee</field>
+        </record>
 
-        
         <record id="culture_safran_maroc" model="smart_agri_culture">
             <field name="name">Safran - Maroc</field>
             <field name="code">SAF001</field>
-            <field name="surface_utilisee">1.0</field><field name="famille">legumes</field>
+            <field name="surface_utilisee">1.0</field>
+            <field name="famille">legumes</field>
+            <field name="type_culture">maraichage</field>
             <field name="description">Safran, épice royale du Maroc, production traditionnelle</field>
             <field name="duree_cycle">365</field>
-            <field name="rendement_moyen">0.8</field>
-
+            <field name="rendement_moyen">0.5</field>
             <field name="active">True</field>
-            <field name="state">planifiee</field></record>
+            <field name="state">planifiee</field>
+        </record>
 
     </data>
 </odoo>

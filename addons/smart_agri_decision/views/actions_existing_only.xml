@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Actions seulement pour les modèles qui existent -->
+    
+    <!-- Action Exploitations (existe) -->
+    <record id="action_smart_agri_exploitation" model="ir.actions.act_window">
+        <field name="name">Exploitations</field>
+        <field name="res_model">smart_agri_exploitation</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+    </record>
+    
+    <!-- Actions temporaires pour les autres modèles -->
+    <record id="action_smart_agri_soil_type" model="ir.actions.act_window">
+        <field name="name">Types de Sol</field>
+        <field name="res_model">smart_agri_exploitation</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+    </record>
+    
+    <record id="action_smart_agri_parcelle" model="ir.actions.act_window">
+        <field name="name">Parcelles</field>
+        <field name="res_model">smart_agri_exploitation</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+    </record>
+    
+    <record id="action_smart_agri_culture" model="ir.actions.act_window">
+        <field name="name">Cultures</field>
+        <field name="res_model">smart_agri_exploitation</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+    </record>
+    
+    <record id="action_smart_agri_intervention" model="ir.actions.act_window">
+        <field name="name">Interventions</field>
+        <field name="res_model">smart_agri_exploitation</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+    </record>
+    
+    <record id="action_smart_agri_intrants" model="ir.actions.act_window">
+        <field name="name">Intrants</field>
+        <field name="res_model">smart_agri_exploitation</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+    </record>
+    
+    <record id="action_smart_agri_utilisation_intrant" model="ir.actions.act_window">
+        <field name="name">Utilisation Intrants</field>
+        <field name="res_model">smart_agri_exploitation</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+    </record>
+    
+    <record id="action_smart_agri_meteo" model="ir.actions.act_window">
+        <field name="name">Données Météo</field>
+        <field name="res_model">smart_agri_exploitation</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+    </record>
+    
+    <record id="action_smart_agri_meteostat_import" model="ir.actions.act_window">
+        <field name="name">Import Meteostat</field>
+        <field name="res_model">smart_agri_exploitation</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+    </record>
+    
+    <record id="action_smart_agri_tendance_climatique" model="ir.actions.act_window">
+        <field name="name">Tendances Climatiques</field>
+        <field name="res_model">smart_agri_exploitation</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+    </record>
+    
+    <record id="action_smart_agri_alerte_climatique" model="ir.actions.act_window">
+        <field name="name">Alertes Climatiques</field>
+        <field name="res_model">smart_agri_exploitation</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+    </record>
+    
+    <record id="action_smart_agri_rcp_scenario" model="ir.actions.act_window">
+        <field name="name">Scénarios IPCC RCP</field>
+        <field name="res_model">smart_agri_exploitation</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+    </record>
+    
+    <record id="action_smart_agri_scenario_climatique" model="ir.actions.act_window">
+        <field name="name">Scénarios Climatiques</field>
+        <field name="res_model">smart_agri_exploitation</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+    </record>
+    
+    <record id="action_smart_agri_ia_predictions" model="ir.actions.act_window">
+        <field name="name">Prédictions IA</field>
+        <field name="res_model">smart_agri_exploitation</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+    </record>
+    
+    <record id="action_smart_agri_ia_detection_stress" model="ir.actions.act_window">
+        <field name="name">Détection de Stress</field>
+        <field name="res_model">smart_agri_exploitation</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+    </record>
+    
+    <record id="action_smart_agri_ia_optimisation_ressources" model="ir.actions.act_window">
+        <field name="name">Optimisation des Ressources</field>
+        <field name="res_model">smart_agri_exploitation</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+    </record>
+    
+    <record id="action_smart_agri_ia_dashboard" model="ir.actions.act_window">
+        <field name="name">Dashboard IA</field>
+        <field name="res_model">smart_agri_exploitation</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+    </record>
+    
+    <record id="action_smart_agri_ai_model" model="ir.actions.act_window">
+        <field name="name">Modèles IA</field>
+        <field name="res_model">smart_agri_exploitation</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+    </record>
+    
+    <record id="action_smart_agri_ia_simulateur" model="ir.actions.act_window">
+        <field name="name">Simulation Interactive</field>
+        <field name="res_model">smart_agri_exploitation</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+    </record>
+    
+    <record id="action_smart_agri_tableau_bord" model="ir.actions.act_window">
+        <field name="name">Tableau de Bord</field>
+        <field name="res_model">smart_agri_exploitation</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+    </record>
+    
+    <record id="action_smart_agri_dashboard" model="ir.actions.act_window">
+        <field name="name">Dashboard Agricole</field>
+        <field name="res_model">smart_agri_exploitation</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+    </record>
+    
+    <record id="action_smart_agri_rotation_culturelle" model="ir.actions.act_window">
+        <field name="name">Rotations Culturales</field>
+        <field name="res_model">smart_agri_exploitation</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+    </record>
+
+</odoo>

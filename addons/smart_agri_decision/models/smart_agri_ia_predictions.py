@@ -97,6 +97,8 @@ class SmartAgriIAPredictions(models.Model):
     rendement_optimal = fields.Float('Rendement optimal possible (t/ha)')
     gain_potentiel = fields.Float('Gain potentiel (%)')
     
+    valeur_predite = fields.Float('Valeur prédite', help='Valeur principale prédite par l\'IA')
+    
     # Risques et alertes
     niveau_risque = fields.Selection([
         ('faible', 'Faible'),
@@ -155,7 +157,13 @@ class SmartAgriIAPredictions(models.Model):
         """Génération automatique du code unique"""
         for vals in vals_list:
             if not vals.get('code'):
-                vals['code'] = self.env['ir.sequence'].next_by_code('smart_agri_ia_predictions')
+                name = vals.get('name', 'PRED')
+                code = name.upper().replace(' ', '_')[:15]
+                counter = 1
+                while self.search_count([('code', '=', code)]) > 0:
+                    code = f"{name.upper().replace(' ', '_')[:12]}_{counter:03d}"
+                    counter += 1
+                vals['code'] = code
         return super().create(vals_list)
     
     def action_executer_prediction(self):

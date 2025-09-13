@@ -7,8 +7,6 @@ access_smart_agri_parcelle_user,smart_agri_parcelle.user,model_smart_agri_parcel
 access_smart_agri_parcelle_manager,smart_agri_parcelle.manager,model_smart_agri_parcelle,base.group_system,1,1,1,1
 access_smart_agri_culture_user,smart_agri_culture.user,model_smart_agri_culture,base.group_user,1,1,1,0
 access_smart_agri_culture_manager,smart_agri_culture.manager,model_smart_agri_culture,base.group_system,1,1,1,1
-access_smart_agri_parcelle_culture_user,smart_agri_parcelle_culture.user,model_smart_agri_parcelle_culture,base.group_user,1,1,1,0
-access_smart_agri_parcelle_culture_manager,smart_agri_parcelle_culture.manager,model_smart_agri_parcelle_culture,base.group_system,1,1,1,1
 access_smart_agri_meteo_user,smart_agri_meteo.user,model_smart_agri_meteo,base.group_user,1,1,1,0
 access_smart_agri_meteo_manager,smart_agri_meteo.manager,model_smart_agri_meteo,base.group_system,1,1,1,1
 access_smart_agri_intervention_user,smart_agri_intervention.user,model_smart_agri_intervention,base.group_user,1,1,1,0

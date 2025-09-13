@@ -45,6 +45,14 @@ class SmartAgriAlerteClimatique(models.Model):
         ('noir', '⚫ Extrême')
     ], string='Niveau de gravité', required=True, default='jaune')
     
+    severite = fields.Selection([
+        ('faible', 'Faible'),
+        ('moderee', 'Modérée'),
+        ('elevee', 'Élevée'),
+        ('critique', 'Critique'),
+        ('extreme', 'Extrême')
+    ], string='Sévérité', required=True, default='moderee')
+    
     # Dates
     date_detection = fields.Date('Date de détection', required=True, default=fields.Date.today)
     date_debut = fields.Date('Date de début de l\'événement')

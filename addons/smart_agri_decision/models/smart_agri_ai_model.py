@@ -89,6 +89,13 @@ class SmartAgriAIModel(models.Model):
         ('archived', 'Archivé')
     ], string='État', default='draft', required=True)
     
+    statut = fields.Selection([
+        ('actif', 'Actif'),
+        ('inactif', 'Inactif'),
+        ('maintenance', 'En maintenance'),
+        ('deprecie', 'Déprécié')
+    ], string='Statut', default='actif')
+    
     actif = fields.Boolean('Modèle actif', default=False)
     production = fields.Boolean('En production', default=False)
     

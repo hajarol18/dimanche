@@ -14,15 +14,15 @@
                 <form string="Station Météo">
                     <header>
                         <button name="action_activer_station" string="Activer" type="object" 
-                                class="oe_highlight" states="inactive,maintenance,erreur"/>
+                                class="oe_highlight" invisible="state not in ['inactive','maintenance','erreur']"/>
                         <button name="action_desactiver_station" string="Désactiver" type="object" 
-                                states="active"/>
+                                invisible="state != 'active'"/>
                         <button name="action_maintenance" string="Maintenance" type="object" 
-                                states="active,erreur"/>
+                                invisible="state not in ['active','erreur']"/>
                         <button name="action_tester_connexion" string="Tester Connexion" type="object" 
-                                class="oe_highlight" states="active"/>
+                                class="oe_highlight" invisible="state != 'active'"/>
                         <button name="action_importer_donnees_test" string="Données Test" type="object" 
-                                states="active"/>
+                                invisible="state != 'active'"/>
                         <field name="state" widget="statusbar" 
                                statusbar_visible="active,maintenance,erreur"/>
                     </header>
@@ -30,19 +30,19 @@
                     <sheet>
                         <div class="oe_button_box" name="button_box">
                             <button name="action_activer_station" type="object" class="oe_stat_button" icon="fa-play" 
-                                    states="inactive,maintenance,erreur">
+                                    invisible="state not in ['inactive','maintenance','erreur']">
                                 <div class="o_field_widget o_stat_info">
                                     <span class="o_stat_value">Activer</span>
                                 </div>
                             </button>
                             <button name="action_desactiver_station" type="object" class="oe_stat_button" icon="fa-stop" 
-                                    states="active">
+                                    invisible="state != 'active'">
                                 <div class="o_field_widget o_stat_info">
                                     <span class="o_stat_value">Désactiver</span>
                                 </div>
                             </button>
                             <button name="action_maintenance" type="object" class="oe_stat_button" icon="fa-wrench" 
-                                    states="active,erreur">
+                                    invisible="state not in ['active','erreur']">
                                 <div class="o_field_widget o_stat_info">
                                     <span class="o_stat_value">Maintenance</span>
                                 </div>
@@ -142,7 +142,7 @@
             <field name="name">smart_agri_station_meteo.tree</field>
             <field name="model">smart_agri_station_meteo</field>
             <field name="arch" type="xml">
-                <tree string="Stations Météo">
+                <list string="Stations Météo">
                     <field name="name"/>
                     <field name="code"/>
                     <field name="type_station"/>
@@ -153,7 +153,7 @@
                     <field name="taux_disponibilite"/>
                     <field name="nombre_exploitations"/>
                     <field name="date_derniere_donnee"/>
-                </tree>
+                </list>
             </field>
         </record>
         
@@ -291,7 +291,7 @@
             <field name="name">smart_agri_parametre_meteo.tree</field>
             <field name="model">smart_agri_parametre_meteo</field>
             <field name="arch" type="xml">
-                <tree string="Paramètres Météorologiques">
+                <list string="Paramètres Météorologiques">
                     <field name="icone"/>
                     <field name="name"/>
                     <field name="code"/>
@@ -301,7 +301,7 @@
                     <field name="valeur_min"/>
                     <field name="valeur_max"/>
                     <field name="active"/>
-                </tree>
+                </list>
             </field>
         </record>
         

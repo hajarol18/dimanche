@@ -1,85 +1,205 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    
-        <!-- Vue liste pour les intrants -->
-        <record id="view_smart_agri_intrants_list" model="ir.ui.view">
-            <field name="name">smart.agri.intrants.list</field>
-            <field name="model">smart_agri_intrants</field>
-            <field name="arch" type="xml">
-                <list string="Intrants Agricoles">
-                    <field name="name"/>
-                    <field name="name"/>
-                    <field name="name"/>
-                    <field name="name"/>
-                    <field name="name"/>
-                    <field name="name"/>
-                    <field name="name"/>
-                </list>
-            </field>
-        </record>
+    <!-- Vue liste pour les intrants -->
+    <record id="view_smart_agri_intrants_list" model="ir.ui.view">
+        <field name="name">smart.agri.intrants.list</field>
+        <field name="model">smart_agri_intrants</field>
+        <field name="arch" type="xml">
+            <list string="Intrants Agricoles" decoration-success="niveau_stock=='normal'" decoration-warning="niveau_stock=='faible'" decoration-danger="niveau_stock=='critique'">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="categorie_principale"/>
+                <field name="type_intrant"/>
+                <field name="stock_disponible"/>
+                <field name="unite"/>
+                <field name="prix_unitaire"/>
+                <field name="niveau_stock"/>
+                <field name="state"/>
+                <field name="exploitation_id"/>
+            </list>
+        </field>
+    </record>
 
-        <!-- Vue formulaire pour les intrants -->
-        <record id="view_smart_agri_intrants_form" model="ir.ui.view">
-            <field name="name">smart.agri.intrants.form</field>
-            <field name="model">smart_agri_intrants</field>
-            <field name="arch" type="xml">
-                <form string="Intrant Agricole">
-                    <sheet>
-                        <div class="oe_title">
-                            <h1>
-                                <field name="name" placeholder="Nom de l'intrant"/>
-                            </h1>
-                        </div>
-                        <group>
-                            <group string="Informations de base">
-                                <field name="name"/>
-                                <field name="name"/>
-                                <field name="name"/>
-                                <field name="name"/>
-                            </group>
-                            <group string="Caractéristiques techniques">
-                                <field name="name"/>
-                                <field name="name"/>
-                                <field name="name"/>
-                            </group>
+    <!-- Vue formulaire pour les intrants -->
+    <record id="view_smart_agri_intrants_form" model="ir.ui.view">
+        <field name="name">smart.agri.intrants.form</field>
+        <field name="model">smart_agri_intrants</field>
+        <field name="arch" type="xml">
+            <form string="Intrant Agricole">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="disponible,en_rupture,en_commande"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Nom de l'intrant"/>
+                        </h1>
+                        <h3>
+                            <field name="code" readonly="1"/>
+                        </h3>
+                    </div>
+                    
+                    <!-- INFORMATIONS DE BASE -->
+                    <group>
+                        <group string="Informations de base">
+                            <field name="exploitation_id"/>
+                            <field name="categorie_principale"/>
+                            <field name="type_intrant"/>
+                            <field name="description"/>
                         </group>
-                        <group>
-                            <group string="Stock et gestion">
-                                <field name="name"/>
-                                <field name="name"/>
-                                <field name="name"/>
-                            </group>
-                            <group string="Fournisseur et traçabilité">
-                                <field name="name"/>
-                                <field name="name"/>
-                                <field name="name"/>
-                                <field name="name"/>
-                            </group>
+                        <group string="Caractéristiques techniques">
+                            <field name="unite"/>
+                            <field name="prix_unitaire"/>
+                            <field name="dosage_recommande"/>
+                            <field name="composition"/>
                         </group>
-                        <group>
-                            <group string="Documentation">
-                                <field name="name"/>
-                                <field name="name"/>
-                            </group>
-                            <group string="Notes">
-                                <field name="name"/>
-                            </group>
+                    </group>
+                    
+                    <!-- GESTION DES STOCKS -->
+                    <group>
+                        <group string="Stock et gestion">
+                            <field name="stock_disponible"/>
+                            <field name="stock_minimum"/>
+                            <field name="stock_maximum"/>
+                            <field name="niveau_stock"/>
                         </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
+                        <group string="Alertes et commandes">
+                            <field name="alerte_stock"/>
+                            <field name="seuil_alerte_critique"/>
+                            <field name="date_derniere_commande"/>
+                            <field name="quantite_commande_habituelle"/>
+                        </group>
+                    </group>
+                    
+                    <!-- FOURNISSEUR ET TRAÇABILITÉ -->
+                    <group>
+                        <group string="Fournisseur et traçabilité">
+                            <field name="fournisseur"/>
+                            <field name="fournisseur_id"/>
+                            <field name="numero_lot"/>
+                            <field name="numero_commande"/>
+                        </group>
+                        <group string="Dates importantes">
+                            <field name="date_fabrication"/>
+                            <field name="date_peremption"/>
+                            <field name="duree_vie_utile"/>
+                        </group>
+                    </group>
+                    
+                    <!-- QUALITÉ ET CERTIFICATION -->
+                    <group>
+                        <group string="Qualité et certification">
+                            <field name="qualite"/>
+                            <field name="certification_bio"/>
+                            <field name="numero_certification"/>
+                            <field name="date_certification"/>
+                        </group>
+                        <group string="Impact environnemental">
+                            <field name="impact_environnemental"/>
+                            <field name="classe_toxicite"/>
+                        </group>
+                    </group>
+                    
+                    <!-- APPLICATION -->
+                    <group>
+                        <group string="Application">
+                            <field name="frequence_application"/>
+                            <field name="periode_application"/>
+                        </group>
+                        <group string="Documentation">
+                            <field name="documentation"/>
+                            <field name="nom_fichier_doc"/>
+                            <field name="url_documentation"/>
+                        </group>
+                    </group>
+                    
+                    <!-- NOTES -->
+                    <group string="Notes et observations">
+                        <field name="notes" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
 
-        <!-- Vue graphique pour les intrants -->
-        <record id="view_smart_agri_intrants_graph" model="ir.ui.view">
-            <field name="name">smart.agri.intrants.graph</field>
-            <field name="model">smart_agri_intrants</field>
-            <field name="arch" type="xml">
-                <graph string="Analyse des Intrants" type="bar">
-                    <field name="name"/>
-                    <field name="cout_total" type="measure"/>
-                </graph>
-            </field>
-        </record>
+    <!-- Vue recherche pour les intrants -->
+    <record id="view_smart_agri_intrants_search" model="ir.ui.view">
+        <field name="name">smart.agri.intrants.search</field>
+        <field name="model">smart_agri_intrants</field>
+        <field name="arch" type="xml">
+            <search string="Rechercher Intrants">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="categorie_principale"/>
+                <field name="type_intrant"/>
+                <field name="exploitation_id"/>
+                <field name="fournisseur"/>
+                
+                <filter string="Stock critique" name="stock_critique" domain="[('niveau_stock', '=', 'critique')]"/>
+                <filter string="Stock faible" name="stock_faible" domain="[('niveau_stock', '=', 'faible')]"/>
+                <filter string="En rupture" name="en_rupture" domain="[('state', '=', 'en_rupture')]"/>
+                <filter string="Périmés" name="perimes" domain="[('state', '=', 'perime')]"/>
+                <filter string="Biologiques" name="bio" domain="[('qualite', '=', 'bio')]"/>
+                
+                <separator/>
+                
+                <group expand="0" string="Regrouper par">
+                    <filter string="Exploitation" name="group_exploitation" context="{'group_by': 'exploitation_id'}"/>
+                    <filter string="Catégorie" name="group_categorie" context="{'group_by': 'categorie_principale'}"/>
+                    <filter string="Type" name="group_type" context="{'group_by': 'type_intrant'}"/>
+                    <filter string="Niveau de stock" name="group_niveau_stock" context="{'group_by': 'niveau_stock'}"/>
+                    <filter string="Qualité" name="group_qualite" context="{'group_by': 'qualite'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Vue graphique pour les intrants -->
+    <record id="view_smart_agri_intrants_graph" model="ir.ui.view">
+        <field name="name">smart.agri.intrants.graph</field>
+        <field name="model">smart_agri_intrants</field>
+        <field name="arch" type="xml">
+            <graph string="Analyse des Intrants" type="bar">
+                <field name="categorie_principale"/>
+                <field name="cout_total" type="measure"/>
+                <field name="valeur_stock" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Vue pivot pour les intrants -->
+    <record id="view_smart_agri_intrants_pivot" model="ir.ui.view">
+        <field name="name">smart.agri.intrants.pivot</field>
+        <field name="model">smart_agri_intrants</field>
+        <field name="arch" type="xml">
+            <pivot string="Analyse Pivot des Intrants">
+                <field name="categorie_principale" type="row"/>
+                <field name="exploitation_id" type="col"/>
+                <field name="cout_total" type="measure"/>
+                <field name="stock_disponible" type="measure"/>
+            </pivot>
+        </field>
+    </record>
     
+    <!-- Action pour ouvrir les intrants -->
+    <record id="action_smart_agri_intrants" model="ir.actions.act_window">
+        <field name="name">Intrants Agricoles</field>
+        <field name="res_model">smart_agri_intrants</field>
+        <field name="view_mode">list,form,graph,pivot</field>
+        <field name="context">{'search_default_stock_critique': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Créez votre premier intrant agricole
+            </p>
+            <p>
+                Les intrants agricoles comprennent tous les produits utilisés dans l'exploitation :
+                <br/>• 🌱 Semences et plants
+                <br/>• 🌿 Fertilisants et engrais
+                <br/>• 🛡️ Produits de protection des plantes
+                <br/>• 💧 Équipements d'irrigation
+                <br/>• 🌾 Amendements et substrats
+            </p>
+        </field>
+    </record>
+
 </odoo>

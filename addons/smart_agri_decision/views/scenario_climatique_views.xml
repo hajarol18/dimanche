@@ -1,217 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    
-        <!-- Vue liste pour les scénarios climatiques -->
-        <record id="view_smart_agri_scenario_climatique_list" model="ir.ui.view">
-            <field name="name">smart.agri.scenario.climatique.list</field>
-            <field name="model">smart_agri_scenario_climatique</field>
-            <field name="arch" type="xml">
-                <list string="Scénarios Climatiques">
-                    <field name="name"/>
-                    <field name="code_scenario"/>
-                    <field name="type_scenario"/>
-                    <field name="periode_debut"/>
-                    <field name="periode_fin"/>
-                    <field name="impact_rendement"/>
-                    <field name="state"/>
-                </list>
-            </field>
-        </record>
+    <!-- Vue liste des scénarios climatiques -->
+    <record id="view_smart_agri_scenario_climatique_list" model="ir.ui.view">
+        <field name="name">smart.agri.scenario.climatique.list</field>
+        <field name="model">smart_agri_scenario_climatique</field>
+        <field name="arch" type="xml">
+            <list string="Scénarios Climatiques" decoration-success="state == 'simulation_terminee'" decoration-warning="state == 'simulation_en_cours'" decoration-danger="state == 'brouillon'">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="type_scenario"/>
+                <field name="intensite"/>
+                <field name="probabilite_occurrence"/>
+                <field name="date_debut"/>
+                <field name="date_fin"/>
+                <field name="impact_rendement"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
 
-        <!-- Vue formulaire sophistiquée avec 4 cases interactives -->
-        <record id="view_smart_agri_scenario_climatique_form" model="ir.ui.view">
-            <field name="name">smart.agri.scenario.climatique.form</field>
-            <field name="model">smart_agri_scenario_climatique</field>
-            <field name="arch" type="xml">
-                <form string="Scénario Climatique">
-                    <header>
-                        <button name="action_simuler_scenario" type="object" string="Simuler le Scénario" 
-                                class="oe_highlight" icon="fa-play" 
-                                invisible="state == 'simule'"/>
-                        <field name="state" widget="statusbar" statusbar_visible="brouillon,simule,valide"/>
-                    </header>
+    <!-- Vue formulaire des scénarios climatiques -->
+    <record id="view_smart_agri_scenario_climatique_form" model="ir.ui.view">
+        <field name="name">smart.agri.scenario.climatique.form</field>
+        <field name="model">smart_agri_scenario_climatique</field>
+        <field name="arch" type="xml">
+            <form string="Scénario Climatique">
+                <header>
+                    <button name="action_lancer_simulation" string="🚀 Lancer Simulation" type="object" class="btn-primary" invisible="state not in ['brouillon','valide']"/>
+                    <button name="action_generer_alertes" string="⚠️ Générer Alertes" type="object" class="btn-secondary" invisible="state != 'simulation_terminee'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="brouillon,valide,simulation_en_cours,simulation_terminee"/>
+                </header>
+                
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Nom du scénario..."/>
+                        </h1>
+                        <h3>
+                            <field name="code" readonly="1"/>
+                        </h3>
+                    </div>
                     
-                    <sheet>
-                        <div class="oe_title">
-                            <h1>
-                                <field name="name" placeholder="Nom du scénario"/>
-                            </h1>
-                        </div>
-                        
-                        <!-- INFORMATIONS DE BASE -->
+                    <group>
                         <group>
-                            <group string="Identification">
-                                <field name="code_scenario"/>
-                                <field name="type_scenario"/>
-                                <field name="exploitation_id"/>
-                                <field name="description"/>
-                            </group>
-                            <group string="Période">
-                                <field name="periode_debut"/>
-                                <field name="periode_fin"/>
-                            </group>
+                            <field name="exploitation_id" options="{'no_create': True}"/>
+                            <field name="type_scenario"/>
+                            <field name="intensite"/>
+                            <field name="probabilite_occurrence"/>
                         </group>
-                        
-                        <!-- PARAMÈTRES CLIMATIQUES -->
                         <group>
-                            <group string="Paramètres Climatiques">
-                                <field name="augmentation_temperature"/>
-                                <field name="variation_precipitation"/>
-                                <field name="frequence_secheresse"/>
-                                <field name="intensite_events"/>
-                            </group>
+                            <field name="date_debut"/>
+                            <field name="date_fin"/>
+                            <field name="duree_jours" readonly="1"/>
+                            <field name="active"/>
                         </group>
+                    </group>
+                    
+                    <notebook>
+                        <page string="Paramètres Climatiques" name="parametres">
+                            <group>
+                                <group string="Températures">
+                                    <field name="temperature_base"/>
+                                    <field name="variation_temperature"/>
+                                    <field name="temperature_min"/>
+                                    <field name="temperature_max"/>
+                                </group>
+                                <group string="Précipitations">
+                                    <field name="precipitation_base"/>
+                                    <field name="variation_precipitation"/>
+                                    <field name="precipitation_min"/>
+                                    <field name="precipitation_max"/>
+                                </group>
+                            </group>
+                            
+                            <group>
+                                <group string="Humidité">
+                                    <field name="humidite_base"/>
+                                    <field name="variation_humidite"/>
+                                    <field name="humidite_min"/>
+                                    <field name="humidite_max"/>
+                                </group>
+                                <group string="Vent">
+                                    <field name="vent_base"/>
+                                    <field name="variation_vent"/>
+                                    <field name="vent_min"/>
+                                    <field name="vent_max"/>
+                                </group>
+                            </group>
+                        </page>
                         
-                        <!-- LES 4 CASES INTERACTIVES MAGIQUES ! -->
-                        <div class="oe_chatter">
-                            <h3 class="text-center mb-3">
-                                <i class="fa fa-magic"></i> SIMULATION CLIMATIQUE INTERACTIVE
-                            </h3>
+                        <page string="Impact Agricole" name="impact">
+                            <group>
+                                <group>
+                                    <field name="impact_rendement"/>
+                                    <field name="impact_qualite"/>
+                                </group>
+                                <group>
+                                    <field name="cultures_affectees" widget="many2many_tags"/>
+                                    <field name="parcelles_affectees" widget="many2many_tags"/>
+                                </group>
+                            </group>
                             
-                            <!-- CASE 1: IMPACT RENDEMENT -->
-                            <div class="card mb-3" style="border-left: 4px solid #28a745;">
-                                <div class="card-header bg-light">
-                                    <h5 class="mb-0">
-                                        <i class="fa fa-chart-line text-success"></i> 
-                                        Impact sur le Rendement Agricole
-                                    </h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <strong>Impact Prédit:</strong>
-                                            <field name="impact_rendement" widget="badge" 
-                                                   decoration-success="impact_rendement in ['positif', 'fortement_positif']"
-                                                   decoration-warning="impact_rendement == 'neutre'"
-                                                   decoration-danger="impact_rendement in ['negatif', 'fortement_negatif']"/>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <button name="action_simuler_scenario" type="object" 
-                                                    string="Simuler Rendement" class="btn btn-success btn-sm">
-                                                <i class="fa fa-play"></i> Simuler
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- CASE 2: IMPACT IRRIGATION -->
-                            <div class="card mb-3" style="border-left: 4px solid #17a2b8;">
-                                <div class="card-header bg-light">
-                                    <h5 class="mb-0">
-                                        <i class="fa fa-tint text-info"></i> 
-                                        Impact sur les Besoins en Irrigation
-                                    </h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <strong>Impact Prédit:</strong>
-                                            <field name="impact_irrigation" widget="badge" 
-                                                   decoration-success="impact_irrigation in ['positif', 'fortement_positif']"
-                                                   decoration-warning="impact_irrigation == 'neutre'"
-                                                   decoration-danger="impact_irrigation in ['negatif', 'fortement_negatif']"/>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <button name="action_simuler_scenario" type="object" 
-                                                    string="Simuler Irrigation" class="btn btn-info btn-sm">
-                                                <i class="fa fa-play"></i> Simuler
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- CASE 3: IMPACT RISQUES -->
-                            <div class="card mb-3" style="border-left: 4px solid #dc3545;">
-                                <div class="card-header bg-light">
-                                    <h5 class="mb-0">
-                                        <i class="fa fa-exclamation-triangle text-danger"></i> 
-                                        Impact sur les Risques Climatiques
-                                    </h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <strong>Impact Prédit:</strong>
-                                            <field name="impact_risques" widget="badge" 
-                                                   decoration-success="impact_risques in ['positif', 'fortement_positif']"
-                                                   decoration-warning="impact_risques == 'neutre'"
-                                                   decoration-danger="impact_risques in ['negatif', 'fortement_negatif']"/>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <button name="action_simuler_scenario" type="object" 
-                                                    string="Simuler Risques" class="btn btn-danger btn-sm">
-                                                <i class="fa fa-play"></i> Simuler
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- CASE 4: RÉSULTATS COMPLETS -->
-                            <div class="card mb-3" style="border-left: 4px solid #6f42c1;">
-                                <div class="card-header bg-light">
-                                    <h5 class="mb-0">
-                                        <i class="fa fa-brain text-purple"></i> 
-                                        Résultats de Simulation IA
-                                    </h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <button name="action_simuler_scenario" type="object" 
-                                                    string="Lancer Simulation Complète" class="btn btn-primary btn-lg btn-block">
-                                                <i class="fa fa-rocket"></i> SIMULATION COMPLÈTE
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            <group string="Mesures d'Adaptation">
+                                <field name="mesures_adaptation" nolabel="1"/>
+                                <field name="actions_preventives" nolabel="1"/>
+                                <field name="actions_curatives" nolabel="1"/>
+                            </group>
+                        </page>
                         
-                        <!-- RÉSULTATS DE SIMULATION -->
-                        <notebook>
-                            <page string="Résultats Simulation" name="resultats">
+                        <page string="Simulation" name="simulation">
+                            <group>
                                 <group>
-                                    <field name="resultat_simulation" readonly="1" nolabel="1"/>
+                                    <field name="simulation_lancee" readonly="1"/>
+                                    <field name="date_simulation" readonly="1"/>
                                 </group>
-                            </page>
-                            
-                            <page string="Recommandations" name="recommandations">
                                 <group>
-                                    <field name="recommandations" readonly="1" nolabel="1"/>
+                                    <field name="state" readonly="1"/>
                                 </group>
-                            </page>
+                            </group>
                             
-                            <page string="Mesures d'Adaptation" name="mesures">
-                                <group>
-                                    <field name="mesures_adaptation" readonly="1" nolabel="1"/>
-                                </group>
-                            </page>
-                            
-                            <page string="Données Météo Simulées" name="meteo">
-                                <field name="meteo_ids" readonly="1"/>
-                            </page>
-                        </notebook>
-                    </sheet>
-                </form>
-            </field>
-        </record>
+                            <field name="resultats_simulation" nolabel="1" readonly="1"/>
+                        </page>
+                        
+                        <page string="Description" name="description">
+                            <field name="description" nolabel="1"/>
+                            <field name="notes" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
 
-        <!-- Action pour ouvrir les scénarios climatiques -->
-        <record id="action_smart_agri_scenario_climatique" model="ir.actions.act_window">
-            <field name="name">Scénarios Climatiques</field>
-            <field name="res_model">smart_agri_scenario_climatique</field>
-            <field name="view_mode">list,form</field>
-            <field name="help" type="html">
-                <p class="o_view_nocontent_smiling_face">
-                    Créez votre premier scénario climatique
-                </p>
-                <p>
-                    Simulez les impacts du changement climatique sur votre exploitation.
-                </p>
-            </field>
-        </record>
-    
+    <!-- Vue recherche des scénarios climatiques -->
+    <record id="view_smart_agri_scenario_climatique_search" model="ir.ui.view">
+        <field name="name">smart.agri.scenario.climatique.search</field>
+        <field name="model">smart_agri_scenario_climatique</field>
+        <field name="arch" type="xml">
+            <search string="Rechercher Scénarios Climatiques">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="exploitation_id"/>
+                <field name="type_scenario"/>
+                <field name="intensite"/>
+                
+                <filter string="Simulations Terminées" name="terminees" domain="[('state', '=', 'simulation_terminee')]"/>
+                <filter string="En Cours" name="en_cours" domain="[('state', '=', 'simulation_en_cours')]"/>
+                <filter string="Brouillons" name="brouillons" domain="[('state', '=', 'brouillon')]"/>
+                <filter string="Validés" name="valides" domain="[('state', '=', 'valide')]"/>
+                
+                <separator/>
+                <filter string="Sécheresse" name="secheresse" domain="[('type_scenario', '=', 'secheresse')]"/>
+                <filter string="Canicule" name="canicule" domain="[('type_scenario', '=', 'canicule')]"/>
+                <filter string="Pluie Abondante" name="pluie" domain="[('type_scenario', '=', 'pluie_abondante')]"/>
+                <filter string="Hiver Rigoureux" name="hiver" domain="[('type_scenario', '=', 'hiver_rigoureux')]"/>
+                
+                <separator/>
+                <filter string="Impact Négatif" name="impact_negatif" domain="[('impact_rendement', '&lt;', 0)]"/>
+                <filter string="Impact Positif" name="impact_positif" domain="[('impact_rendement', '&gt;', 0)]"/>
+                
+                <group expand="0" string="Grouper Par">
+                    <filter string="Type de Scénario" name="group_type" context="{'group_by': 'type_scenario'}"/>
+                    <filter string="Intensité" name="group_intensite" context="{'group_by': 'intensite'}"/>
+                    <filter string="État" name="group_state" context="{'group_by': 'state'}"/>
+                    <filter string="Exploitation" name="group_exploitation" context="{'group_by': 'exploitation_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action pour les scénarios climatiques -->
+    <record id="action_smart_agri_scenario_climatique" model="ir.actions.act_window">
+        <field name="name">Scénarios Climatiques</field>
+        <field name="res_model">smart_agri_scenario_climatique</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_smart_agri_scenario_climatique_search"/>
+        <field name="context">{'search_default_valides': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Créer un nouveau scénario climatique
+            </p>
+            <p>
+                Définissez des scénarios climatiques personnalisés pour simuler les impacts sur votre exploitation.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu pour les scénarios climatiques supprimé - déjà défini dans main_menu.xml -->
+
 </odoo>

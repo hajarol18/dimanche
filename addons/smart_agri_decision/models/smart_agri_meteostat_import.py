@@ -53,6 +53,14 @@ class SmartAgriMeteostatImport(models.Model):
         ('annule', '🚫 Annulé')
     ], string='État', default='planifie')
     
+    statut_import = fields.Selection([
+        ('en_attente', 'En attente'),
+        ('en_cours', 'En cours'),
+        ('termine', 'Terminé'),
+        ('erreur', 'Erreur'),
+        ('annule', 'Annulé')
+    ], string='Statut import', default='en_attente')
+    
     # Résultats de l'import
     nombre_enregistrements = fields.Integer('Nombre d\'enregistrements importés', default=0)
     duree_import = fields.Float('Durée d\'import (secondes)', default=0.0)

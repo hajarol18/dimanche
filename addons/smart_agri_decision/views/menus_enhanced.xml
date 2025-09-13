@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- ======================================== -->
+        <!-- MENUS AMÉLIORÉS - CHARGÉS APRÈS LES ACTIONS -->
+        <!-- ======================================== -->
+        
+        <!-- IA Avancée (NOUVEAU) -->
+        <menuitem id="menu_ia_enhanced" 
+                  name="🚀 IA Avancée" 
+                  parent="menu_ia" 
+                  action="action_smart_agri_ia_enhanced" 
+                  sequence="60"/>
+        
+        <!-- Meteostat Réel (NOUVEAU) -->
+        <menuitem id="menu_meteostat_real" 
+                  name="📡 Meteostat Réel" 
+                  parent="menu_climat" 
+                  action="action_smart_agri_meteostat_enhanced" 
+                  sequence="80"/>
+        
+    </data>
+</odoo>

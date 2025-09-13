@@ -1,187 +1,238 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
-from datetime import datetime, timedelta
+from odoo.exceptions import ValidationError
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class SmartAgriTendanceClimatique(models.Model):
-    """Tendances climatiques historiques et projetées"""
+    """Tendances climatiques et analyses temporelles"""
 
     _name = 'smart_agri_tendance_climatique'
-    _description = 'Tendances Climatiques'
-    _order = 'date_debut desc'
+    _description = 'Tendance Climatique Agricole'
+    _order = 'date_analyse desc'
 
-    # RELATION PRINCIPALE - LOGIQUE MÉTIER
+    # RELATIONS PRINCIPALES
     exploitation_id = fields.Many2one('smart_agri_exploitation', string='Exploitation', required=True, ondelete='cascade')
-
-    # Champs de base
-    name = fields.Char('Nom de la tendance', required=True)
-    description = fields.Text('Description de la tendance')
+    parcelle_id = fields.Many2one('smart_agri_parcelle', string='Parcelle', ondelete='cascade')
     
-    # Type de tendance
-    type_tendance = fields.Selection([
-        ('historique', 'Historique'),
-        ('projetee', 'Projetée'),
-        ('comparaison', 'Comparaison historique/projetée')
-    ], string='Type de tendance', required=True)
+    # Champs de base
+    name = fields.Char('Nom de l\'analyse', required=True)
+    description = fields.Text('Description de l\'analyse')
     
     # Période d'analyse
     date_debut = fields.Date('Date de début', required=True)
     date_fin = fields.Date('Date de fin', required=True)
-    duree_periode = fields.Integer('Durée de la période (jours)', compute='_compute_duree', store=True)
+    date_analyse = fields.Date('Date d\'analyse', default=fields.Date.today)
     
-    # Zone géographique
-    zone_geographique = fields.Char('Zone géographique')
-    latitude = fields.Float('Latitude')
-    longitude = fields.Float('Longitude')
+    # Type d'analyse
+    type_analyse = fields.Selection([
+        ('temperature', '🌡️ Analyse des températures'),
+        ('precipitation', '🌧️ Analyse des précipitations'),
+        ('humidite', '💧 Analyse de l\'humidité'),
+        ('vent', '💨 Analyse des vents'),
+        ('stress_hydrique', '🌵 Stress hydrique'),
+        ('indices_climatiques', '📊 Indices climatiques'),
+        ('tendance_generale', '📈 Tendance générale'),
+        ('autre', '🔍 Autre')
+    ], string='Type d\'analyse', required=True)
     
     # Paramètres climatiques analysés
-    parametres_analyses = fields.Selection([
-        ('temperature', 'Température'),
-        ('precipitation', 'Précipitations'),
-        ('humidite', 'Humidité'),
-        ('ensoleillement', 'Ensoleillement'),
-        ('vitesse_vent', 'Vitesse du vent'),
-        ('tous', 'Tous les paramètres')
-    ], string='Paramètres analysés', required=True)
+    temperature_moyenne = fields.Float('Température moyenne (°C)')
+    temperature_min = fields.Float('Température minimale (°C)')
+    temperature_max = fields.Float('Température maximale (°C)')
+    precipitation_totale = fields.Float('Précipitations totales (mm)')
+    humidite_moyenne = fields.Float('Humidité moyenne (%)')
+    vitesse_vent_moyenne = fields.Float('Vitesse vent moyenne (km/h)')
     
-    # Tendances observées
+    # Indices climatiques calculés
+    indice_aridite = fields.Float('Indice d\'aridité', help='Rapport précipitations/évapotranspiration')
+    indice_stress_hydrique = fields.Float('Indice de stress hydrique', help='0-100, 100 = stress maximal')
+    indice_comfort_thermique = fields.Float('Indice de confort thermique', help='0-100, 100 = confort optimal')
+    
+    # Tendances calculées
     tendance_temperature = fields.Selection([
-        ('hausse', 'Hausse'),
-        ('baisse', 'Baisse'),
-        ('stable', 'Stable'),
-        ('variable', 'Variable')
+        ('hausse', '📈 Hausse'),
+        ('baisse', '📉 Baisse'),
+        ('stable', '➡️ Stable'),
+        ('variable', '🔄 Variable')
     ], string='Tendance température')
     
     tendance_precipitation = fields.Selection([
-        ('hausse', 'Hausse'),
-        ('baisse', 'Baisse'),
-        ('stable', 'Stable'),
-        ('variable', 'Variable')
+        ('hausse', '📈 Hausse'),
+        ('baisse', '📉 Baisse'),
+        ('stable', '➡️ Stable'),
+        ('variable', '🔄 Variable')
     ], string='Tendance précipitations')
     
     tendance_humidite = fields.Selection([
-        ('hausse', 'Hausse'),
-        ('baisse', 'Baisse'),
-        ('stable', 'Stable'),
-        ('variable', 'Variable')
+        ('hausse', '📈 Hausse'),
+        ('baisse', '📉 Baisse'),
+        ('stable', '➡️ Stable'),
+        ('variable', '🔄 Variable')
     ], string='Tendance humidité')
     
-    # Valeurs numériques
-    temperature_moyenne = fields.Float('Température moyenne (°C)')
-    temperature_min = fields.Float('Température minimum (°C)')
-    temperature_max = fields.Float('Température maximum (°C)')
+    # Évolution des indices
+    evolution_aridite = fields.Float('Évolution aridité (%)', help='Variation en pourcentage')
+    evolution_stress_hydrique = fields.Float('Évolution stress hydrique (%)', help='Variation en pourcentage')
+    evolution_comfort = fields.Float('Évolution confort (%)', help='Variation en pourcentage')
     
-    precipitation_totale = fields.Float('Précipitations totales (mm)')
-    precipitation_moyenne = fields.Float('Précipitations moyennes (mm/jour)')
+    # Recommandations
+    recommandations = fields.Text('Recommandations basées sur l\'analyse')
+    actions_prioritaires = fields.Text('Actions prioritaires')
+    alertes_detectees = fields.Text('Alertes détectées')
     
-    humidite_moyenne = fields.Float('Humidité moyenne (%)')
-    ensoleillement_moyen = fields.Float('Ensoleillement moyen (heures/jour)')
-    vitesse_vent_moyenne = fields.Float('Vitesse du vent moyenne (km/h)')
-    
-    # Indices climatiques
-    indice_secheresse = fields.Float('Indice de sécheresse')
-    indice_pluviosite = fields.Float('Indice de pluviosité')
-    indice_thermique = fields.Float('Indice thermique')
-    
-    # Scénarios RCP (selon le cahier des charges)
-    rcp_scenario_id = fields.Many2one('smart_agri_rcp_scenario', string='Scénario RCP')
-    
-    # Impact agricole
-    impact_agricole = fields.Selection([
-        ('positif', 'Positif'),
-        ('negatif', 'Négatif'),
-        ('neutre', 'Neutre'),
-        ('mixte', 'Mixte')
-    ], string='Impact agricole global')
-    
-    cultures_favorisees = fields.Text('Cultures favorisées par cette tendance')
-    cultures_defavorisees = fields.Text('Cultures défavorisées par cette tendance')
-    
-    # Recommandations d'adaptation
-    recommandations_adaptation = fields.Text('Recommandations d\'adaptation')
-    strategies_mitigation = fields.Text('Stratégies de mitigation')
-    
-    # Source des données
+    # Métadonnées
     source_donnees = fields.Selection([
-        ('meteo_france', 'Météo France'),
-        ('api_meteo', 'API Météo'),
-        ('capteurs_locaux', 'Capteurs locaux'),
-        ('satellite', 'Données satellite'),
-        ('modele_climatique', 'Modèle climatique'),
+        ('meteostat', 'Meteostat'),
+        ('station_locale', 'Station locale'),
+        ('api_meteo', 'API météo'),
+        ('import_manuel', 'Import manuel'),
         ('autre', 'Autre')
-    ], string='Source des données', required=True)
+    ], string='Source des données', required=True, default='meteostat')
     
-    # Qualité des données
-    qualite_donnees = fields.Selection([
+    qualite_analyse = fields.Selection([
         ('excellente', 'Excellente'),
         ('bonne', 'Bonne'),
         ('moyenne', 'Moyenne'),
         ('faible', 'Faible')
-    ], string='Qualité des données', default='bonne')
-    
-    # Notes et documentation
-    notes = fields.Text('Notes et observations')
-    documentation = fields.Binary('Documentation technique')
-    nom_fichier_doc = fields.Char('Nom du fichier')
+    ], string='Qualité de l\'analyse', default='bonne')
     
     # Statut
-    active = fields.Boolean('Actif', default=True)
+    state = fields.Selection([
+        ('brouillon', 'Brouillon'),
+        ('en_cours', 'En cours'),
+        ('termine', 'Terminé'),
+        ('valide', 'Validé'),
+        ('archive', 'Archivé')
+    ], string='État', default='brouillon', required=True)
     
-    # Calcul de la durée
-    @api.depends('date_debut', 'date_fin')
-    def _compute_duree(self):
+    active = fields.Boolean('Actif', default=True)
+    notes = fields.Text('Notes et observations')
+
+    # MÉTHODES DE CALCUL DES TENDANCES
+    @api.model
+    def calculer_tendances_automatiques(self, exploitation_id, date_debut, date_fin):
+        """Calcule automatiquement les tendances climatiques"""
+        try:
+            # Récupération des données météo
+            donnees_meteo = self.env['smart_agri_meteo'].search([
+                ('exploitation_id', '=', exploitation_id),
+                ('date_mesure', '>=', date_debut),
+                ('date_mesure', '<=', date_fin)
+            ])
+            
+            if not donnees_meteo:
+                return False
+            
+            # Calculs des moyennes
+            temperatures = donnees_meteo.mapped('temperature')
+            precipitations = donnees_meteo.mapped('precipitation')
+            humidites = donnees_meteo.mapped('humidite')
+            
+            temp_moy = sum(temperatures) / len(temperatures) if temperatures else 0
+            prec_tot = sum(precipitations) if precipitations else 0
+            hum_moy = sum(humidites) / len(humidites) if humidites else 0
+            
+            # Calcul des tendances (simplifié)
+            tendance_temp = 'stable'
+            if len(temperatures) > 1:
+                if temperatures[-1] > temperatures[0] * 1.1:
+                    tendance_temp = 'hausse'
+                elif temperatures[-1] < temperatures[0] * 0.9:
+                    tendance_temp = 'baisse'
+            
+            tendance_prec = 'stable'
+            if len(precipitations) > 1:
+                if precipitations[-1] > precipitations[0] * 1.2:
+                    tendance_prec = 'hausse'
+                elif precipitations[-1] < precipitations[0] * 0.8:
+                    tendance_prec = 'baisse'
+            
+            # Calcul des indices
+            indice_aridite = (prec_tot / 30) / (temp_moy / 10) if temp_moy > 0 else 0
+            indice_stress = max(0, 100 - (prec_tot / 10)) if prec_tot < 50 else 0
+            indice_comfort = 100 - abs(temp_moy - 22) * 2 if 15 <= temp_moy <= 30 else 50
+            
+            return {
+                'temperature_moyenne': round(temp_moy, 1),
+                'precipitation_totale': round(prec_tot, 1),
+                'humidite_moyenne': round(hum_moy, 1),
+                'tendance_temperature': tendance_temp,
+                'tendance_precipitation': tendance_prec,
+                'indice_aridite': round(indice_aridite, 2),
+                'indice_stress_hydrique': round(indice_stress, 1),
+                'indice_comfort_thermique': round(indice_comfort, 1)
+            }
+            
+        except Exception as e:
+            _logger.error(f"Erreur calcul tendances: {str(e)}")
+            return False
+
+    def action_lancer_analyse(self):
+        """Lance l'analyse des tendances climatiques"""
+        self.ensure_one()
+        
+        if not self.date_debut or not self.date_fin:
+            raise ValidationError("Les dates de début et fin sont obligatoires.")
+        
+        # Calcul automatique
+        resultats = self.calculer_tendances_automatiques(
+            self.exploitation_id.id, 
+            self.date_debut, 
+            self.date_fin
+        )
+        
+        if resultats:
+            self.write({
+                'state': 'en_cours',
+                **resultats
+            })
+            
+            # Génération des recommandations
+            recommandations = self._generer_recommandations(resultats)
+            self.write({
+                'recommandations': recommandations,
+                'state': 'termine'
+            })
+            
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'title': 'Analyse terminée !',
+                    'message': f'L\'analyse des tendances climatiques a été calculée avec succès.',
+                    'type': 'success',
+                }
+            }
+        else:
+            raise ValidationError("Impossible de calculer les tendances. Vérifiez les données météo disponibles.")
+
+    def _generer_recommandations(self, resultats):
+        """Génère des recommandations basées sur l'analyse"""
+        recommandations = []
+        
+        if resultats.get('tendance_temperature') == 'hausse':
+            recommandations.append("🌡️ Hausse des températures détectée - Surveiller le stress thermique des cultures")
+        
+        if resultats.get('tendance_precipitation') == 'baisse':
+            recommandations.append("🌵 Diminution des précipitations - Planifier l'irrigation d'appoint")
+        
+        if resultats.get('indice_stress_hydrique', 0) > 70:
+            recommandations.append("🚨 Stress hydrique élevé - Actions d'urgence recommandées")
+        
+        if resultats.get('indice_comfort_thermique', 0) < 50:
+            recommandations.append("⚠️ Conditions thermiques défavorables - Adapter les pratiques culturales")
+        
+        return "\n".join(recommandations) if recommandations else "✅ Conditions climatiques normales détectées."
+
+    # CONTRAINTES
+    @api.constrains('date_debut', 'date_fin')
+    def _check_dates(self):
+        """Vérifie la cohérence des dates"""
         for record in self:
             if record.date_debut and record.date_fin:
-                delta = record.date_fin - record.date_debut
-                record.duree_periode = delta.days
-            else:
-                record.duree_periode = 0
-    
-    # Calcul automatique du nom
-    @api.depends('type_tendance', 'parametres_analyses', 'date_debut', 'date_fin')
-    def _compute_name(self):
-        for record in self:
-            if record.type_tendance and record.parametres_analyses and record.date_debut and record.date_fin:
-                record.name = f"Tendance {record.type_tendance.title()} - {record.parametres_analyses.title()} - {record.date_debut.strftime('%m/%Y')} à {record.date_fin.strftime('%m/%Y')}"
-            else:
-                record.name = "Nouvelle tendance climatique"
-    
-    # Méthode pour calculer les indices climatiques
-    def calculer_indices(self):
-        for record in self:
-            # Calcul de l'indice de sécheresse (simplifié)
-            if record.temperature_moyenne and record.precipitation_totale:
-                record.indice_secheresse = record.temperature_moyenne / (record.precipitation_totale + 1)
-            
-            # Calcul de l'indice de pluviosité
-            if record.precipitation_moyenne:
-                record.indice_pluviosite = record.precipitation_moyenne * record.duree_periode
-            
-            # Calcul de l'indice thermique
-            if record.temperature_moyenne:
-                record.indice_thermique = record.temperature_moyenne * record.duree_periode
-    
-    # Méthode pour analyser l'impact agricole
-    def analyser_impact_agricole(self):
-        for record in self:
-            impact_score = 0
-            
-            # Analyse basée sur les tendances
-            if record.tendance_temperature == 'hausse':
-                impact_score += 1
-            elif record.tendance_temperature == 'baisse':
-                impact_score -= 1
-            
-            if record.tendance_precipitation == 'hausse':
-                impact_score += 1
-            elif record.tendance_precipitation == 'baisse':
-                impact_score -= 1
-            
-            # Détermination de l'impact global
-            if impact_score > 0:
-                record.impact_agricole = 'positif'
-            elif impact_score < 0:
-                record.impact_agricole = 'negatif'
-            else:
-                record.impact_agricole = 'neutre'
+                if record.date_debut > record.date_fin:
+                    raise ValidationError('La date de début doit être antérieure à la date de fin.')

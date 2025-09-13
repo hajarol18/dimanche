@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- ======================================== -->
+        <!-- VUES IA AMÉLIORÉES - SÛRES -->
+        <!-- ======================================== -->
+        
+        <!-- Vue liste IA Enhanced -->
+        <record id="view_smart_agri_ia_enhanced_list" model="ir.ui.view">
+            <field name="name">smart.agri.ia.enhanced.list</field>
+            <field name="model">smart_agri_ia_enhanced</field>
+            <field name="arch" type="xml">
+                <list string="Analyses IA Avancées" decoration-success="state == 'termine'" decoration-warning="state == 'en_cours'" decoration-danger="state == 'erreur'">
+                    <field name="name"/>
+                    <field name="type_analyse"/>
+                    <field name="exploitation_id"/>
+                    <field name="score_confiance"/>
+                    <field name="state"/>
+                    <field name="date_creation"/>
+                </list>
+            </field>
+        </record>
+        
+        <!-- Vue formulaire IA Enhanced -->
+        <record id="view_smart_agri_ia_enhanced_form" model="ir.ui.view">
+            <field name="name">smart.agri.ia.enhanced.form</field>
+            <field name="model">smart_agri_ia_enhanced</field>
+            <field name="arch" type="xml">
+                <form string="Analyse IA Avancée">
+                    <header>
+                        <button name="action_lancer_analyse_ia" string="🚀 Lancer l'Analyse IA" type="object" class="btn-primary" invisible="state != 'brouillon'"/>
+                        <field name="state" widget="statusbar" statusbar_visible="brouillon,en_cours,termine"/>
+                    </header>
+                    
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Nom de l'analyse IA..."/>
+                            </h1>
+                        </div>
+                        
+                        <group>
+                            <group>
+                                <field name="exploitation_id" options="{'no_create': True}"/>
+                                <field name="parcelle_id" options="{'no_create': True}"/>
+                                <field name="type_analyse"/>
+                            </group>
+                            <group>
+                                <field name="score_confiance" widget="progressbar"/>
+                                <field name="duree_traitement"/>
+                                <field name="date_creation"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="📊 Résultats IA" name="resultats">
+                                <group>
+                                    <field name="recommandations" widget="text" nolabel="1"/>
+                                </group>
+                            </page>
+                            
+                            <page string="⚠️ Alertes" name="alertes">
+                                <group>
+                                    <field name="alertes" widget="text" nolabel="1"/>
+                                </group>
+                            </page>
+                            
+                            <page string="📋 Données" name="donnees">
+                                <group>
+                                    <field name="parametres_entree" widget="text" nolabel="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Action IA Enhanced -->
+        <record id="action_smart_agri_ia_enhanced" model="ir.actions.act_window">
+            <field name="name">🤖 IA Avancée</field>
+            <field name="res_model">smart_agri_ia_enhanced</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="view_smart_agri_ia_enhanced_list"/>
+            <field name="help" type="html">
+                <div class="text-center">
+                    <h2>🤖 Intelligence Artificielle Avancée</h2>
+                    <p class="lead">
+                        <strong>Analyses IA sophistiquées pour l'agriculture intelligente</strong>
+                    </p>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>🎯 Fonctionnalités IA</h4>
+                            <ul class="text-left">
+                                <li>Prédiction de rendement avancée</li>
+                                <li>Optimisation des ressources</li>
+                                <li>Détection automatique de stress</li>
+                                <li>Recommandations de cultures</li>
+                                <li>Simulation climatique</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h4>📊 Avantages</h4>
+                            <ul class="text-left">
+                                <li>Précision élevée (80-95%)</li>
+                                <li>Analyse en temps réel</li>
+                                <li>Recommandations personnalisées</li>
+                                <li>Alertes préventives</li>
+                                <li>Optimisation des coûts</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </field>
+        </record>
+        
+        <!-- Vue Meteostat Enhanced -->
+        <record id="view_smart_agri_meteostat_enhanced_list" model="ir.ui.view">
+            <field name="name">smart.agri.meteostat.enhanced.list</field>
+            <field name="model">smart_agri_meteostat_enhanced</field>
+            <field name="arch" type="xml">
+                <list string="Import Meteostat Réel" decoration-success="statut_import == 'reussi'" decoration-warning="statut_import == 'en_cours'" decoration-danger="statut_import == 'echec'">
+                    <field name="exploitation_id"/>
+                    <field name="station_id"/>
+                    <field name="date_debut"/>
+                    <field name="date_fin"/>
+                    <field name="nombre_enregistrements"/>
+                    <field name="statut_import"/>
+                </list>
+            </field>
+        </record>
+        
+        <!-- Action Meteostat Enhanced -->
+        <record id="action_smart_agri_meteostat_enhanced" model="ir.actions.act_window">
+            <field name="name">📡 Meteostat Réel</field>
+            <field name="res_model">smart_agri_meteostat_enhanced</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="view_smart_agri_meteostat_enhanced_list"/>
+        </record>
+        
+    </data>
+</odoo>

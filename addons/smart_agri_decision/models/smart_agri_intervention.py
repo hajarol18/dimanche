@@ -50,8 +50,8 @@ class SmartAgriIntervention(models.Model):
     
     # Ressources et coûts
     main_oeuvre_requise = fields.Float('Main d\'œuvre requise (heures)')
-    cout_estime = fields.Float('Coût estimé (MAD)')
-    cout_reel = fields.Float('Coût réel (MAD)')
+    cout_estime = fields.Float('Coût estimé (€)')
+    cout_reel = fields.Float('Coût réel (€)')
     
     # Conditions météorologiques
     conditions_meteo = fields.Text('Conditions météo requises')

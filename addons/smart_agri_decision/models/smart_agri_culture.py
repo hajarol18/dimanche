@@ -30,6 +30,18 @@ class SmartAgriCulture(models.Model):
         ('autres', 'Autres')
     ], string='Famille', required=True)
     
+    type_culture = fields.Selection([
+        ('cereales', 'Céréales'),
+        ('legumineuses', 'Légumineuses'),
+        ('oleagineux', 'Oléagineux'),
+        ('fruits', 'Fruits'),
+        ('legumes', 'Légumes'),
+        ('arboriculture', 'Arboriculture'),
+        ('maraichage', 'Maraîchage'),
+        ('viticulture', 'Viticulture'),
+        ('autres', 'Autres')
+    ], string='Type de culture', required=True)
+    
     # Cycle de culture
     duree_cycle = fields.Integer('Durée du cycle (jours)', default=0)
     saison_plantation = fields.Selection([
@@ -96,18 +108,14 @@ class SmartAgriCulture(models.Model):
         for culture in self:
             culture.rendement_total = culture.rendement_reel * culture.surface_utilisee
     
-    @api.depends('exploitation_id.intervention_ids')
     def _compute_nombre_interventions(self):
         """Calcule le nombre d'interventions sur cette culture"""
         for culture in self:
-            if culture.exploitation_id:
-                interventions = self.env['smart_agri_intervention'].search([
-                    ('culture_id', '=', culture.id),
-                    ('active', '=', True)
-                ])
-                culture.nombre_interventions = len(interventions)
-            else:
-                culture.nombre_interventions = 0
+            interventions = self.env['smart_agri_intervention'].search([
+                ('culture_id', '=', culture.id),
+                ('active', '=', True)
+            ])
+            culture.nombre_interventions = len(interventions)
     
     # ========================================
     # NOUVELLES MÉTHODES MÉTIER INTELLIGENTES
@@ -171,6 +179,20 @@ class SmartAgriCulture(models.Model):
             if culture.date_plantation and culture.date_recolte_prevue:
                 if culture.date_plantation >= culture.date_recolte_prevue:
                     raise ValidationError('La date de plantation doit être antérieure à la date de récolte prévue.')
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        """Génération automatique du code culture"""
+        for vals in vals_list:
+            if not vals.get('code'):
+                name = vals.get('name', 'CULT')
+                code = name.upper().replace(' ', '_')[:15]
+                counter = 1
+                while self.search_count([('code', '=', code)]) > 0:
+                    code = f"{name.upper().replace(' ', '_')[:12]}_{counter:03d}"
+                    counter += 1
+                vals['code'] = code
+        return super().create(vals_list)
 
     # MÉTHODES MÉTIER
     def action_voir_interventions(self):
